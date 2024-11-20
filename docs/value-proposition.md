@@ -4,7 +4,11 @@ nav_order: 1
 ---
 
 {: .label }
-[Jane Dane]
+Kira Beyrow
+{: .label }
+Lenja Krah 
+{: .label }
+Debra Soth
 
 {: .no_toc }
 # Value proposition
