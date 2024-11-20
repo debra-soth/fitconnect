@@ -17,8 +17,32 @@ nav_order: 2
 {: toc }
 </details>
 
-[Visualize and describe the data model(s) of your application. This description should match the actual implementation.]
-![Datenmodell version 1](/fitconnect/assets/images/Datenmodell v.1.png)
+## Version 1
+```mermaid
+erDiagram
+    Match }|--|| User: references
+
+    User {
+        string username PK
+        string email 
+        string password
+        string name
+        string gender
+        int age
+        int fitness_level
+        string gym_membership
+        string activities
+        string motivation_text
+        string profile_photo
+    }
+
+    Match {
+        int match_id PK
+        string username_1 FK
+        string username_2 FK
+        boolean confirmed
+    }
+```
 
 Das Datenmodell besteht zurzeit aus zwei Entitäten: Match und User.
 
