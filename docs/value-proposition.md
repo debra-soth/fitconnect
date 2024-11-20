@@ -32,7 +32,7 @@ By making it easy to find the right partner and build connections, the app helps
 
 ## Target user
 
-Our target users are individuals aged between 16 and approximately 40 who are looking to combine fitness with social interaction. They are often people who have recently moved to a new city, such as students like Laura, or those who feel isolated in an urban environment and are open to making new connections. The app aims to attract users who value both the social and athletic aspects of training, helping them find like-minded partners for shared sports activities.
+Our target users are individuals of all ages  who are looking to combine fitness with social interaction. They are often people who have recently moved to a new city, such as students like Laura, or those who feel isolated in an urban environment and are open to making new connections. The app aims to attract users who value both the social and athletic aspects of training, helping them find like-minded partners for shared sports activities.
 
 Take Laura as an example: a 21-year-old full-time student who recently moved to Berlin for her studies. She is outgoing, enjoys being around people, and is motivated to lead a healthier lifestyle. However, she struggles with loneliness and lacks a consistent workout routine. The app would help Laura find others who share her interests in jogging and tennis, offering her the chance to meet new people while building healthy habits.
 
