@@ -32,8 +32,22 @@ By making it easy to find the right partner and build connections, the app helps
 
 ## Target user
 
-[Scope your target user(s), e.g., with the help of personas.]
+Our target users are individuals aged between 16 and approximately 40 who are looking to combine fitness with social interaction. They are often people who have recently moved to a new city, such as students like Laura, or those who feel isolated in an urban environment and are open to making new connections. The app aims to attract users who value both the social and athletic aspects of training, helping them find like-minded partners for shared sports activities.
+
+Take Laura as an example: a 21-year-old full-time student who recently moved to Berlin for her studies. She is outgoing, enjoys being around people, and is motivated to lead a healthier lifestyle. However, she struggles with loneliness and lacks a consistent workout routine. The app would help Laura find others who share her interests in jogging and tennis, offering her the chance to meet new people while building healthy habits.
+
+On the other hand, the app also caters to users like Martin, a 32-year-old recruiter who is introverted but dedicated to his fitness goals. Although he prefers smaller social interactions, Martin is looking for reliable training partners who share his interest in activities like bouldering and cycling. The app provides him with a platform to connect with like-minded individuals without the overwhelm of large group settings.
+
+By focusing on this demographic, the app creates an inclusive space for people at various fitness levels and with different social preferences, bridging the gap between fitness and forming meaningful connections.
 
 ## Customer journey
 
-[Illustrate the customer journey, from the app's entry point to a completed task. You might want to show the customer journey as (schematic) screen flows.]
+The customer journey begins when the user downloads the app and lands on the login screen. If they don't have an account, they select "Don't have an account? Create one!" to register by entering their username, name, email, and password. After registering, they log in and arrive at the User Overview, the main hub displaying all registered users.
+
+Before exploring others, the user can personalize their own profile by clicking "Personalize Profile" in the navigation bar. Here, they add details like fitness preferences, availability, fitness level, gym memberships, and a profile photo. This step ensures others can understand their goals and interests. 
+
+Back in the User Overview, the user browses profiles and can view detailed information on potential training partners. If they find someone suitable, they click "Send like" to express interest. A connection is made only if the other user also sends a like, creating a mutual match.
+
+Matched users appear in the "Your Matches" screen, accessible from the navigation bar. Here, they can view their matches and find contact information (email addresses) to reach out and coordinate workouts.
+
+This journey allows users to easily register, customize their profile, explore others, and form meaningful connections, making it simple to find training partners and combine fitness with social engagement.
