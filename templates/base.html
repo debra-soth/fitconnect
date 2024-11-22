@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Opens the HTML document and sets the language to English -->
-
 <head>
-    <!-- Contains metadata and links for the document -->
-    <meta charset="UTF-8">
-    <!-- Specifies UTF-8 as the character encoding for the document -->
+   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the viewport for responsive design, adapting the layout to screen size -->
     <title>{% block title %}FitConnect{% endblock %}</title>
-    <!-- Sets the page title; {% block title %} allows for dynamic updates -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Links to the external CSS file for styling -->
 </head>
-
+</head>
 <body>
-    <!-- Contains all the visible content of the webpage -->
+<!-- Contains all the visible content of the webpage -->
     <header>
         <!-- Defines the header section, typically for navigation or branding -->
         <div class="logo">
@@ -24,21 +18,16 @@
             <!-- Displays the logo image and provides alt text for accessibility -->
         </div>
     </header>
-
     <main>
         <!-- Defines the main content area of the webpage -->
         {% block content %}
         <!-- Placeholder for dynamic content; child templates can override this block -->
         {% endblock %}
     </main>
-
-    <footer>
+     <footer>
         <!-- Defines the footer section, typically for additional information like copyright -->
         <p>&copy; 2024 FitConnect. All Rights Reserved.</p>
         <!-- Displays a copyright notice for the year 2024 -->
     </footer>
 </body>
-
 </html>
-<!-- Closes the HTML document -->
-

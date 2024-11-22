@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Login{% endblock %}
-
 {% block content %}
-
 <div class="login-container">
     <!-- Main container for the login screen content -->
-
     <div class="logo">
         <!-- Section for the logo -->
         <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo">
@@ -22,12 +18,10 @@
         <!-- Label for the username input field -->
         <input type="text" id="Username" name="Username" placeholder="Username" required>
         <!-- Input field for the username; "required" ensures the user can't submit an empty form -->
-
         <label for="Password">Password:</label>
         <!-- Label for the password input field -->
         <input type="password" id="Password" name="Password" placeholder="Password" required>
         <!-- Input field for the password; type="password" hides the characters entered -->
-
         <button type="submit" class="btn-login">Login</button>
         <!-- Submit button to send form data -->
     </form>
