@@ -3,27 +3,31 @@ title: Home
 nav_order: 0
 ---
 
-# [Project Name]
+# FitConnect
 
-[Project description]
+FitConnect is a web platform that connects people in the same city to find suitable workout partners based on shared fitness interests, levels, and availability.
 
 ## Team members
 
-### [Jane Dane]
-
-About
-: Some info about Jane
+### Kira Beyrow
+[comment]: <> (Add about section)
 
 Matr.-Nr.
-: 1234567
+: 77211987177
 
-### [Joe Doe]
+### Lenja Krah
 
-About
-: Some info about Joe
+[comment]: <> (Add about section)
 
 Matr.-Nr.
-: 1234567
+: 77211985108
+
+### Debra Soth
+
+[comment]: <> (Add about section)
+
+Matr.-Nr.
+: 77211988011 
 
 ## Eidesstattliche Erklärung
 
