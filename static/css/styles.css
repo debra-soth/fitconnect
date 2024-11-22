@@ -6,41 +6,24 @@ body {
     padding: 0;
     /* Removes default margin and padding from the body */
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Centers the content both vertically and horizontally */
+    display: flex; 
+    flex-direction: column;
 
-    height: 100vh;
+    min-height: 100vh;
     /* Sets the height of the body to fill the full viewport height */
 
-    background-color: #f4f4f4;
-    /* Sets a light gray background color for the page */
+    background-color: #E3E4DF;
+    /* Sets a white background color for the page */
 }
-
-.login-container {
-    background: white;
-    /* Sets the background color of the login container to white */
-
-    padding: 20px 40px;
-    /* Adds padding inside the container (20px top/bottom, 40px left/right) */
-
-    border-radius: 10px;
-    /* Adds rounded corners to the container */
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* Adds a subtle shadow for a lifted card effect */
-
-    text-align: center;
-    /* Centers the text inside the container */
-
-    width: 100%;
-    max-width: 400px;
-    /* Sets the container's width to 100% of its parent but limits it to 400px */
+main {
+    flex: 1; /* Hauptinhalt dehnt sich aus und sorgt dafür, dass der Footer unten bleibt */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Zentriert den Inhalt vertikal */
+    align-items: center; /* Zentriert den Inhalt horizontal */
 }
-
 .logo img {
-    width: 100px;
+    width: 200px;
     height: auto;
     /* Sets the logo's width to 100px and maintains its aspect ratio */
 
@@ -49,15 +32,23 @@ body {
 }
 
 .logo h1 {
-    margin: 0;
-    /* Removes default margin from the heading */
-
+    text-align: center; /* Centers the heading */
+    margin: 0;/* Removes default margin from the heading */
     font-size: 24px;
     font-weight: bold;
     /* Sets the font size and makes the text bold */
 
-    color: #333;
-    /* Sets the color of the heading text to dark gray */
+    color: #000000;
+    /* Sets the color of the heading text to black */
+}
+.login-container {
+    background: #E3E4DF;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px; /* Adds some spacing below the logo */
 }
 
 .login-form {
@@ -68,8 +59,8 @@ body {
 label {
     display: block;
     /* Makes labels block elements to take up full width */
-
-    margin-bottom: 5px;
+    width: 70px;
+    margin-bottom: 20px;
     /* Adds space below the label */
 
     font-weight: bold;
@@ -89,8 +80,8 @@ input {
     margin-bottom: 15px;
     /* Adds space below each input field */
 
-    border: 1px solid #ccc;
-    /* Adds a light gray border around the input fields */
+    border: 1px solid #000000;
+    /* Adds a dark border around the input fields */
 
     border-radius: 5px;
     /* Rounds the corners of the input fields */
@@ -100,7 +91,7 @@ input {
 }
 
 .btn-login {
-    width: 100%;
+    width: 50%;
     /* Makes the button stretch to the full width of its parent container */
 
     padding: 10px;
@@ -123,6 +114,9 @@ input {
 
     cursor: pointer;
     /* Changes the mouse pointer to a hand icon when hovering over the button */
+
+    margin-top: 50px;
+
 }
 
 .btn-login:hover {
@@ -131,19 +125,19 @@ input {
 }
 
 .signup-link {
-    margin-top: 15px;
+    margin-top: 45px;
     /* Adds space above the signup link */
 
     font-size: 14px;
     /* Sets the font size for the text */
 
-    color: #555;
-    /* Sets the text color to gray */
+    color: #000000;
+    /* Sets the text color to black */
 }
 
 .signup-link a {
-    color: #0056b3;
-    /* Sets the link color to blue */
+    color: #000000;
+    /* Sets the link color to black*/
 
     text-decoration: none;
     /* Removes the underline from the link */
@@ -152,4 +146,12 @@ input {
 .signup-link a:hover {
     text-decoration: underline;
     /* Underlines the link when hovered over */
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    width: 100%; 
+    font-size: 14px; 
+    position: relative;
+    bottom: 0;
 }

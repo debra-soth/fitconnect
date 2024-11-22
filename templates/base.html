@@ -7,9 +7,9 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Links to the external CSS file for styling -->
 </head>
-</head>
 <body>
 <!-- Contains all the visible content of the webpage -->
+    {% block header %}
     <header>
         <!-- Defines the header section, typically for navigation or branding -->
         <div class="logo">
@@ -17,6 +17,7 @@
             <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo">
             <!-- Displays the logo image and provides alt text for accessibility -->
         </div>
+        {% endblock %}
     </header>
     <main>
         <!-- Defines the main content area of the webpage -->
