@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FitConnect{% endblock %}</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Links to the external CSS file for styling -->
+</head>
+<body>
+<!-- Contains all the visible content of the webpage -->
+    {% block header %}
+    <header>
+        <!-- Defines the header section, typically for navigation or branding -->
+        <div class="logo">
+            <!-- A container for the logo, styled with the class "logo" -->
+            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo">
+            <!-- Displays the logo image and provides alt text for accessibility -->
+        </div>
+        {% endblock %}
+    </header>
+    <main>
+        <!-- Defines the main content area of the webpage -->
+        {% block content %}
+        <!-- Placeholder for dynamic content; child templates can override this block -->
+        {% endblock %}
+    </main>
+     <footer>
+        <!-- Defines the footer section, typically for additional information like copyright -->
+        <p>&copy; 2024 FitConnect. All Rights Reserved.</p>
+        <!-- Displays a copyright notice for the year 2024 -->
+    </footer>
+</body>
+</html>
