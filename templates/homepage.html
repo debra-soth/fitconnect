@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>FitConnect</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>FitConnect</h1>
+        </div>
+        <nav>
+            <a href="#">User Overview</a> | 
+            <a href="#">Your Matches</a> | 
+            <a href="#">Personalize Profile</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to FitConnect, <strong>{{ current_user_name }}</strong>!</h2>
+        <p>Find people to connect with</p>
+        <div class="user-cards">
+            {% for user in users %}
+            <div class="user-card">
+                <div class="user-avatar">
+                    {% if user.profile_photo %}
+                        <img src="{{ url_for('static', filename=user.profile_photo) }}" alt="{{ user.name }}'s avatar">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='default_user_icon.png') }}" alt="Default user avatar">
+                    {% endif %}
+                </div>
+                <div class="user-details">
+                    <p>{{ user.name }}, {{ user.gender if user.gender else 'N/A' }}</p>
+                    <p>Activities: {{ user.activities }}</p>
+                    <p>Fitness Level: {{ user.fitness_level }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <button>Account Settings</button>
+        <button>Logout</button>
+    </footer>
+</body>
+</html>
