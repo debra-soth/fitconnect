@@ -1,15 +1,23 @@
-CREATE TABLE person (
+CREATE TABLE user (
     username TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    gender TEXT,
-    age INTEGER,
-    fitness_level TEXT,
-    gym_membership INTEGER,
-    activities TEXT,
-    availability TEXT,
-    motivation_text TEXT,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    gender TEXT,
+    fitness_level INTEGER NOT NULL,
+    gym_membership TEXT, 
+    activities TEXT,
+    motivation_text TEXT,
     profile_photo TEXT
 
+);
+
+CREATE TABLE matches (
+    match_id INTEGER PRIMARY KEY,
+    username_1 TEXT NOT NULL,
+    username_2 TEXT NOT NULL,
+    confirmed BOOLEAN DEFAULT 0,
+
+    FOREIGN KEY (username_1) REFERENCES user(username),
+    FOREIGN KEY (username_2) REFERENCES user(username),
 );
