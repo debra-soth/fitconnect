@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block header %}
+<!-- No Header for Login Screen -->
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <!-- Main container for the login screen content -->
+    <div class="logo">
+        <!-- Section for the logo -->
+        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo">
+        <!-- Displays the logo from the "static" folder; alt text is shown if the image fails to load -->
+        <h1>FitConnect</h1>
+        <!-- Displays the app's name under the logo -->
+    </div>
+    
+    <form action="#" method="POST" class="login-form">
+        <!-- Login form: action="#" means the form will not submit data to a server (replace later) -->
+        
+        <label for="Username">Username:</label>
+        <!-- Label for the username input field -->
+        <input type="text" id="Username" name="Username" placeholder="Username" required>
+        <!-- Input field for the username; "required" ensures the user can't submit an empty form -->
+        <label for="Password">Password:</label>
+        <!-- Label for the password input field -->
+        <input type="password" id="Password" name="Password" placeholder="Password" required>
+        <!-- Input field for the password; type="password" hides the characters entered -->
+        <button type="submit" class="btn-login">Login</button>
+        <!-- Submit button to send form data -->
+    </form>
+    
+    <p class="signup-link">
+        <!-- Text with a link to the registration page -->
+        Don't have an account? <a href="register.html">Create one!</a>
+        <!-- "register.html" must be created separately to handle the registration -->
+    </p>
+</div>
+{% endblock %}

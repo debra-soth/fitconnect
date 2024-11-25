@@ -1,8 +1,7 @@
-import os
-from flask import Flask
+from flask import Flask, render_template
 import db
 
-app = Flask(__name__)
+app = app = Flask(__name__)
 
 app.config.from_mapping(
     SECRET_KEY='secret_key_just_for_dev_environment',
@@ -13,4 +12,8 @@ app.teardown_appcontext(db.close_db_con)
 
 @app.route('/')
 def index():
-    return 'Hello, World!'
+    # Render the login.html template
+    return render_template('login.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
