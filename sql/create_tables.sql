@@ -20,5 +20,5 @@ CREATE TABLE matches (
     confirmed BOOLEAN DEFAULT 0,
 
     FOREIGN KEY (username_1) REFERENCES user(username),
-    FOREIGN KEY (username_2) REFERENCES user(username),
+    FOREIGN KEY (username_2) REFERENCES user(username)
 );
