@@ -3,6 +3,7 @@ CREATE TABLE user (
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     name TEXT NOT NULL,
+    age INTEGER NOT NULL,
     gender TEXT,
     fitness_level INTEGER NOT NULL,
     gym_membership TEXT, 
