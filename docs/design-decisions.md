@@ -3,7 +3,7 @@ title: Design Decisions
 nav_order: 3
 ---
 
-{: .label .label-red }
+{: .label}
 [Jane Dane]
 
 {: .attention}
