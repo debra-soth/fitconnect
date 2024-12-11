@@ -3,10 +3,11 @@ title: Design Decisions
 nav_order: 3
 ---
 
-{: .label }
-[Jane Dane]
+{: .label .label-red }
+[to be deleted]
 
-{: .no_toc }
+{: .attention}
+
 # Design decisions
 
 <details open markdown="block">
