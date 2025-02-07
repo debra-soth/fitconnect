@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = app = Flask(__name__)
 
-@app.route('/')
+@app.route('/login')
 def index():
     # login.html template rendern 
     return render_template('login.html')
