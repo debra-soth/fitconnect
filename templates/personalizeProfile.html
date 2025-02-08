@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalize Your Profile</title>
+    <!-- Bootstrap CSS einbinden -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #E3E4DF; /* Setzt die Hintergrundfarbe auf beige */
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex align-items-center ms-3 mt-3 mb-4">
+    <!-- Logo -->
+    <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
+    <!-- Text -->
+    <h4 class="ms-3 mb-0">FitConnect</h4>
+</div>
+    <!-- Container für Flexbox mit vollständiger Höhe -->
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
+<h1 class="mb-3"><strong>Personalize Your Profile</strong></h1>
+    <form method="POST" action="/">
+        <div class="form-group mt-3 mb-5">
+            <!-- Eingabefeld für den Benutzernamen -->
+            <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" style="width: 300px; background-color: #ffffff;" required>
+        </div>
+            <ul class="list-group">
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+            </li>
+            </ul>
+        </div>
+        <!-- Button zum Speichern-->
+        <div class="form-group d-flex justify-content-center mt-5">
+            <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Save </button>
+        </div>
+    </form>
+</div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
