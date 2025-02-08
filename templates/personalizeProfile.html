@@ -25,7 +25,7 @@
     <h4 class="ms-3 mb-0">FitConnect</h4>
 </div>
     <!-- Container für Flexbox mit vollständiger Höhe -->
-<div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 80vh; overflow-y: auto;">
+<div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Personalize Your Profile</strong></h1>
     <form method="POST" action="/">
      <!-- Möglichkeit das Profilbild hochzuladen -->
@@ -38,16 +38,16 @@
         </div>
         </div>
         <div class="form-group mt-3 mb-5">
-           <!-- Eingabefeld für die Lieblingssportart(en)-->
-    <label class="mb-2" for="favoriteActivity" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
-    <input type="text" class="form-control mb-2" id="favoriteActivity" name="favorite_activity[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
-   <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
-    <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
-    <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
-</div>
-    <!-- Container für die zusätzlichen Eingabefelder -->
-    <div id="additionalActivities"></div>
-    <!-- Eingabefeld für die Gym Membership-->
+        <!-- Eingabefeld für die Lieblingssportart(en)-->
+            <label class="mb-2" for="favoriteActivity" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
+            <input type="text" class="form-control mb-2" id="favoriteActivity" name="favorite_activity[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
+        <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
+            <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
+            <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
+        </div>
+         <!-- Container für die zusätzlichen Eingabefelder -->
+        <div id="additionalActivities"></div>
+        <!-- Eingabefeld für die Gym Membership-->
         <div class="form-group mt-3 mb-5">
             <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
             <input type="text" class="form-control" id="gymMembership" name="gym_Membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;" required>
@@ -85,7 +85,7 @@
             </li>
             </ul>
              <!-- Range für die Auswahl des Fitnesslevels -->
-            <div class="mb-4 mt-5 form-group">
+        <div class="mb-4 mt-5 form-group">
             <label for="fitnessLevel" style="font-size: 1.1em;"><strong>Fitness Level (1-10)</strong></label> 
             <!-- Popover-Icon für zusätzliche Informationen zum Fitness-level -->
             <i class="bi bi-info-circle" data-bs-toggle="popover" data-bs-placement="top" title="Fitness Level Description" 
@@ -96,16 +96,16 @@
                             <p><strong>10 = Expert:</strong> Can run 5 km without stopping, perform 30+ bodyweight squats, and handle intense workouts like HIIT or cycling for an hour.</p>">
             </i>
             <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="5">
-            <div class="text-center">
+        <div class="text-center">
                 <span id="fitnessLevelValue">5</span>
-            </div>
+        </div>
             <!-- Range für die Auswahl des Alters -->
-            <div class="mb-3 mt-5 form-group">
+        <div class="mb-3 mt-5 form-group">
                 <label for="age" style="font-size: 1.1em;"><strong>Age</strong></label>
                 <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="18">
-            <div class="text-center">
+        <div class="text-center">
                 <span id="ageValue">18</span>
-             </div>
+        </div>
         <!-- Auswahl des Geschlechts-->
         </div>
             <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label> 

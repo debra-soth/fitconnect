@@ -21,7 +21,7 @@
     <button type="button" class="btn-close" aria-label="Close"></button>
     <!-- Logo -->
     <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-    <!-- Text -->
+    <!-- Team-Name -->
     <h4 class="ms-3 mb-0">FitConnect</h4>
 </div>
     <!-- Container für Flexbox mit vollständiger Höhe -->
@@ -29,6 +29,7 @@
 <h1 class="mb-3"><strong>Edit Your Profile</strong></h1>
     <form method="POST" action="/">
     <div class="form-group mt-3 mb-5">
+    <!-- Unterpunkt Account Information für Struktur-->
     <h4 class="mb-3 mt-3 text-muted"><strong>Account Information</strong></h4>
             <!-- Eingabefeld für den Benutzernamen -->
             <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
@@ -49,6 +50,7 @@
             <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="width: 300px; background-color: #ffffff;" required>
         </div>
+        <!-- Unterpunkt Personal Information für Struktur-->
         <h4 class="mb-3 mt-5 text-muted"><strong>Personal Information</strong></h4>
      <!-- Möglichkeit das Profilbild hochzuladen -->
         <div class="form-group mt-3 mb-3">
