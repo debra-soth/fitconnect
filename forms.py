@@ -19,7 +19,7 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
-    
+
 # Formular für das Personalisieren des Profil
 class PersonalizeProfileForm(FlaskForm):
     profile_photo = FileField('Profile Photo', validators=[Optional()]) # Profilbild (optional, mit FileField für das Hochladen von Bildern)
@@ -31,6 +31,6 @@ class PersonalizeProfileForm(FlaskForm):
     fitness_level = IntegerField('Fitness Level (1-10)', validators=[InputRequired()])
     age = IntegerField('Age', validators=[InputRequired()])
     gender = SelectField('Gender', choices=[('Female'), ('Male'), ('Diverse')],
-                         validators=[Optional()])
+        validators=[Optional()])
     motivation_text = TextAreaField('Motivation Text', validators=[Optional(), Length(max=500)])
     submit = SubmitField('Save')
