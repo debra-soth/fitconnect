@@ -1,6 +1,6 @@
 # UserMixin-Klasse und DB werden importiert
-from flask_login import SQLAlchemy
-from . import db
+from flask_sqlalchemy import SQLAlchemy
+from fitconnect.db import db
 #Datenbankmodell Erstellen für User 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

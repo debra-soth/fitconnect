@@ -11,28 +11,29 @@ DB_NAME = 'database.db'
 # Funktion zur Erstellung der Flask-Anwendung
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'SimpleNote'
+    app.config['SECRET_KEY'] = 'FitConnect'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     # Hier wird die db-Instanz mit der App verbunden
     db.init_app(app)
 
-    # Blueprints werden importiert, da auth und views in anderen Ordnern sind
+    # Blueprints werden importiert
     from .auth import auth
 
     # Blueprints für die entsprechenden URLs werden registriert
-    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/auth')
 
     # Bevor DB initialisiert wird, müssen die DB-Modelle definiert werden
-    from .models import User, Note
+    from .models import User
 
     # SQLAlchemy testet, ob Datenbank bereits vorhanden ist oder nicht
     with app.app_context():
         db.create_all()
 
-    # Login Manager wird initialisiert und Login View für Login wird gesetzt
+    # Login Manager wird initialisiert
     login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'auth.login' # Authentifizierungs-Login-Route
     login_manager.init_app(app)
 
     # Funktion zum Laden eines Benutzers

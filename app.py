@@ -1,7 +1,11 @@
 from flask import Flask, render_template
+from fitconnect.auth import auth 
+from .db import create_app  # Importiere create_app Funktion aus db.py
 
-app = app = Flask(__name__)
+app = Flask(__name__)
 
+# Flask App mit create_app Funktion erstellen
+app = create_app()
 @app.route('/')
 def index():
 #Route für login.html

@@ -1,12 +1,12 @@
 # Module und Klassen aus Flask werden importiert
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, flash, request
 
 # Funktionen und Klassen aus Flask-Login und Werkzeug werden importiert
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 
 # User-Modell, Registrieruns-Forms und DB-Verbindung werden importiert
-from . import db
+from fitconnect.db import db
 from .models import User
 from .forms import RegistrationForm
 
@@ -38,3 +38,43 @@ def register():
     # Registerformular wird gerendert
     return render_template('register.html', form=form, signup_success=False)
 
+# Route zum Einloggen von Benutzern
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    #Wenn request empfangen wird und Formular gesendet wurde, nehme Benutzernamen und Passwort aus dem Formular
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # Aussgabe der Anmeldeinformationen zum Debuggen 
+        print(f"Received login request for username: {username}, password: {password}")
+        
+        #Abgleich des eingebenen Benutzernamens mit den Nutzern in der Datenbank
+        user = User.query.filter_by(username=username).first()
+
+        #Wenn Benutzer in DB nicht gefunden wurde, wird Fehlermeldung ausgegeben. Wenn doch, gib Benutzer und Passworthash aus (wieder zum Debuggen)
+        if not user:
+            flash('User not found. Please check your username.', category='error')
+        else:
+            print(f"User found in the database: {user.username}")
+            print(f"Stored password hash: {user.password}")
+        #PW wird mit gespeichertem PW-hash verglichen. Wenn PW korrekt, dann wird der Benutzer eingeloggt, direkt zur useroverview.html weitergeleitet und Erfolgsmeldung ausgegeben.
+            if check_password_hash(user.password, password):
+                login_user(user)
+                flash('Successfully logged in!', category='success')
+                return redirect(url_for('/personalize'))
+            # Wenn PW inkorrekt eingegeben, dann wird eine Fehlermeldung ausgegeben.
+            else:
+                flash('Wrong password. Please try again', category='error')
+    # Das Login-Formular wird gerendert
+    return render_template('login.html', user=current_user)
+
+# Route für das Ausloggen von Benutzern
+@auth.route('/logout', methods=['GET', 'POST'])
+def logout():
+    # Logge den aktuellen Benutzer aus
+    logout_user()
+
+    # Gib eine Erfolgsmeldung aus und leite Benutzer zur Login Seite weiter.
+    flash('Successfully logged out!', category='success')
+    return redirect(url_for('auth.login'))
