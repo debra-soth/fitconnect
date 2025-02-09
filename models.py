@@ -1,6 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+# UserMixin-Klasse und DB werden importiert
+from flask_login import SQLAlchemy
+from . import db
 #Datenbankmodell Erstellen für User 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -8,6 +8,11 @@ class User(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.username}>'
+    profile_photo = db.Column(db.String(200), nullable=True) #gespeichert als Dateipfad
+    favorite_activities = db.Column(db.PickleType, nullable=True)  # Mit PickleType können die Aktivitäten asl Phython-Liste gespeichert werden
+    gym_membership = db.Column(db.String(100), nullable=True)
+    availability = db.Column(db.PickleType, nullable=True)  # PickleType ermöglicht die Speicherung der Liste von Strings
+    fitness_level = db.Column(db.Integer, nullable=True)
+    age = db.Column(db.Integer, nullable=True)
+    gender = db.Column(db.String(20), nullable=True)
+    motivation_text = db.Column(db.Text, nullable=True)
