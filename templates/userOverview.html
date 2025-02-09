@@ -28,7 +28,20 @@
         }
         .nav-container a {
             text-decoration: none;
+            color: black !important;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s ease-in-out;
         }
+        .nav-container a:hover {
+            color: #0d6efd !important;
+        }
+        
+        .nav-container a.active {
+            color:#0d6efd !important;
+            font-weight: bold !important;
+        }
+
         .dropdown-menu {
             right: 0;
             left: auto;
@@ -48,15 +61,17 @@
         <h4 class="ms-3 mb-0">FitConnect</h4>
     </a>
     <div class="nav-container">
-        <a href="#" class="text-primary fw-bold me-3">User Overview</a>
-        <a href="#" class="text-dark me-3">Your Matches</a>
-        <a href="/personalizeProfile" class="text-dark me-3">Personalize Profile</a>
+        <a href="#" class="me-3 active" style="color:#0d6efd; font-weight: bold:">User Overview</a>
+        <a href="/events" class="me-3">Events</a>
+        <a href="#" class="me-3">Your Matches</a>
+        <a href="/personalizeProfile" class="me-3">Personalize Profile</a>
         
         <!-- Profile Dropdown -->
         <div class="dropdown">
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="/accountSettings">Account Settings</a></li>
+                <li><a class="dropdown-item" href="">Create Event</a></li>
+                <li><a class="dropdown-item" href="/settings">Account Settings</a></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
         </div>
