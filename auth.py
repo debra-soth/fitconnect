@@ -21,20 +21,23 @@ def register():
     # Wenn Formular validiert wurde, indem Post-request mit Daten gesendet wurde, überprüfe, ob ein Benutzer mit dem angegebenen Benutzernamen bereits existiert 
     if form.validate_on_submit():
         existing_user = User.query.filter_by(username=form.username.data).first()
-        # Wenn Benutzer existiert, dann Fehlermeldung ausgeben
+        existing_user_by_email = User.query.filter_by(email=form.email.data).first()
+        # Wenn Benutzer oder die E-Mail-Adresse existiert, dann Fehlermeldung ausgeben
         if existing_user:
             flash('The username is already taken. Please choose another one.', 'error')
+        elif existing_user_by_email:
+            flash('The email address is already registered. Please use a different one.', 'error')
         else:
             # Passwort wird gehasht mit pbkdf2: sha 256-Methode
             hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
             # Neuen Benutzer erstellen und zur Datenbank hinzufügen
-            new_user = User(username=form.username.data, password=hashed_password)
+            new_user = User(username=form.username.data, first_name=form.first_name.data, email=form.email.data, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
 
             #Ausgabe einer Erfolgsmeldung und Weiterleitung zur Login-Page zum direkten Einloggen nach erfolgreichem Registrieren
             flash('Successfully registered! Please log in.', 'success')
-            return redirect(url_for('views.index'))
+            return redirect(url_for('auth.login'))
     # Registerformular wird gerendert
     return render_template('register.html', form=form, signup_success=False)
 
@@ -62,7 +65,7 @@ def login():
             if check_password_hash(user.password, password):
                 login_user(user)
                 flash('Successfully logged in!', category='success')
-                return redirect(url_for('/personalize'))
+                return redirect(url_for('personalize_profile'))
             # Wenn PW inkorrekt eingegeben, dann wird eine Fehlermeldung ausgegeben.
             else:
                 flash('Wrong password. Please try again', category='error')

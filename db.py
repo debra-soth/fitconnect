@@ -14,6 +14,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'FitConnect'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['WTF_CSRF_ENABLED'] = True 
 
     # Hier wird die db-Instanz mit der App verbunden
     db.init_app(app)
