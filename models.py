@@ -10,9 +10,9 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     profile_photo = db.Column(db.String(200), nullable=True) #gespeichert als Dateipfad
-    favorite_activities = db.Column(db.PickleType, nullable=True)  # Mit PickleType können die Aktivitäten asl Phython-Liste gespeichert werden
+    favorite_activities = db.Column(db.PickleType, nullable=True)  # Mit PickleType können die Aktivitäten als Phython-Liste gespeichert werden
     gym_membership = db.Column(db.String(100), nullable=True)
-    availability = db.Column(db.PickleType, nullable=True)  # PickleType ermöglicht die Speicherung der Liste von Strings
+    availability = db.Column(db.PickleType, nullable=True)  # PickleType ermöglicht die Speicherung der Liste von Strings (hier Wochentage)
     fitness_level = db.Column(db.Integer, nullable=True)
     age = db.Column(db.Integer, nullable=True)
     gender = db.Column(db.String(20), nullable=True)

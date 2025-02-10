@@ -1,14 +1,17 @@
 # Module und Klassen aus Flask werden importiert
 from flask import Blueprint, render_template, redirect, url_for, flash, flash, request
+import os
 
 # Funktionen und Klassen aus Flask-Login und Werkzeug werden importiert
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
+from werkzeug.utils import secure_filename
 
-# User-Modell, Registrieruns-Forms und DB-Verbindung werden importiert
+# User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms und DB-Verbindung werden importiert
 from .db import db
 from .models import User
 from .forms import RegistrationForm
+from .forms import PersonalizeProfileForm
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)

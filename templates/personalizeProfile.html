@@ -27,7 +27,8 @@
     <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Personalize Your Profile</strong></h1>
-    <form method="POST" action="/">
+   <!-- enctype="multipart/form-data" ist notwendig, um das Profilbild korrekt zu übermitteln -->
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('auth.register') }}">
      <!-- Möglichkeit das Profilbild hochzuladen -->
         <div class="form-group mt-3 mb-5">
             <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
