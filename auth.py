@@ -7,11 +7,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 
-# User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms und DB-Verbindung werden importiert
+# User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
 from .models import User
-from .forms import RegistrationForm
-from .forms import PersonalizeProfileForm
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -47,6 +46,8 @@ def register():
 # Route zum Einloggen von Benutzern
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # Login-Objekt wird erstellt
+    form = LoginForm()
     #Wenn request empfangen wird und Formular gesendet wurde, nehme Benutzernamen und Passwort aus dem Formular
     if request.method == 'POST':
         username = request.form.get('username')
@@ -73,7 +74,7 @@ def login():
             else:
                 flash('Wrong password. Please try again', category='error')
     # Das Login-Formular wird gerendert
-    return render_template('login.html', user=current_user)
+    return render_template('login.html', form=form)
 
 # Route für das Ausloggen von Benutzern
 @auth.route('/logout', methods=['GET', 'POST'])
@@ -90,9 +91,21 @@ def logout():
 @login_required
 def personalize_profile():
     form = PersonalizeProfileForm()
-    
+
+     # Debugging: Überprüfe, ob der Code erreicht wird
+    print("Formular wurde abgeschickt")
     # Wenn das Formular abgeschickt wird (POST)
     if form.validate_on_submit():
+         # Debugging: Alle Formulardaten im Terminal ausgeben
+        print(f"Profile Photo: {form.profile_photo.data}")
+        print(f"Favorite Activities: {form.favorite_activity.data}")
+        print(f"Gym Membership: {form.gym_membership.data}")
+        print(f"Availability: {form.availability.data}")
+        print(f"Fitness Level: {form.fitness_level.data}")
+        print(f"Age: {form.age.data}")
+        print(f"Gender: {form.gender.data}")
+        print(f"Motivation Text: {form.motivation_text.data}")
+
         # Profilbild hochladen und speichern
         if form.profile_photo.data:
             profile_photo = form.profile_photo.data
@@ -114,6 +127,10 @@ def personalize_profile():
         
         # Änderungen in der Datenbank speichern
         db.session.commit()
+        #Fehlerausgabe fürs Debbugen
+    if not form.validate_on_submit():
+        print("Formular-Validierung fehlgeschlagen!")
+        print(form.errors)  # Ausgabe der Fehler, falls vorhanden
 
         flash('Your profile has been updated successfully!', 'success')
         return redirect(url_for('auth.personalize_profile'))

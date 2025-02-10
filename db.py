@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-
+from flask_wtf.csrf import CSRFProtect
 
 # Eine Datenbankinstanz wird erstellt und der Name der Datenbankdatei wird definiert
 db = SQLAlchemy()
@@ -18,7 +18,7 @@ def create_app():
 
     # Hier wird die db-Instanz mit der App verbunden
     db.init_app(app)
-
+    csrf = CSRFProtect(app)  # CSRF Protection aktivieren
     # Blueprints werden importiert
     from .auth import auth
 

@@ -57,17 +57,6 @@
         <div class="form-group d-flex justify-content-center mt-5">
             <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Register</button>
         </div>
-        {% if form.errors %}
-    <ul class="errors">
-        {% for field, errors in form.errors.items() %}
-            <li>{{ field.label }}:
-                {% for error in errors %}
-                    <ul><li>{{ error }}</li></ul>
-                {% endfor %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
     </form>
      <!-- Link zur login.html = Loginseite -->
     <p class="mt-3 smaller-text" style="font-style: italic; margin-bottom: 1cm;">Already have an account? <a href="{{ url_for('auth.login') }}"><u>Login in!</u></a></p>
