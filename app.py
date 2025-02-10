@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from fitconnect.auth import auth 
+from .auth import auth 
 from .db import create_app  # Importiere create_app Funktion aus db.py
 
 app = Flask(__name__)
