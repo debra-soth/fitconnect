@@ -11,16 +11,58 @@
         body {
             background-color: #E3E4DF;
         }
+        .navbar {
+            background-color: #E3E4DF !important;
+        }
+        .nav-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-container a {
+            text-decoration: none;
+            color: black !important;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-container a:hover {
+            color: #0d6efd !important;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
     </style>
 </head>
 
 <body>
-<div class="d-flex align-items-center ms-3 mt-3 mb-4">
-    <!-- Logo -->
-    <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-    <!-- Text -->
-    <h4 class="ms-3 mb-0">FitConnect</h4>
-</div>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-light shadow-sm px-4">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
+        <h4 class="ms-3 mb-0">FitConnect</h4>
+    </a>
+    <div class="nav-container">
+        <a href="/user" class="me-3">User Overview</a>
+        <a href="/events" class="me-3" >Events</a>
+        <a href="#" class="me-3">Your Matches</a>
+        <a href="/personalizeProfile" class="me-3">Personalize Profile</a>
+        
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="/create-event">Create Event</a></li>
+                <li><a class="dropdown-item" href="/settings">Account Settings</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
