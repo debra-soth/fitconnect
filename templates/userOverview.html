@@ -90,10 +90,10 @@
         {% for user in users %}
         <div class="col-md-4 d-flex justify-content-center">
             <div class="card profile-card" style="width: 18rem;">
-                <img src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.name }}">
+                <img src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.username }}">
                 <div class="card-body">
-                    <h5 class="card-title"><strong>{{ user.name }}, {{ user.age }}</strong></h5>
-                    <p class="card-text text-muted">{{ user.activities }}</p>
+                    <h5 class="card-title"><strong>{{ user.username }}, {{ user.age }}</strong></h5>
+                    <p class="card-text text-muted">{{ user.favorite_activities }}</p>
                 </div>
             </div>
         </div>
