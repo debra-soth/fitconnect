@@ -98,7 +98,7 @@ def personalize_profile():
     if form.validate_on_submit():
          # Debugging: Alle Formulardaten im Terminal ausgeben
         print(f"Profile Photo: {form.profile_photo.data}")
-        print(f"Favorite Activities: {form.favorite_activity.data}")
+        print(f"Favorite Activities: {form.favorite_activities.data}")
         print(f"Gym Membership: {form.gym_membership.data}")
         print(f"Availability: {form.availability.data}")
         print(f"Fitness Level: {form.fitness_level.data}")
@@ -106,7 +106,11 @@ def personalize_profile():
         print(f"Gender: {form.gender.data}")
         print(f"Motivation Text: {form.motivation_text.data}")
 
+ # Überprüfe, welche Verfügbarkeiten ausgewählt wurden
+        selected_days = request.form.getlist('availability[]')
+        print(f"Selected Availability Days: {selected_days}")  # Gibt die ausgewählten Tage aus
         # Profilbild hochladen und speichern
+
         if form.profile_photo.data:
             profile_photo = form.profile_photo.data
             photo_filename = secure_filename(profile_photo.filename)
@@ -117,7 +121,7 @@ def personalize_profile():
         
         # Benutzerinformationen aktualisieren
         current_user.profile_photo = photo_path
-        current_user.favorite_activities = form.favorite_activity.data
+        current_user.favorite_activities = form.favorite_activities.data
         current_user.gym_membership = form.gym_membership.data
         current_user.availability = form.availability.data
         current_user.fitness_level = form.fitness_level.data
@@ -127,12 +131,19 @@ def personalize_profile():
         
         # Änderungen in der Datenbank speichern
         db.session.commit()
-        #Fehlerausgabe fürs Debbugen
-    if not form.validate_on_submit():
-        print("Formular-Validierung fehlgeschlagen!")
-        print(form.errors)  # Ausgabe der Fehler, falls vorhanden
-
         flash('Your profile has been updated successfully!', 'success')
         return redirect(url_for('auth.personalize_profile'))
+        #Fehlerausgabe fürs Debbugen
+    if not form.validate_on_submit():
+         print("Formular-Validierung fehlgeschlagen!")
+         print("Favorite Activities:", form.favorite_activities.data)
+         print("Availability:", form.availability.data)
+         print(form.errors)  # Ausgabe der Fehler, falls vorhande
+         # Überprüfe, welche Verfügbarkeiten ausgewählt wurden
+         selected_days = request.form.getlist('availability[]')
+         print(f"Selected Availability Days: {selected_days}")  # Gibt die ausgewählten Tage aus
+        # Profilbild hochladen und speichern
+         return render_template('personalizeProfile.html', form=form)
+    
     
     return render_template('personalizeProfile.html', form=form)
