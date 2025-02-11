@@ -76,7 +76,7 @@
         <h4 class="ms-3 mb-0">FitConnect</h4>
     </a>
     <div class="nav-container">
-        <a href="/user" class="me-3">User Overview</a>
+        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
         <a href="{{ url_for('event_overview') }}" class="me-3">Events</a>
         <a href="#" class="me-3">Your Matches</a>
         <a href="{{ url_for('personalize_profile') }}"class="me-3">Personalize Profile</a>
