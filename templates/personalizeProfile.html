@@ -28,60 +28,63 @@
     <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Personalize Your Profile</strong></h1>
-    <form method="POST" action="/">
+   <!-- enctype="multipart/form-data" ist notwendig, um das Profilbild korrekt zu übermitteln -->
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('auth.personalize_profile') }}">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token hinzugefügen -->
      <!-- Möglichkeit das Profilbild hochzuladen -->
-        <div class="form-group mt-3 mb-5">
-            <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
+    <div class="form-group mt-3 mb-5">
+        <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
         <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*" onchange="previewImage(event)">
         <!-- Vorschau des Profilbilds -->
         <div class="mt-3">
             <img id="profilePhotoPreview" src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}" alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
         </div>
-        </div>
-        <div class="form-group mt-3 mb-5">
+    </div>
+
+    <div class="form-group mt-3 mb-5">
         <!-- Eingabefeld für die Lieblingssportart(en)-->
-            <label class="mb-2" for="favoriteActivity" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
-            <input type="text" class="form-control mb-2" id="favoriteActivity" name="favorite_activity[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
+        <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
+        <input type="text" class="form-control mb-2" id="favoriteActivities" name="favorite_activities[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
         <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
-            <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
-            <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
-        </div>
+        <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
+        <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
+    </div>
          <!-- Container für die zusätzlichen Eingabefelder -->
-        <div id="additionalActivities"></div>
+    <div id="additionalActivities"></div>
         <!-- Eingabefeld für die Gym Membership-->
-        <div class="form-group mt-3 mb-5">
-            <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
-            <input type="text" class="form-control" id="gymMembership" name="gym_Membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;" required>
-        </div>
+    <div class="form-group mt-3 mb-5">
+        <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
+        <input type="text" class="form-control" id="gymMembership" name="gym_Membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;" required>
+    </div>
         <!-- Checkboxen für die Verfügbarkeiten der Wochentage -->
         <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
             <ul class="list-group">
                 <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="mondayCheckbox">Monday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="tuesdayCheckbox">Tuesday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="wednesdayCheckbox">Wednesday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="thursdayCheckbox">Thursday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="fridayCheckbox">Friday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="saturdayCheckbox">Saturday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability[]"checked>
                 <label class="form-check-label" for="sundayCheckbox">Sunday</label>
             </li>
             </ul>
@@ -147,10 +150,11 @@
         var newField = document.createElement("input");
         newField.setAttribute("type", "text");
         newField.setAttribute("class", "form-control mb-3");
-        newField.setAttribute("name", "favorite_activity[]");
+        newField.setAttribute("name", "favorite_activities[]");
         newField.setAttribute("placeholder", "Add Fitness Activity");
         newField.setAttribute("style", "width: 300px; background-color: #ffffff; position: relative; top: -40px;");
-
+        // Log the new field to check if it is being created
+        console.log("New field created:", newField);
          // Erhöhe den Zähler
         fieldCount++;
 

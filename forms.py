@@ -1,6 +1,6 @@
 # Formulare aus Flask-WTF und Validatoren aus WTForms werden importiert
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, FileField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField, FileField, FieldList
 from wtforms.validators import InputRequired, Email, EqualTo, Length, Optional
 from wtforms.fields import SelectField
 from wtforms import SelectMultipleField
@@ -23,11 +23,13 @@ class LoginForm(FlaskForm):
 # Formular für das Personalisieren des Profil
 class PersonalizeProfileForm(FlaskForm):
     profile_photo = FileField('Profile Photo', validators=[Optional()]) # Profilbild (optional, mit FileField für das Hochladen von Bildern)
-    favorite_activity = StringField('Favorite Fitness Activity', validators=[InputRequired(), Length(min=3)])
+    favorite_activities = FieldList(StringField('Favorite Fitness Activity', validators=[InputRequired(), Length(min=3)]), min_entries=1)
     gym_membership = StringField('Gym Membership', validators=[Optional(), Length(max=100)])
     availability = SelectMultipleField('Availability on Weekdays',
-        choices=[('Monday'), ('Tuesday'), ('Wednesday'),('Thursday'), ('Friday'), ('Saturday'),('Sunday')],
-        validators=[InputRequired()])
+        choices=[('monday', 'Monday'), ('tuesday', 'Tuesday'), ('wednesday', 'Wednesday'),
+             ('thursday', 'Thursday'), ('friday', 'Friday'), ('saturday', 'Saturday'), 
+             ('sunday', 'Sunday')],
+        validators=[InputRequired(message="Please select at least one availability day.")])
     fitness_level = IntegerField('Fitness Level (1-10)', validators=[InputRequired()])
     age = IntegerField('Age', validators=[InputRequired()])
     gender = SelectField('Gender', choices=[('Female'), ('Male'), ('Diverse')],

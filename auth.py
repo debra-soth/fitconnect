@@ -1,14 +1,16 @@
 # Module und Klassen aus Flask werden importiert
 from flask import Blueprint, render_template, redirect, url_for, flash, flash, request
+import os
 
 # Funktionen und Klassen aus Flask-Login und Werkzeug werden importiert
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
+from werkzeug.utils import secure_filename
 
-# User-Modell, Registrieruns-Forms und DB-Verbindung werden importiert
-from fitconnect.db import db
+# User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
+from .db import db
 from .models import User
-from .forms import RegistrationForm
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -44,6 +46,8 @@ def register():
 # Route zum Einloggen von Benutzern
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # Login-Objekt wird erstellt
+    form = LoginForm()
     #Wenn request empfangen wird und Formular gesendet wurde, nehme Benutzernamen und Passwort aus dem Formular
     if request.method == 'POST':
         username = request.form.get('username')
@@ -70,7 +74,7 @@ def login():
             else:
                 flash('Wrong password. Please try again', category='error')
     # Das Login-Formular wird gerendert
-    return render_template('login.html', user=current_user)
+    return render_template('login.html', form=form)
 
 # Route für das Ausloggen von Benutzern
 @auth.route('/logout', methods=['GET', 'POST'])
@@ -81,3 +85,65 @@ def logout():
     # Gib eine Erfolgsmeldung aus und leite Benutzer zur Login Seite weiter.
     flash('Successfully logged out!', category='success')
     return redirect(url_for('auth.login'))
+
+# Route für das Personalisieren des Profils
+@auth.route('/personalize', methods=['GET', 'POST'])
+@login_required
+def personalize_profile():
+    form = PersonalizeProfileForm()
+
+     # Debugging: Überprüfe, ob der Code erreicht wird
+    print("Formular wurde abgeschickt")
+    # Wenn das Formular abgeschickt wird (POST)
+    if form.validate_on_submit():
+         # Debugging: Alle Formulardaten im Terminal ausgeben
+        print(f"Profile Photo: {form.profile_photo.data}")
+        print(f"Favorite Activities: {form.favorite_activities.data}")
+        print(f"Gym Membership: {form.gym_membership.data}")
+        print(f"Availability: {form.availability.data}")
+        print(f"Fitness Level: {form.fitness_level.data}")
+        print(f"Age: {form.age.data}")
+        print(f"Gender: {form.gender.data}")
+        print(f"Motivation Text: {form.motivation_text.data}")
+
+ # Überprüfe, welche Verfügbarkeiten ausgewählt wurden
+        selected_days = request.form.getlist('availability[]')
+        print(f"Selected Availability Days: {selected_days}")  # Gibt die ausgewählten Tage aus
+        # Profilbild hochladen und speichern
+
+        if form.profile_photo.data:
+            profile_photo = form.profile_photo.data
+            photo_filename = secure_filename(profile_photo.filename)
+            photo_path = os.path.join('static/images', photo_filename)
+            profile_photo.save(photo_path)
+        else:
+            photo_path = None
+        
+        # Benutzerinformationen aktualisieren
+        current_user.profile_photo = photo_path
+        current_user.favorite_activities = form.favorite_activities.data
+        current_user.gym_membership = form.gym_membership.data
+        current_user.availability = form.availability.data
+        current_user.fitness_level = form.fitness_level.data
+        current_user.age = form.age.data
+        current_user.gender = form.gender.data
+        current_user.motivation_text = form.motivation_text.data
+        
+        # Änderungen in der Datenbank speichern
+        db.session.commit()
+        flash('Your profile has been updated successfully!', 'success')
+        return redirect(url_for('auth.personalize_profile'))
+        #Fehlerausgabe fürs Debbugen
+    if not form.validate_on_submit():
+         print("Formular-Validierung fehlgeschlagen!")
+         print("Favorite Activities:", form.favorite_activities.data)
+         print("Availability:", form.availability.data)
+         print(form.errors)  # Ausgabe der Fehler, falls vorhande
+         # Überprüfe, welche Verfügbarkeiten ausgewählt wurden
+         selected_days = request.form.getlist('availability[]')
+         print(f"Selected Availability Days: {selected_days}")  # Gibt die ausgewählten Tage aus
+        # Profilbild hochladen und speichern
+         return render_template('personalizeProfile.html', form=form)
+    
+    
+    return render_template('personalizeProfile.html', form=form)
