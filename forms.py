@@ -32,7 +32,6 @@ class PersonalizeProfileForm(FlaskForm):
         validators=[InputRequired(message="Please select at least one availability day.")])
     fitness_level = IntegerField('Fitness Level (1-10)', validators=[InputRequired()])
     age = IntegerField('Age', validators=[InputRequired()])
-    gender = SelectField('Gender', choices=[('Female'), ('Male'), ('Diverse')],
-        validators=[Optional()])
+    gender = gender = SelectField('Gender', choices=[('Female', 'Female'), ('Male', 'Male'), ('Diverse', 'Diverse')],validators=[Optional()])
     motivation_text = TextAreaField('Motivation Text', validators=[Optional(), Length(max=500)])
     submit = SubmitField('Save')
