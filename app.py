@@ -5,10 +5,12 @@ from .db import create_app  # Importiere create_app Funktion aus db.py
 # Flask App mit create_app Funktion erstellen
 app = create_app()
 
+# Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
+if __name__ == '__main__':
+    app.run(debug=True)
 
 from .auth import LoginForm
 from .auth import PersonalizeProfileForm
-
 
 #Route für login.html
 @app.route('/')
