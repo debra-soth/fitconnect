@@ -36,3 +36,13 @@ class PersonalizeProfileForm(FlaskForm):
         validators=[Optional()])
     motivation_text = TextAreaField('Motivation Text', validators=[Optional(), Length(max=500)])
     submit = SubmitField('Save')
+
+# Formular für das Erstellen eines Events
+class CreateEventForm(FlaskForm):
+    event_name = StringField('Event Name', validators=[InputRequired()])
+    event_description = TextAreaField('Event Description', validators=[Optional(), Length(max=250)])
+    event_date = StringField('Event Date', validators=[InputRequired()])
+    event_starttime = StringField('Event Start Time', validators=[InputRequired()])
+    event_endtime = StringField('Event End Time', validators=[InputRequired()])
+    event_location = StringField('Event Location', validators=[InputRequired()])
+    submit = SubmitField('Create Event')
