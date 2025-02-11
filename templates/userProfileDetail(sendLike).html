@@ -34,6 +34,28 @@
             right: 0;
             left: auto;
         }
+        .horizontal-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 50px;
+            max-width: 1500px; /* Maximale Breite für den Inhalt */
+            margin: 100px auto; /* Zentrierung */
+            padding: 0 20px;
+        }
+        .inner-horizontal-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 50px;
+        }
+        .single-container-left {
+            flex: 1 1 100px;
+            min-width: 100px;
+            /*margin-right: auto;*/
+        }
+        .single-container {
+            flex: 1 1 100px;
+            min-width: 320px;
+        }
     </style>
 </head>
 
@@ -62,6 +84,67 @@
     </div>
 </nav>
 
+<div class="horizontal-container">
+    <div class="single-container-left">
+        <div>
+            <p align="right">Bild</p>
+        </div>
+        <div>
+            <p align="right">About Name</p>
+        </div>
+        <div>
+            <p align="right">Motivationstext</p>
+        </div>
+    </div>
+    <div class="single-container">
+        <div class="inner-horizontal-container">
+            <div class="single-container">
+                <p>Benutzername</p>
+            </div>
+            <div class="single-container">
+                <p>Standort</p>
+            </div>
+        </div>
+        <div>
+            <p>Once there's a match you will be able to see Benutzername's contact details</p>
+        </div>
+        <div class="inner-horizontal-container">
+            <div class="single-container">
+                <p>FitnessLevel</p>
+            </div>
+            <div class="single-container">
+                <p>GymMembership</p>
+            </div>
+        </div>
+        <div class="inner-horizontal-container">
+            <div class="single-container">
+                <p>Availability</p>
+            </div>
+            <div class="single-container">
+                <p>FitnessActivities</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--div class="container text-center my-5">
+    <div class="horizontal-container">
+        <div class="single-container">
+            <h2><strong>About Laura</strong></h2>
+        </div>
+        <div class="single-container">
+            <p class="text-muted">Berlin</p>
+        </div>
+
+<div class="horizontal-container">
+    <div class="single-container">
+        <h4>About Laura</h4>
+    </div>
+    <div class="single-container">
+        <h2>Laura 21</h2>
+    </div>
+</div-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
