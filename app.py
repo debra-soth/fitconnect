@@ -1,14 +1,21 @@
 from flask import Flask, render_template
 from .auth import auth 
 from .db import create_app  # Importiere create_app Funktion aus db.py
+
+
+# Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
+if __name__ == '__main__':
+    app.run(debug=True)
+
 from .auth import LoginForm
 from .auth import PersonalizeProfileForm
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
-@app.route('/')
-def index():
+
 #Route für login.html
+@app.route('/')
+def login():
     return render_template('login.html', form=LoginForm())  # Übergebe das Formular an das Template
 
 #Route für register.html
@@ -49,3 +56,4 @@ def create_event():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
