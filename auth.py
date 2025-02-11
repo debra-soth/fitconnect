@@ -69,7 +69,7 @@ def login():
             if check_password_hash(user.password, password):
                 login_user(user)
                 flash('Successfully logged in!', category='success')
-                return redirect(url_for('personalize_profile'))
+                return redirect(url_for('user_overview'))
             # Wenn PW inkorrekt eingegeben, dann wird eine Fehlermeldung ausgegeben.
             else:
                 flash('Wrong password. Please try again', category='error')
