@@ -24,6 +24,7 @@ def account_settings():
 #Route für userOverview.html
 @app.route('/user')
 def user_overview():
+    users = User.query.all() 
     return render_template('userOverview.html') 
 
 #Route für eventOverview.html
