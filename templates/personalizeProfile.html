@@ -181,13 +181,13 @@
 </script>
  <!-- Fitnesslevel JS -->
  <script>
-    var slider = document.getElementById("fitnessLevel");
-    var output = document.getElementById("fitnessLevelValue");
-    output.innerHTML = slider.value; // Das aktuelle Fitnesslevel anzeigen
+    var fitnessSlider = document.getElementById("fitnessLevel");
+    var fitnessOutput = document.getElementById("fitnessLevelValue");
+    fitnessOutput.innerHTML = fitnessSlider.value; // Zeigt den initialen Wert des Fitnesslevels an
 
-    // Das angezeigt Fitneslevel updaten, sobald es geändert wird
-    slider.oninput = function() {
-        output.innerHTML = this.value;
+    // Aktualisiere das Fitnesslevel, wenn der Schieberegler verändert wird
+    fitnessSlider.oninput = function() {
+        fitnessOutput.innerHTML = this.value;
     }
 </script>
 <script>
@@ -199,13 +199,13 @@
 </script>
  <!-- Age JS -->
 <script>
-    var slider = document.getElementById("age");
-    var output = document.getElementById("ageValue");
-    output.innerHTML = slider.value; // Zeigt den Standardwert an
+    var ageSlider = document.getElementById("age");
+    var ageOutput = document.getElementById("ageValue");
+    ageOutput.innerHTML = ageSlider.value; // Zeigt den initialen Wert des Alters an
 
-    // Aktualisiert das Alter, wenn der Schieberegler verschoben wird
-    slider.oninput = function() {
-        output.innerHTML = this.value;
+    // Aktualisiere das Alter, wenn der Schieberegler verändert wird
+    ageSlider.oninput = function() {
+        ageOutput.innerHTML = this.value;
     }
 </script>
  <!-- Profile Photo JS -->
