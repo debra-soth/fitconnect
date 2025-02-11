@@ -45,12 +45,11 @@
         <!-- Eingabefeld für die Lieblingssportart(en)-->
         <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
 
-        <input type="text" class="form-control mb-2" id="favoriteActivities" name="favorite_activities[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
        <!-- Hier werden bestehende Werte von WTForms gerendert -->
         <div id="activityFields">
-            {% for activity in form.favorite_activities %}
-            {{ activity(class="form-control mb-2", placeholder="Add Fitness Activity", style="width: 300px; background-color: #ffffff;") }}
-            {% endfor %}
+        <!-- Standardmäßig nur ein Feld -->
+        <input type="text" class="form-control mb-2" name="favorite_activities-0" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
+    
          </div>
        
         <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
@@ -152,10 +151,12 @@
   <!-- Favorite Fitness Activity Plus-Button JS -->
 <script>
   // Zähler für die Anzahl der Textfelder
-  let fieldCount = document.querySelectorAll("#additionalActivities input").length || 1;
+  let fieldCount = 1;
 
   // Füge Event Listener für den Plus-Button hinzu
   document.getElementById("addActivity").addEventListener("click", function () {
+    var activityContainer = document.getElementById("additionalActivities");
+
       // Erstelle ein neues Eingabefeld
       var newField = document.createElement("input");
       newField.setAttribute("type", "text");
@@ -164,31 +165,30 @@
       newField.setAttribute("placeholder", "Add Fitness Activity");
       newField.setAttribute("style", "width: 300px; background-color: #ffffff; position: relative; top: -40px;");
 
-      // Log the new field to check if it is being created
-      console.log(`New field created: favorite_activities-${fieldCount}`);
+       // Füge das neue Feld in den Container ein
+      activityContainer.appendChild(newField);
 
-      // Erhöhe den Zähler für die nächste Eingabe
+      // Erhöhe den Zähler
       fieldCount++;
 
-      // Füge das neue Textfeld in den "additionalActivities"-Container ein
-      document.getElementById("additionalActivities").appendChild(newField);
-
-      // Zeige den Minus-Button an, wenn mindestens ein zusätzliches Textfeld existiert
-      document.getElementById("removeActivity").style.display = "inline-block";
+      // Zeige den Minus-Button an, wenn mindestens zwei Felder vorhanden sind
+      if (fieldCount > 1) {
+          document.getElementById("removeActivity").style.display = "inline-block";
+      }
   });
 
-  // Event Listener für den Minus-Button
-  document.getElementById("removeActivity").addEventListener("click", function () {
-      var fields = document.querySelectorAll("#additionalActivities input");
-      if (fields.length > 0) {
-          // Entferne das zuletzt hinzugefügte Textfeld
-          fields[fields.length - 1].remove();
-          fieldCount--; // Zähler reduzieren
+    document.getElementById("removeActivity").addEventListener("click", function () {
+      var activityContainer = document.getElementById("additionalActivities");
+      var fields = activityContainer.getElementsByTagName("input"); // Alle Input-Felder im Container holen
 
-          // Wenn keine weiteren Felder mehr vorhanden sind, verstecke den Minus-Button
-          if (fields.length === 0) {
-              document.getElementById("removeActivity").style.display = "none";
-          }
+      if (fields.length > 0) { // Stelle sicher, dass mindestens ein Feld bleibt
+          activityContainer.removeChild(fields[fields.length - 1]); // Entferne das letzte hinzugefügte Feld
+          fieldCount--; // Zähler reduzieren
+      }
+
+      // Wenn nur noch ein Feld übrig ist, verstecke den Minus-Button
+      if (fields.length === 0) {
+          document.getElementById("removeActivity").style.display = "none";
       }
   });
 </script>
