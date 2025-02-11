@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from .auth import auth 
 from .db import create_app  # Importiere create_app Funktion aus db.py
 
+# Flask App mit create_app Funktion erstellen
+app = create_app()
 
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
@@ -9,9 +11,6 @@ if __name__ == '__main__':
 
 from .auth import LoginForm
 from .auth import PersonalizeProfileForm
-
-# Flask App mit create_app Funktion erstellen
-app = create_app()
 
 #Route für login.html
 @app.route('/')
