@@ -19,3 +19,4 @@ class User(db.Model,UserMixin):
     age = db.Column(db.Integer, nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     motivation_text = db.Column(db.Text, nullable=True)
+

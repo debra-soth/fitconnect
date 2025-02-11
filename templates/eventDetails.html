@@ -74,18 +74,18 @@
         <h4 class="ms-3 mb-0">FitConnect</h4>
     </a>
     <div class="nav-container">
-        <a href="/user" class="me-3">User Overview</a>
-        <a href="/events" class="me-3 active" style="color:#0d6efd; font-weight: bold:">Events</a>
+        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
+        <a href="{{ url_for('event_overview') }}" class="me-3 active" style="color:#0d6efd; font-weight: bold:">Events</a>
         <a href="#" class="me-3">Your Matches</a>
-        <a href="/personalizeProfile" class="me-3">Personalize Profile</a>
+        <a href="{{ url_for('personalize_profile') }}"class="me-3">Personalize Profile</a>
         
         <!-- Profile Dropdown -->
         <div class="dropdown">
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="/create-event">Create Event</a></li>
-                <li><a class="dropdown-item" href="/settings">Account Settings</a></li>
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('account_settings') }}">Account Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </div>
     </div>
