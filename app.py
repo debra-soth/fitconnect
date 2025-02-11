@@ -1,11 +1,9 @@
-from flask import Flask, render_template
+from flask import render_template, redirect, url_for
 from .db import create_app  # Importiere create_app Funktion aus db.py
+from .auth import auth, PersonalizeProfileForm
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
-
-from .auth import auth, PersonalizeProfileForm
-from flask import Flask, redirect, url_for
 
 #Route für login.html
 @app.route('/')
