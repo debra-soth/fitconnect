@@ -17,7 +17,7 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: functions: How to find a partner
+## 01: How To Find a Partner
 
 ### Meta
 
@@ -80,7 +80,7 @@ Initially, the database model included a Match table to store confirmed matches.
 We decided to go with the second option of query-based matches to make the system more dynamic and scalable. Matches can be now detected in real-time by checking for mutual likes rather than being explicitly sstored.
 
 
-## 03: Databse Choice – SQLite vs. PostgreSQL
+## 03: Database Choice – SQLite vs. PostgreSQL
 
 ### Meta
 
@@ -106,3 +106,4 @@ We initially used SQLite due to its simplicity and easy setup. However, as we pr
 ### Decision
 
 We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
+
