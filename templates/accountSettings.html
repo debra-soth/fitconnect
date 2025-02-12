@@ -108,13 +108,13 @@
         </div>
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für den Vornamen -->
-            <label for="First name" style="font-size: 1.1em;"><strong>First name:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
+            <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für die E-Mail-Adresse -->
-            <label for="username" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ form.email.data }}" style="width: 300px; background-color: #ffffff;" required>
+            <label for="email" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ form.email.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
         <div class="form-group mb-3 mt-5">
             <!-- Eingabefeld für das Passwort -->
