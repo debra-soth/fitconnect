@@ -33,13 +33,18 @@ nav_order: 1
 
 ## Overview
 
-### What Our App Does:
-
 FitConnect is a Flask-based web application designed to connect people with the same fitness goals and interests through event organization. Users can register and manage their fitness profiles. The app also allows users to create, view and participate in fitness events that are organized by other users.
 
-### Core Components:
+## Application Structure
+We follow the Model-View-Controller (MVC) pattern, where models (`models.py`) define the database schema, views (`templates\`) manage the HTML templates and controllers (`app.py`, `auth.py`) handle the request logic. 
 
-#### Backend:
+The application flow starts when a user sends a request, such as logging in or creating an event. This request is processed by the Flask routes in app.py, and if necessary, data is retrieved from or stored in the database via db.py. The server then returns a response. 
+
+For authentication, users register and log in with hashed passwords, and their sessions are managed through Flask-Login. 
+
+## Core Components:
+
+### Backend:
 
 For our backend we mainly used Flask and PostgreSQL. 
 
@@ -49,7 +54,7 @@ For our backend we mainly used Flask and PostgreSQL.
 - `models.py` defines the database models including User and Event
 - `forms.py` implements WTForms-based validation for user input
 
-#### Frontend:
+### Frontend:
 
 For the front-end we used HTML, Bootstrap and Jinja2. These are our templates for user interaction:
 
@@ -69,7 +74,7 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 
 - `createEvent.html` allows users to create new fitness events
 
-#### Libraries & Dependencies:
+### Libraries & Dependencies:
 
 - Flask-Login for user authentication
 - Flask-WTF for Form validation
@@ -80,6 +85,7 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 >User Model
 >Event Model
 >Event-User Relationship (Many-to-Many)
+
 ## Codemap
 
 ```mermaid
@@ -101,4 +107,3 @@ graph TD;
     G -->|HTML Pages| O[UI Screens]
     H -->|CSS & JS Files| P[Frontend Enhancements]
 ```
-## Application Structure
