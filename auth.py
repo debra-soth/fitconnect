@@ -139,7 +139,7 @@ def personalize_profile():
     
     
     return render_template('personalizeProfile.html', form=form)
-
+# Route für Account Settings
 @auth.route('/settings', methods=['GET', 'POST'])
 @login_required
 def account_settings():
@@ -199,7 +199,7 @@ def account_settings():
             print(form.errors)  # Debugging: Zeigt an, warum das Formular fehlschlägt
 
     return render_template('accountSettings.html', form=form)
-
+# Route zum Erstellen eines Events
 @auth.route('/create-event', methods=['GET', 'POST'])
 @login_required
 def create_event():
