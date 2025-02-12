@@ -20,3 +20,15 @@ class User(db.Model,UserMixin):
     gender = db.Column(db.String(20), nullable=True)
     motivation_text = db.Column(db.Text, nullable=True)
 
+#Datenbankmodell Erstellen für Event
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    date = db.Column(db.String(20), nullable=False)
+    start_time = db.Column(db.String(10), nullable=False)
+    end_time = db.Column(db.String(10), nullable=False)
+    location = db.Column(db.String(200), nullable=False)
+    max_participants = db.Column(db.Integer, nullable=True)
+    participants = db.Column(db.Integer, default=0, nullable=False)
+    host_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Link event to a user
