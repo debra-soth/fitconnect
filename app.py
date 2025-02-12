@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from .db import create_app, db  # Importiere create_app Funktion aus db.py
 from .auth import auth, PersonalizeProfileForm
-from .models import User  # Import the User model
+from .models import User, Event  # Import the User model
+from .forms import CreateEventForm
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
@@ -31,7 +32,8 @@ def user_overview():
 #Route für eventOverview.html
 @app.route('/events') 
 def event_overview():
-    return render_template('eventOverview.html') 
+    events = Event.query.all()  # Retrieve all events from the database
+    return render_template('eventOverview.html', events=events)
 
 #Route für eventDetails.html
 @app.route('/event-details') 
@@ -39,9 +41,24 @@ def event_details():
     return render_template('eventDetails.html') 
 
 #Route für createEvent.html
-@app.route('/create-event') 
+@app.route('/create-event', methods=['GET', 'POST'])
 def create_event():
-    return render_template('createEvent.html') 
+    form = CreateEventForm()
+    if form.validate_on_submit():
+        event = Event(
+            name=form.event_name.data,
+            description=form.event_description.data,
+            date=form.event_date.data,
+            start_time=form.event_starttime.data,
+            end_time=form.event_endtime.data,
+            location=form.event_location.data,
+            max_participants=form.participants.data
+        )
+        db.session.add(event)
+        db.session.commit()
+        flash('Event created successfully!', 'success')
+        return redirect(url_for('event_overview'))
+    return render_template('createEvent.html', form=form)
 
 # Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')
