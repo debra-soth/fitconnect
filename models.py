@@ -30,7 +30,7 @@ class Event(db.Model):
     end_time = db.Column(db.String(10), nullable=False)
     location = db.Column(db.String(200), nullable=False)
     max_participants = db.Column(db.Integer, nullable=True)
-    participants = db.Column(db.Integer, default=0, nullable=False)
+    #participants = db.Column(db.Integer, default=0, nullable=False)
     host_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Link event to a user
 
 # Datenbankbeziehung zwischen Event und User
