@@ -17,7 +17,7 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: functions: how to find a partner
+## 01: functions: How to find a partner
 
 ### Meta
 
@@ -48,7 +48,7 @@ As sort of a mix between the two alternative options, we want to add a "send lik
 ---
 
 
-## 02: [Title]
+## 02: Database Model – Likes vs. Matches
 
 ### Meta
 
@@ -60,15 +60,22 @@ Updated
 
 ### Problem statement
 
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
-
-### Decision
-
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
+Initially, the database model included a Match table to store confirmed matches. However, this approach added complexity and required extra storage and updates whenever matches changed.
 
 ### Regarded options
 
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
+1) Match Table:
+Each match is recorded when two users like each other
+
+- **Pros:** Matches are stored permanently, making retrieval easy
+- **Cons:** Requires updating the match table when users change likes, leading to unnecessary storage overhead
+
+2) Query-Based Matches Using Likes Table
+
+Instead of storing matches, the system dynamically queries mutual likes
+
+- **Pros:** No redundant data, matches update automatically, and it scales better.
+- **Cons:** Requires a query each time matches are retrieved.
 
 ---
 
