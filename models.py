@@ -20,3 +20,11 @@ class User(db.Model,UserMixin):
     gender = db.Column(db.String(20), nullable=True)
     motivation_text = db.Column(db.Text, nullable=True)
 
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String(100), nullable=False)
+    event_description = db.Column(db.Text, nullable=True)
+    event_date = db.Column(db.String(10), nullable=False)
+    event_starttime = db.Column(db.String(5), nullable=False)
+    event_endtime = db.Column(db.String(5), nullable=False)
+    event_location = db.Column(db.String(100), nullable=False)

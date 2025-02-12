@@ -84,7 +84,7 @@
         <div class="dropdown">
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
@@ -98,7 +98,9 @@
     <p class="text-muted">Here you can create a fitness event and allow other FitConnectors to join you on your next fitness activity</p>
 </div>
 <div class="container mt-4">
-    <form>
+    <form method="POST" action="{{ url_for('auth.create_event') }}">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token für Sicherheit -->
+
         <div class="mb-3">
             <label class="form-label fw-bold">Title:</label>
             <div class="input-group">

@@ -32,11 +32,6 @@ def event_overview():
 def event_details():
     return render_template('eventDetails.html') 
 
-#Route für createEvent.html
-@app.route('/create-event') 
-def create_event():
-    return render_template('createEvent.html') 
-
 # Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):
