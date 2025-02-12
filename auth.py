@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
-from .models import User, Event
+from .models import User, Event, event_participants
 from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm, CreateEventForm
 
 
@@ -205,8 +205,7 @@ def account_settings():
 def create_event():
     form = CreateEventForm()
     
-    if request.method == 'POST' and form.validate_on_submit():
-        print("Event-Formular wurde abgeschickt!")  # Debugging
+    if form.validate_on_submit():
         new_event = Event(
             event_name=form.event_name.data,
             event_description=form.event_description.data,
@@ -214,14 +213,38 @@ def create_event():
             event_starttime=form.event_starttime.data,
             event_endtime=form.event_endtime.data,
             event_location=form.event_location.data,
-            participants=form.participants.data
+            max_participants=form.max_participants.data,
+            host_id=current_user.id  # Host wird automatisch gesetzt!
         )
         db.session.add(new_event)
         db.session.commit()
-        flash("Event erfolgreich erstellt!", "success")
+        flash("Event successfully created!", "success")
 
-        return redirect(url_for('user_overview'))  
-    else:
-        print("Fehler im Formular:", form.errors)  # Debugging
+        return redirect(url_for('event_overview'))
+
     return render_template('createEvent.html', form=form)
 
+#Route fürs Joinen eines Events
+@auth.route('/join-event/<int:event_id>', methods=['POST'])
+@login_required
+def join_event(event_id):
+    event = Event.query.get_or_404(event_id)
+
+    # Überprüfen, ob der Benutzer bereits Teilnehmer ist
+    already_joined = db.session.query(event_participants).filter_by(user_id=current_user.id, event_id=event.id).first()
+    if already_joined:
+        flash('You are already part of this event.', 'warning')
+        return redirect(url_for('auth.event_details', event_id=event.id))
+
+    # Überprüfen, ob die maximale Teilnehmerzahl erreicht wurde
+    current_participants_count = db.session.query(event_participants).filter_by(event_id=event.id).count()
+    if current_participants_count >= event.max_participants:
+        flash('This event is already full.', 'danger')
+        return redirect(url_for('auth.event_details', event_id=event.id))
+
+    # User zum Event hinzufügen
+    db.session.execute(event_participants.insert().values(user_id=current_user.id, event_id=event.id))
+    db.session.commit()
+
+    flash('Successfully joined the event!', 'success')
+    return redirect(url_for('auth.event_details', event_id=event.id))
