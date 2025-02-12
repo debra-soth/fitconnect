@@ -213,11 +213,13 @@ def create_event():
             event_starttime=form.event_starttime.data,
             event_endtime=form.event_endtime.data,
             event_location=form.event_location.data,
+            participants=form.participants.data
         )
         db.session.add(new_event)
         db.session.commit()
         flash("Event erfolgreich erstellt!", "success")
 
         return redirect(url_for('user_overview'))  
-
+    else:
+        print("Fehler im Formular:", form.errors)  # Debugging
     return render_template('createEvent.html', form=form)

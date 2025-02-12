@@ -28,3 +28,4 @@ class Event(db.Model):
     event_starttime = db.Column(db.String(5), nullable=False)
     event_endtime = db.Column(db.String(5), nullable=False)
     event_location = db.Column(db.String(100), nullable=False)
+    participants = db.Column(db.Integer, nullable=False) 

@@ -104,39 +104,39 @@
         <div class="mb-3">
             <label class="form-label fw-bold">Title:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="eventTitle" placeholder="Event Title" required>
+                <input type="text" class="form-control" id="eventTitle" name="event_name" placeholder="Event Title" required>
                 <button type="button" class="btn btn-light" id="addDescriptionBtn">+ Add a description</button>
             </div>
         </div>
         
         <div class="mb-3" id="descriptionField">
             <label class="form-label fw-bold">Description:</label>
-            <textarea class="form-control" id="eventDescription" rows="3" placeholder="Optional: Add a description of the event"></textarea>
+            <textarea class="form-control" id="eventDescription" name="event_description" rows="3" placeholder="Optional: Add a description of the event"></textarea>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Date:</label>
-                <input type="date" class="form-control" id="eventDate" required>
+                <input type="date" class="form-control" id="eventDate" name="event_date" required>
             </div>
             <div class="col-md-3 mb-3">
                 <label class="form-label fw-bold">Start Time:</label>
-                <input type="time" class="form-control" id="startTime" required>
+                <input type="time" class="form-control" id="startTime" name="event_starttime" required>
             </div>
             <div class="col-md-3 mb-3">
                 <label class="form-label fw-bold">End Time:</label>
-                <input type="time" class="form-control" id="endTime" required>
+                <input type="time" class="form-control" id="endTime" name="event_endtime" required>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Location:</label>
-                <input type="text" class="form-control" id="eventLocation" placeholder="Event Location" required>
+                <input type="text" class="form-control" id="eventLocation" name="event_location" placeholder="Event Location" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Participants:</label>
-                <input type="number" class="form-control" placeholder="Maximum Amount" min="1" required>
+                <input type="number" class="form-control" placeholder="Maximum Amount" name="participants"  min="1" required>
             </div>
         </div>
         
