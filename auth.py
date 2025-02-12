@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
-from .models import User
+from .models import User, Event
 from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
 
 # Blueprint für Authentifizierurng wird definiert
@@ -138,3 +138,39 @@ def personalize_profile():
     
     
     return render_template('personalizeProfile.html', form=form)
+
+# Route for create event
+@auth.route('/create-event', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    if request.method == 'POST':
+        event_name = request.form.get('event_name')
+        event_description = request.form.get('event_description')
+        event_date = request.form.get('event_date')
+        event_starttime = request.form.get('event_starttime')
+        event_endtime = request.form.get('event_endtime')
+        event_location = request.form.get('event_location')
+        max_participants = request.form.get('max_participants')
+        
+        if not event_name or not event_date or not event_starttime or not event_location:
+            flash('Please fill out all required fields.', 'error')
+            return redirect(url_for('auth.create_event'))
+        
+        new_event = Event(
+            name=event_name,
+            description=event_description,
+            date=event_date,
+            start_time=event_starttime,
+            end_time=event_endtime,
+            location=event_location,
+            max_participants=int(max_participants) if max_participants else None,
+            participants=0,
+            host_id=current_user.id  # Store the event creator
+        )
+        
+        db.session.add(new_event)
+        db.session.commit()
+        flash('Event created successfully!', 'success')
+        return redirect(url_for('event_overview'))
+    
+    return render_template('createEvent.html')
