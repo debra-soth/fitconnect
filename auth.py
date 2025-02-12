@@ -174,3 +174,27 @@ def create_event():
         return redirect(url_for('event_overview'))
     
     return render_template('createEvent.html')
+
+# Route to see if user has joined an event
+
+@auth.route('/join-event/<int:event_id>', methods=['POST'])
+@login_required
+def join_event(event_id):
+    event = Event.query.get_or_404(event_id)
+
+    # Check if the user has already joined
+    if current_user.id in [user.id for user in event.participants_list]:  
+        flash("You are already participating in this event!", "info")
+        return redirect(url_for('event_details', event_id=event.id))
+
+    # Check if the event is full
+    if event.max_participants and event.participants >= event.max_participants:
+        flash("This event is already full!", "danger")
+        return redirect(url_for('event_details', event_id=event.id))
+
+    # Add the user to the event
+    event.participants += 1
+    db.session.commit()
+    
+    flash("You have successfully joined the event!", "success")
+    return redirect(url_for('event_details', event_id=event.id))
