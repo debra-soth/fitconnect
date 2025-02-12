@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
 from .models import User
-from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -138,3 +138,45 @@ def personalize_profile():
     
     
     return render_template('personalizeProfile.html', form=form)
+
+# Route für das Bearbeiten des Profils 
+@auth.route('/settings', methods=['GET', 'POST'])
+@login_required
+def account_settings():
+    form = AccountSettingsForm(obj=current_user)  # Füllt das Formular mit aktuellen User-Daten
+
+    if request.method == 'POST' and form.validate_on_submit():
+        # Aktualisiere die User-Daten mit den neuen Formulardaten
+        current_user.username = form.username.data
+        current_user.first_name = form.first_name.data
+        current_user.email = form.email.data
+
+        # Falls ein neues Passwort eingegeben wird, speichere es gehasht
+        if form.password.data:
+            current_user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+
+        # Profilbild hochladen und speichern
+        if form.profile_photo.data:
+            profile_photo = form.profile_photo.data
+            photo_filename = secure_filename(profile_photo.filename)
+            photo_path = os.path.join('static/images', photo_filename)
+            profile_photo.save(photo_path)
+            current_user.profile_photo = photo_path  # Speichere den Bildpfad
+
+        # Speichern der restlichen Formulardaten
+        current_user.favorite_activities = form.favorite_activities.data
+        current_user.gym_membership = form.gym_membership.data
+        current_user.availability = form.availability.data
+        current_user.fitness_level = form.fitness_level.data
+        current_user.age = form.age.data
+        current_user.gender = form.gender.data
+        current_user.motivation_text = form.motivation_text.data
+
+        # Speichern der Änderungen in der Datenbank
+        db.session.commit()
+        flash("Profile successfully updated!", "success")
+
+        # Weiterleitung zur User-Übersicht
+        return redirect(url_for('user_overview'))
+
+    return render_template('accountSettings.html', form=form)
