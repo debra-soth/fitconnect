@@ -63,14 +63,14 @@ Initially, the database model included a Match table to store confirmed matches.
 
 1) **Match Table**
 
-Each match is recorded when two users like each other
+    Each match is recorded when two users like each other
 
 - **Pros:** Matches are stored permanently, making retrieval easy
 - **Cons:** Requires updating the match table when users change likes, leading to unnecessary storage overhead
 
 2) **Query-Based Matches Using Likes Table**
 
-Instead of storing matches, the system dynamically queries mutual likes
+    Instead of storing matches, the system dynamically queries mutual likes
 
 - **Pros:** No redundant data, matches update automatically, and it scales better.
 - **Cons:** Requires a query each time matches are retrieved.
@@ -102,9 +102,7 @@ We initially used SQLite due to its simplicity and easy setup. However, as we pr
 | | Suitable for local development | We were not able to access certain users made by other team members|
 | **PostgreSQL**| Supports multiple concurrent users| Requires more setup|
 | |Better performance| Requires more maintenance |
----
 
 ### Decision
 
 We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
-
