@@ -126,17 +126,24 @@ The solution was to offer an Event option where users can join fitness events an
 
 ### Considered options
 
-1. Keeping FitConnect as a User-Matching App
+1. **Keeping FitConnect as a User-Matching App**
 
-    | Pros | Cons |
+    | **Pros** | **Cons** |
     | --- | --- |
-    | Simpler to develop, more focused on individual connections|Users can become unsure how or when to meet, leading to low engagement|
+    | Simpler to develop|Users can become unsure how or when to meet|
+    | More focused on individual connections|Low engagement|
 
-2. Allowing Users to Create and Join Events (Final Choice)
+2. **Allowing Users to Create and Join Events (Final Choice)**
 
-- **Pros:** Provides structured opportunities for engagement, encourages organic connections, and ensures a steady flow of activities on the platform.
-Cons: Requires event moderation to prevent spam and low-quality events, and additional UI complexity.
+    | **Pros:** |**Cons:**|
+    |---|---|
+    |Provides structured opportunities for engagement and ensures a steady flow of activities on the platform| Requires event moderation to prevent low-quality events|
+    |Ensures a steady flow of activities on the platform| Additional UI complexity|
+
+
 
 ### Decision
 
-We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
+We moved away from a pure user-matching approach and instead built an event-driven model that gives users more structured ways to connect. While one-on-one matching is still an option, users now have the ability to create and join events, making it much easier to find workout opportunities without relying solely on direct messaging.
+
+This change makes the platform more engaging by ensuring that even if users don’t feel comfortable reaching out individually, they can still participate in group activities. It also helps new users immediately find something to join, rather than waiting for a match.
