@@ -19,19 +19,22 @@ class User(db.Model,UserMixin):
     age = db.Column(db.Integer, nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     motivation_text = db.Column(db.Text, nullable=True)
-
+# Beziehungen
+    hosted_events = db.relationship('Event', backref='host', lazy=True)  # Events, die dieser User hostet
+    joined_events = db.relationship('Event', secondary='event_participants', backref='participants', lazy='dynamic')  # Events, an denen der User teilnimmt
+    
 #Datenbankmodell erstellen für Event 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(150), nullable=False)
     event_description = db.Column(db.Text, nullable=True)
-    event_date = db.Column(db.String(20), nullable=False)
-    event_starttime = db.Column(db.String(10), nullable=False)
-    event_endtime = db.Column(db.String(10), nullable=False)
+    event_date = db.Column(db.Date, nullable=False)
+    event_starttime = db.Column(db.Time, nullable=False)
+    event_endtime = db.Column(db.Time, nullable=False)
     event_location = db.Column(db.String(200), nullable=False)
-    #participants = db.Column(db.Integer, nullable=False) 
     max_participants = db.Column(db.Integer, nullable=True, default=10)
     host_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Link event to a user
+
 
 # Datenbankbeziehung zwischen Event und User
 event_participants = db.Table(
