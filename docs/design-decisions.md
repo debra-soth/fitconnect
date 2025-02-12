@@ -31,7 +31,7 @@ The application FitConnect aims to connect people to do exercise together. The m
 We want to make the application user-friendly, but also strctured effieciently. 
 That is why we thought of two ways to organize the connection process:
 
-### Regarded options
+### Considered options
 
 1) People can be matched, as it is the case with dating platforms. This would require, that all data entered can be processed and compared. For example memberships should be comparable, if this is a requirement for  someone to be matched. To realise this, a data base with all possible memberships has to be made available. But there could be a risk of not covering all possibilities.
 
@@ -59,7 +59,7 @@ Updated
 
 Initially, the database model included a Match table to store confirmed matches. However, this approach added complexity and required extra storage and updates whenever matches changed.
 
-### Regarded options
+### Considered options
 
 1) **Match Table**
 
@@ -87,45 +87,24 @@ We decided to go with the second option of query-based matches to make the syste
 Status: Work in progress - **Decided** - Obsolete
 
 Updated:
-30-Jun-2024
+10-02-2025
 
 ### Problem statement
 
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
+We initially used SQLite due to its simplicity and easy setup. However, as we prepared for production deployment, we encountered limitations that made it unsuitable for a live, multi-user environment. The challenge was selecting a database that balances scalability, performance, and compatibility with our deployment needs.
 
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
+### Considered options
 
 
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+| Database | Pros | Cons |
+| --- | --- | --- |
+| **SQLite** | No configuration needed | No built-in user management |
+| | Suitable for local development | We were not able to access certain users made by other team members|
+| **PostgreSQL**| Supports multiple concurrent users| Requires more setup|
+| |Better performance| Requires more maintenance |
+---
 
 ### Decision
 
-We stick with plain SQL.
+We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
 
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
-
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
-
-### Regarded options
-
-We regarded two alternative options:
-
-+ Plain SQL
-+ SQLAlchemy
-
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
-
----
