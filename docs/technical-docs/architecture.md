@@ -41,7 +41,7 @@ FitConnect is a Flask-based web application designed to connect people with the 
 
 #### Backend:
 
-For our backend we mainly used Flask and SQLAlchemy. 
+For our backend we mainly used Flask and PostgreSQL. 
 
 - `app.py` is the entry point that initializes our app
 - `auth.py` manages user authentication, like login, logout and registration
@@ -69,6 +69,12 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 
 - `createEvent.html` allows users to create new fitness events
 
+#### Libraries & Dependencies:
+
+- Flask-Login for user authentication
+- Flask-WTF for Form validation
+- SQLAlchemy as Database ORM
+
 >EDIT #### Database:
 >
 >User Model
@@ -95,3 +101,4 @@ graph TD;
     G -->|HTML Pages| O[UI Screens]
     H -->|CSS & JS Files| P[Frontend Enhancements]
 ```
+## Application Structure
