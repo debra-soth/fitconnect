@@ -105,7 +105,7 @@
         <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
         <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*" onchange="previewImage(event)">
         <!-- Vorschau des Profilbilds -->
-        <div class="mt-3">
+        <div class="mt-3 text-center d-flex justify-content-center">
             <img id="profilePhotoPreview" src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}" alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
         </div>
     </div>
