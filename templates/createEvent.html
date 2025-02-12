@@ -102,38 +102,38 @@
         {{ form.hidden_tag() }} <!-- CSRF Token for security -->
         
         <div class="mb-3">
-            <label class="form-label fw-bold">Title:</label>
+            <label class="form-label fw-bold" for="eventTitle">Title:</label>
             <input type="text" class="form-control" name="event_name" id="eventTitle" placeholder="Event Title" required>
         </div>
         
         <div class="mb-3">
-            <label class="form-label fw-bold">Description:</label>
+            <label class="form-label fw-bold" for="eventDescription">Description:</label>
             <textarea class="form-control" name="event_description" id="eventDescription" rows="3" placeholder="Optional: Add a description"></textarea>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Date:</label>
+                <label class="form-label fw-bold" for="eventDate">Date:</label>
                 <input type="date" class="form-control" name="event_date" id="eventDate" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label class="form-label fw-bold">Start Time:</label>
+                <label class="form-label fw-bold" for="startTime">Start Time:</label>
                 <input type="time" class="form-control" name="event_starttime" id="startTime" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label class="form-label fw-bold">End Time:</label>
+                <label class="form-label fw-bold" for="endTime">End Time:</label>
                 <input type="time" class="form-control" name="event_endtime" id="endTime" required>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Location:</label>
+                <label class="form-label fw-bold" for="eventLocation">Location:</label>
                 <input type="text" class="form-control" name="event_location" id="eventLocation" placeholder="Event Location" required>
             </div>
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Max Participants:</label>
-                <input type="number" class="form-control" name="max_participants" id="maxParticipants" placeholder="Maximum Amount" min="1" required>
+                <label class="form-label fw-bold" for="maxParticipants">Max Participants:</label>
+                <input type="number" class="form-control" name="participants" id="maxParticipants" placeholder="Maximum Amount" min="1" required>
             </div>
         </div>
         
