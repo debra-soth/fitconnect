@@ -42,9 +42,9 @@ The application flow starts when a user sends a request, such as logging in or c
 
 For authentication, users register and log in with hashed passwords, and their sessions are managed through Flask-Login. 
 
-## Core Components:
+## Core Components
 
-### Backend:
+### Backend
 
 For our backend we mainly used Flask and PostgreSQL. 
 
@@ -54,7 +54,7 @@ For our backend we mainly used Flask and PostgreSQL.
 - `models.py` defines the database models including User and Event
 - `forms.py` implements WTForms-based validation for user input
 
-### Frontend:
+### Frontend
 
 For the front-end we used HTML, Bootstrap and Jinja2. These are our templates for user interaction:
 
@@ -74,7 +74,7 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 
 - `createEvent.html` allows users to create new fitness events
 
-### Libraries & Dependencies:
+### Libraries & Dependencies
 
 - Flask-Login for user authentication
 - Flask-WTF for Form validation
