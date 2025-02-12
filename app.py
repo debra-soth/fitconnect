@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from .db import create_app, db  # Importiere create_app Funktion aus db.py
 from .auth import auth, PersonalizeProfileForm
-from .models import User  # Import the User model
+from .models import User, Event  # Import the User model
+from .forms import CreateEventForm
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
@@ -25,7 +26,8 @@ def user_overview():
 #Route für eventOverview.html
 @app.route('/events') 
 def event_overview():
-    return render_template('eventOverview.html') 
+    events = Event.query.all()  # Retrieve all events from the database
+    return render_template('eventOverview.html', events=events)
 
 #Route für eventDetails.html
 @app.route('/event-details') 

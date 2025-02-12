@@ -12,6 +12,7 @@ from .db import db
 from .models import User, Event
 from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm, CreateEventForm
 
+
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
 

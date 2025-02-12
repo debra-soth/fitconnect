@@ -44,7 +44,7 @@ class CreateEventForm(FlaskForm):
     event_starttime = StringField('Event Start Time', validators=[InputRequired()])
     event_endtime = StringField('Event End Time', validators=[InputRequired()])
     event_location = StringField('Event Location', validators=[InputRequired()])
-    participants = IntegerField('Participants', validators=[InputRequired()]) 
+    max_participants = IntegerField('Max Participants', validators=[InputRequired()])
     submit = SubmitField('Create Event')
 
 # Formular für das Bearbeiten des Profils
