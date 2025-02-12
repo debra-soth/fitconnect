@@ -21,11 +21,9 @@ nav_order: 3
 
 ### Meta
 
-Status
-: Work in progress - **Decided** - Obsolete
+Status: Work in progress - **Decided** - Obsolete
 
-Updated
-: 11-Dec-2024
+Updated: 11-Dec-2024
 
 ### Problem statement
 
@@ -45,7 +43,6 @@ After discussion, we all decided to go with option two. The reason for this is t
 If other topics should require less time, we want to keep the option of filtering profiles based on personal interests or strict time slots in mind.
 As sort of a mix between the two alternative options, we want to add a "send like" button to every profile a user can view. After sending a like, this will pop up for the user of the liked profile. He/ she can like back or delete the like request. Only if both sides like each other, a user's contact info will be shown.
 
----
 
 
 ## 02: Database Model – Likes vs. Matches
@@ -56,7 +53,7 @@ Status
 : **Work in progress** - Decided - Obsolete
 
 Updated
-: DD-MMM-YYYY
+: 12-02-2025
 
 ### Problem statement
 
@@ -64,30 +61,33 @@ Initially, the database model included a Match table to store confirmed matches.
 
 ### Regarded options
 
-1) Match Table:
+1) **Match Table**
+
 Each match is recorded when two users like each other
 
 - **Pros:** Matches are stored permanently, making retrieval easy
 - **Cons:** Requires updating the match table when users change likes, leading to unnecessary storage overhead
 
-2) Query-Based Matches Using Likes Table
+2) **Query-Based Matches Using Likes Table**
 
 Instead of storing matches, the system dynamically queries mutual likes
 
 - **Pros:** No redundant data, matches update automatically, and it scales better.
 - **Cons:** Requires a query each time matches are retrieved.
 
----
+### Decision
 
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
+We decided to go with the second option of query-based matches to make the system more dynamic and scalable. Matches can be now detected in real-time by checking for mutual likes rather than being explicitly sstored.
+
+
+## 03: Databse Choice – SQLite vs. PostgreSQL
 
 ### Meta
 
-Status
-: Work in progress - **Decided** - Obsolete
+Status: Work in progress - **Decided** - Obsolete
 
-Updated
-: 30-Jun-2024
+Updated:
+30-Jun-2024
 
 ### Problem statement
 
