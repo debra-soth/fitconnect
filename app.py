@@ -16,10 +16,11 @@ def index():
 def personalize_profile():
     return render_template('personalizeProfile.html', form=PersonalizeProfileForm())  # Übergebe das Formular an das Template
 
-#Route für accountSettings
-@app.route('/settings')
+#Route für accountSettings.html
+@app.route('/settings', methods=['GET', 'POST'])
 def account_settings():
-    return render_template('accountSettings.html')
+    form = PersonalizeProfileForm()  # Erstelle eine Instanz des Formulars
+    return render_template('accountSettings.html', form=form)  # Form ans Template übergeben
 
 #Route für userOverview.html
 @app.route('/user')
@@ -41,6 +42,12 @@ def event_details():
 @app.route('/create-event') 
 def create_event():
     return render_template('createEvent.html') 
+
+# Route für userProfileDetail.html
+@app.route('/user/<int:user_id>')
+def user_profile_detail(user_id):
+    user = User.query.get(user_id)  # Holt den User mit der gegebenen ID aus der Datenbank
+    return render_template('userProfileDetail.html', user=user)  # Übergibt den User an das Template
 
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
