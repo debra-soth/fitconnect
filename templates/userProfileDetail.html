@@ -76,7 +76,7 @@
         <div class="dropdown">
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="/create-event">Create Event</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>

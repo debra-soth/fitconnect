@@ -34,26 +34,6 @@ def event_overview():
 def event_details():
     return render_template('eventDetails.html') 
 
-#Route für createEvent.html
-@app.route('/create-event', methods=['GET', 'POST'])
-def create_event():
-    form = CreateEventForm()
-    if form.validate_on_submit():
-        event = Event(
-            name=form.event_name.data,
-            description=form.event_description.data,
-            date=form.event_date.data,
-            start_time=form.event_starttime.data,
-            end_time=form.event_endtime.data,
-            location=form.event_location.data,
-            max_participants=form.participants.data
-        )
-        db.session.add(event)
-        db.session.commit()
-        flash('Event created successfully!', 'success')
-        return redirect(url_for('event_overview'))
-    return render_template('createEvent.html', form=form)
-
 # Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):

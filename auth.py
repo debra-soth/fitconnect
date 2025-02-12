@@ -10,7 +10,8 @@ from werkzeug.utils import secure_filename
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
 from .models import User, Event
-from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm, CreateEventForm
+
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -198,3 +199,29 @@ def account_settings():
             print(form.errors)  # Debugging: Zeigt an, warum das Formular fehlschlägt
 
     return render_template('accountSettings.html', form=form)
+
+@auth.route('/create-event', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form = CreateEventForm()
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        print("Event-Formular wurde abgeschickt!")  # Debugging
+        new_event = Event(
+            event_name=form.event_name.data,
+            event_description=form.event_description.data,
+            event_date=form.event_date.data,
+            event_starttime=form.event_starttime.data,
+            event_endtime=form.event_endtime.data,
+            event_location=form.event_location.data,
+            participants=form.participants.data
+        )
+        db.session.add(new_event)
+        db.session.commit()
+        flash("Event erfolgreich erstellt!", "success")
+
+        return redirect(url_for('user_overview'))  
+    else:
+        print("Fehler im Formular:", form.errors)  # Debugging
+    return render_template('createEvent.html', form=form)
+

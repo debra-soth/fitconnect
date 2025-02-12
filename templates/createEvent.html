@@ -84,7 +84,7 @@
         <div class="dropdown">
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
@@ -98,42 +98,44 @@
     <p class="text-muted">Here you can create a fitness event and allow other FitConnectors to join you on your next fitness activity</p>
 </div>
 <div class="container mt-4">
-    <form action="/create-event" method="POST">
-        {{ form.hidden_tag() }} <!-- CSRF Token for security -->
-        
+    <form method="POST" action="{{ url_for('auth.create_event') }}">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token für Sicherheit -->
         <div class="mb-3">
-            <label class="form-label fw-bold" for="eventTitle">Title:</label>
-            <input type="text" class="form-control" name="event_name" id="eventTitle" placeholder="Event Title" required>
+            <label class="form-label fw-bold">Title:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="eventTitle" name="event_name" placeholder="Event Title" required>
+                <button type="button" class="btn btn-light" id="addDescriptionBtn">+ Add a description</button>
+            </div>
         </div>
         
-        <div class="mb-3">
-            <label class="form-label fw-bold" for="eventDescription">Description:</label>
-            <textarea class="form-control" name="event_description" id="eventDescription" rows="3" placeholder="Optional: Add a description"></textarea>
+        <div class="mb-3" id="descriptionField">
+            <label class="form-label fw-bold">Description:</label>
+            <textarea class="form-control" id="eventDescription" name="event_description" rows="3" placeholder="Optional: Add a description of the event"></textarea>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold" for="eventDate">Date:</label>
-                <input type="date" class="form-control" name="event_date" id="eventDate" required>
+                <label class="form-label fw-bold">Date:</label>
+                <input type="date" class="form-control" id="eventDate" name="event_date" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label class="form-label fw-bold" for="startTime">Start Time:</label>
-                <input type="time" class="form-control" name="event_starttime" id="startTime" required>
+                <label class="form-label fw-bold">Start Time:</label>
+                <input type="time" class="form-control" id="startTime" name="event_starttime" required>
             </div>
             <div class="col-md-3 mb-3">
-                <label class="form-label fw-bold" for="endTime">End Time:</label>
-                <input type="time" class="form-control" name="event_endtime" id="endTime" required>
+                <label class="form-label fw-bold">End Time:</label>
+                <input type="time" class="form-control" id="endTime" name="event_endtime" required>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold" for="eventLocation">Location:</label>
-                <input type="text" class="form-control" name="event_location" id="eventLocation" placeholder="Event Location" required>
+                <label class="form-label fw-bold">Location:</label>
+                <input type="text" class="form-control" id="eventLocation" name="event_location" placeholder="Event Location" required>
             </div>
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold" for="maxParticipants">Max Participants:</label>
-                <input type="number" class="form-control" name="participants" id="maxParticipants" placeholder="Maximum Amount" min="1" required>
+                <label class="form-label fw-bold">Participants:</label>
+                <input type="number" class="form-control" placeholder="Maximum Amount" name="participants"  min="1" required>
             </div>
         </div>
         
