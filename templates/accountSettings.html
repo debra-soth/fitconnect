@@ -86,7 +86,7 @@
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('account_settings') }}">Account Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </div>
@@ -158,7 +158,7 @@
             <!-- Eingabefeld für die Gym Membership-->
         <div class="form-group mt-3 mb-5">
             <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
-            <input type="text" class="form-control" id="gymMembership" name="gym_membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;">
+            <input type="text" class="form-control" id="gymMembership" name="gym_membership" value="{{ form.gym_membership.data or '' }}" style="width: 300px; background-color: #ffffff;">
         </div>
             <!-- Checkboxen für die Verfügbarkeiten der Wochentage -->
             <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
@@ -203,14 +203,14 @@
                                 <p><strong>5 = Average:</strong> Can comfortably jog 1-2 km without stopping or perform 15-20 bodyweight squats.</p>
                                 <p><strong>10 = Expert:</strong> Can run 5 km without stopping, perform 30+ bodyweight squats, and handle intense workouts like HIIT or cycling for an hour.</p>">
                 </i>
-                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="5">
+                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="{{ form.fitness_level.data}}">
             <div class="text-center">
                     <span id="fitnessLevelValue">5</span>
             </div>
                 <!-- Range für die Auswahl des Alters -->
             <div class="mb-3 mt-5 form-group">
                     <label for="age" style="font-size: 1.1em;"><strong>Age</strong></label>
-                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="18">
+                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="{{ form.age.data}}">
             <div class="text-center">
                     <span id="ageValue">18</span>
             </div>
@@ -231,7 +231,7 @@
             <!-- Eingabefeld für den Motivationstext -->
             <div class="form-group mt-5 mb-5">
                 <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation text</strong></label>
-                <textarea class="form-control" id="motivationText" name="motivation_text" placeholder="Add text" style="width: 300px; height: 100px; background-color: #ffffff;"></textarea>
+                <textarea class="form-control" id="motivationText" name="motivation_text" value="{{ form.motivation_text.data or '' }}" style="width: 300px; height: 100px; background-color: #ffffff;"></textarea>
             </div>
             </div>
             </div>
