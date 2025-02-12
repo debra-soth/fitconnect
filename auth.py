@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
 from .models import User, Event
-from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -139,62 +139,62 @@ def personalize_profile():
     
     return render_template('personalizeProfile.html', form=form)
 
-# Route for create event
-@auth.route('/create-event', methods=['GET', 'POST'])
+@auth.route('/settings', methods=['GET', 'POST'])
 @login_required
-def create_event():
+def account_settings():
+    form = AccountSettingsForm(obj=current_user)  # Füllt das Formular mit aktuellen User-Daten
+
+    print("Formular wurde geladen")  # Debugging: Wird die Route aufgerufen?
+
     if request.method == 'POST':
-        event_name = request.form.get('event_name')
-        event_description = request.form.get('event_description')
-        event_date = request.form.get('event_date')
-        event_starttime = request.form.get('event_starttime')
-        event_endtime = request.form.get('event_endtime')
-        event_location = request.form.get('event_location')
-        max_participants = request.form.get('max_participants')
-        
-        if not event_name or not event_date or not event_starttime or not event_location:
-            flash('Please fill out all required fields.', 'error')
-            return redirect(url_for('auth.create_event'))
-        
-        new_event = Event(
-            name=event_name,
-            description=event_description,
-            date=event_date,
-            start_time=event_starttime,
-            end_time=event_endtime,
-            location=event_location,
-            max_participants=int(max_participants) if max_participants else None,
-            participants=0,
-            host_id=current_user.id  # Store the event creator
-        )
-        
-        db.session.add(new_event)
-        db.session.commit()
-        flash('Event created successfully!', 'success')
-        return redirect(url_for('event_overview'))
-    
-    return render_template('createEvent.html')
+        print("POST-Request wurde empfangen")  # Debugging: Prüfen, ob das Formular abgeschickt wurde
+        print("Formulardaten:", request.form)  # Debugging: Alle empfangenen Formulardaten anzeigen
 
-# Route to see if user has joined an event
+        if form.validate_on_submit():
+            print("Formular wurde validiert")  # Debugging: Ist die Validierung erfolgreich?
 
-@auth.route('/join-event/<int:event_id>', methods=['POST'])
-@login_required
-def join_event(event_id):
-    event = Event.query.get_or_404(event_id)
+            # Aktualisiere die User-Daten mit den neuen Formulardaten
+            current_user.username = form.username.data
+            current_user.first_name = form.first_name.data
+            current_user.email = form.email.data
 
-    # Check if the user has already joined
-    if current_user in event.participants_list:
-        flash("You are already participating in this event!", "info")
-        return redirect(url_for('event_details', event_id=event.id))
+            # Falls ein neues Passwort eingegeben wird, speichere es gehasht
+            if form.password.data:
+                print("Neues Passwort erkannt")  # Debugging
+                current_user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
 
-    # Check if the event is full
-    if event.max_participants and len(event.participants_list) >= event.max_participants:
-        flash("This event is already full!", "danger")
-        return redirect(url_for('event_details', event_id=event.id))
+            # Profilbild hochladen und speichern
+            if form.profile_photo.data:
+                print("Profilbild wird verarbeitet")  # Debugging
+                profile_photo = form.profile_photo.data
+                photo_filename = secure_filename(profile_photo.filename)
+                photo_path = os.path.join('static/images', photo_filename)
+                profile_photo.save(photo_path)
+                current_user.profile_photo = photo_path  # Speichere den Bildpfad
 
-    # Add the user to the participants list
-    event.participants_list.append(current_user)
-    db.session.commit()
-    
-    flash("You have successfully joined the event!", "success")
-    return redirect(url_for('event_details', event_id=event.id))
+            # Speichern der restlichen Formulardaten
+            current_user.favorite_activities = form.favorite_activities.data
+            current_user.gym_membership = form.gym_membership.data
+            current_user.availability = form.availability.data
+            current_user.fitness_level = form.fitness_level.data
+            current_user.age = form.age.data
+            current_user.gender = form.gender.data
+            current_user.motivation_text = form.motivation_text.data
+
+            # Speichern der Änderungen in der Datenbank
+            try:
+                db.session.commit()
+                print("Änderungen erfolgreich gespeichert")  # Debugging
+                flash("Profile successfully updated!", "success")
+
+                # Weiterleitung zur User-Übersicht
+                return redirect(url_for('user_overview'))
+            except Exception as e:
+                print("Fehler beim Speichern in der Datenbank:", str(e))  # Debugging
+                db.session.rollback()  # Falls etwas schiefgeht, rollback machen
+
+        else:
+            print("Formularvalidierung fehlgeschlagen")  # Debugging
+            print(form.errors)  # Debugging: Zeigt an, warum das Formular fehlschlägt
+
+    return render_template('accountSettings.html', form=form)

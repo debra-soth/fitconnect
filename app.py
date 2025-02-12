@@ -17,12 +17,6 @@ def index():
 def personalize_profile():
     return render_template('personalizeProfile.html', form=PersonalizeProfileForm())  # Übergebe das Formular an das Template
 
-#Route für accountSettings.html
-@app.route('/settings', methods=['GET', 'POST'])
-def account_settings():
-    form = PersonalizeProfileForm()  # Erstelle eine Instanz des Formulars
-    return render_template('accountSettings.html', form=form)  # Form ans Template übergeben
-
 #Route für userOverview.html
 @app.route('/user')
 def user_overview():
