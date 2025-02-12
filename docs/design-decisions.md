@@ -67,7 +67,9 @@ Initially, the database model included a Match table to store confirmed matches.
 
     |**Pros:** |**Cons:** |
     |---|---|
-    |Matches are stored permanently, making retrieval easy|Requires updating the match table when users change likes, leading to unnecessary storage overhead|
+    |Matches are stored permanently|Requires updating the match table when users change likes, leading to unnecessary storage overhead|
+    | Easy retrieval ||
+    
 
 
 2) **Query-Based Matches Using Likes Table**
@@ -76,7 +78,9 @@ Initially, the database model included a Match table to store confirmed matches.
 
     |**Pros:** |**Cons:** |
     |---|---|
-    |No redundant data, matches update automatically, and it scales better|Requires a query each time matches are retrieved|
+    |No redundant data |Requires a query each time matches are retrieved|
+    |Matches update automatically||
+    |Can scale better||
 
 ### Decision
 
