@@ -86,7 +86,7 @@
             <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('account_settings') }}">Account Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </div>
@@ -97,28 +97,29 @@
     <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Edit Your Profile</strong></h1>
-    <form method="POST" action="/">
+    <form method="POST" action="{{ url_for('auth.account_settings') }}" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token für Sicherheit -->
     <div class="form-group mt-3 mb-5">
     <!-- Unterpunkt Account Information für Struktur-->
     <h4 class="mb-3 mt-3 text-muted"><strong>Account Information</strong></h4>
             <!-- Eingabefeld für den Benutzernamen -->
             <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" style="width: 300px; background-color: #ffffff;" required>
+            <input type="text" class="form-control" id="username" name="username" value="{{ form.username.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für den Vornamen -->
-            <label for="First name" style="font-size: 1.1em;"><strong>First name:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="First name" style="width: 300px; background-color: #ffffff;" required>
+            <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für die E-Mail-Adresse -->
-            <label for="username" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="E-mail" style="width: 300px; background-color: #ffffff;" required>
+            <label for="email" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ form.email.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
         <div class="form-group mb-3 mt-5">
             <!-- Eingabefeld für das Passwort -->
             <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="width: 300px; background-color: #ffffff;" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" style="width: 300px; background-color: #ffffff;">
         </div>
 
         <!-- Unterpunkt Personal Information für Struktur-->
@@ -133,7 +134,8 @@
             <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*" onchange="previewImage(event)">
             <!-- Vorschau des Profilbilds -->
             <div class="mt-3">
-                <img id="profilePhotoPreview" src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}" alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
+                <img id="profilePhotoPreview" src="{{ url_for('static', filename=form.profile_photo.data.replace('static/', '', 1)) if form.profile_photo.data else url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}"
+                     alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
             </div>
         </div>
 
@@ -141,57 +143,64 @@
             <!-- Eingabefeld für die Lieblingssportart(en)-->
             <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
 
-        <!-- Hier werden bestehende Werte von WTForms gerendert -->
+       
             <div id="activityFields">
-            <!-- Standardmäßig nur ein Feld -->
-            <input type="text" class="form-control mb-2" name="favorite_activities-0" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
-        
+        <!-- Hier werden alle vorhandenen Aktivitäten aus der Datenbank geladen und angezeigt -->
+            {% for field in form.favorite_activities %}
+                <input type="text" class="form-control mb-2" name="{{ field.name }}" value="{{ field.data }}" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
+            {% endfor %}
             </div>
-        
             <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
             <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
             <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
         </div>
             <!-- Container für die zusätzlichen Eingabefelder -->
         <div id="additionalActivities"></div>
-            <!-- Eingabefeld für die Gym Membership-->
+            <!-- Gespeicherte Gym Membership des Users wird angezeigt, wenn eine angegeben wurde-->
         <div class="form-group mt-3 mb-5">
             <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
-            <input type="text" class="form-control" id="gymMembership" name="gym_membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;">
+            <input type="text" class="form-control" id="gymMembership" name="gym_membership" value="{{ form.gym_membership.data or '' }}" style="width: 300px; background-color: #ffffff;">
         </div>
-            <!-- Checkboxen für die Verfügbarkeiten der Wochentage -->
-            <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability">
+            <!-- Verfügbarkeiten der Wochentage werden als checked markiert, wenn User den entsprechenden Tag als Verfügbarkeit gespeichert hatte-->
+           <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability" 
+                    {% if 'monday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="mondayCheckbox">Monday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability" 
+                    {% if 'tuesday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="tuesdayCheckbox">Tuesday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability" 
+                    {% if 'wednesday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="wednesdayCheckbox">Wednesday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability" 
+                    {% if 'thursday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="thursdayCheckbox">Thursday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability" 
+                    {% if 'friday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="fridayCheckbox">Friday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability" 
+                    {% if 'saturday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="saturdayCheckbox">Saturday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability">
+                    <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability" 
+                    {% if 'sunday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="sundayCheckbox">Sunday</label>
                 </li>
-                </ul>
-                <!-- Range für die Auswahl des Fitnesslevels -->
+            </ul>
+                <!-- Das gespeicherte Fitnesslevel des Users wird angezeigt -->
             <div class="mb-4 mt-5 form-group">
                 <label for="fitnessLevel" style="font-size: 1.1em;"><strong>Fitness Level (1-10)</strong></label> 
                 <!-- Popover-Icon für zusätzliche Informationen zum Fitness-level -->
@@ -202,41 +211,45 @@
                                 <p><strong>5 = Average:</strong> Can comfortably jog 1-2 km without stopping or perform 15-20 bodyweight squats.</p>
                                 <p><strong>10 = Expert:</strong> Can run 5 km without stopping, perform 30+ bodyweight squats, and handle intense workouts like HIIT or cycling for an hour.</p>">
                 </i>
-                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="5">
+                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="{{ form.fitness_level.data}}">
             <div class="text-center">
                     <span id="fitnessLevelValue">5</span>
             </div>
-                <!-- Range für die Auswahl des Alters -->
+                <!-- Das gespeicherte Alter des Users wird angezeigt -->
             <div class="mb-3 mt-5 form-group">
                     <label for="age" style="font-size: 1.1em;"><strong>Age</strong></label>
-                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="18">
+                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="{{ form.age.data}}">
             <div class="text-center">
                     <span id="ageValue">18</span>
             </div>
-            <!-- Auswahl des Geschlechts-->
+            <!-- Das gespeicherte Geschlecht des Users wird angezeigt -->
             </div>
-                <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label> 
+            <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label> 
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 
-                <input type="radio" class="btn-check" name="gender" value="Female" id="genderFemale" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="genderFemale">Female</label>
+                    <input type="radio" class="btn-check" name="gender" value="Female" id="genderFemale" autocomplete="off" 
+                        {% if form.gender.data == "Female" %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="genderFemale">Female</label>
 
-                <input type="radio" class="btn-check" name="gender" value="Male" id="genderMale" autocomplete="off">
-                <label class="btn btn-outline-primary" for="genderMale">Male</label>
+                    <input type="radio" class="btn-check" name="gender" value="Male" id="genderMale" autocomplete="off" 
+                        {% if form.gender.data == "Male" %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="genderMale">Male</label>
 
-                <input type="radio" class="btn-check" name="gender" value="Diverse" id="genderDiverse" autocomplete="off">
-                <label class="btn btn-outline-primary" for="genderDiverse">Diverse</label>
+                    <input type="radio" class="btn-check" name="gender" value="Diverse" id="genderDiverse" autocomplete="off" 
+                        {% if form.gender.data == "Diverse" %}checked{% endif %}>
+                    <label class="btn btn-outline-primary" for="genderDiverse">Diverse</label>
+
+                </div>
+            <!-- Motivationstext wird angezeigt, wenn der User einen gespeichert hat -->
+                <div class="form-group mt-5 mb-5">
+                    <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation text</strong></label>
+                    <textarea class="form-control" id="motivationText" name="motivation_text" style="width: 300px; height: 100px; background-color: #ffffff;">{{ form.motivation_text.data or '' }}</textarea>
+                </div>
             </div>
-            <!-- Eingabefeld für den Motivationstext -->
-            <div class="form-group mt-5 mb-5">
-                <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation text</strong></label>
-                <textarea class="form-control" id="motivationText" name="motivation_text" placeholder="Add text" style="width: 300px; height: 100px; background-color: #ffffff;"></textarea>
             </div>
-            </div>
-            </div>
-            <!-- Button zum Speichern-->
+            <!-- Button zum Speichern der Bearbeitung-->
             <div class="form-group d-flex justify-content-center mt-5">
-                <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Save </button>
+                <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Edit </button>
             </div>
         </form>
     </div>
@@ -246,48 +259,43 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Favorite Fitness Activity Plus-Button JS -->
     <script>
-    // Zähler für die Anzahl der Textfelder
-    let fieldCount = 1;
+    // Funktion zur Initialisierung
+    document.addEventListener("DOMContentLoaded", function () {
+        let fieldCount = document.querySelectorAll("#activityFields input").length;
 
-    // Füge Event Listener für den Plus-Button hinzu
-    document.getElementById("addActivity").addEventListener("click", function () {
-        var activityContainer = document.getElementById("additionalActivities");
+        document.getElementById("addActivity").addEventListener("click", function () {
+            let activityContainer = document.getElementById("activityFields");
 
-        // Erstelle ein neues Eingabefeld
-        var newField = document.createElement("input");
-        newField.setAttribute("type", "text");
-        newField.setAttribute("class", "form-control mb-3");
-        newField.setAttribute("name", `favorite_activities-${fieldCount}`);  // Indexierung für WTForms
-        newField.setAttribute("placeholder", "Add Fitness Activity");
-        newField.setAttribute("style", "width: 300px; background-color: #ffffff; position: relative; top: -40px;");
+            // Erstelle ein neues Eingabefeld mit dynamischer Namensgebung
+            let newField = document.createElement("input");
+            newField.setAttribute("type", "text");
+            newField.setAttribute("class", "form-control mb-2");
+            newField.setAttribute("name", `favorite_activities-${fieldCount}`);
+            newField.setAttribute("placeholder", "Add Fitness Activity");
+            newField.setAttribute("style", "width: 300px; background-color: #ffffff;");
 
-        // Füge das neue Feld in den Container ein
-        activityContainer.appendChild(newField);
+            // Füge das neue Feld in den Container ein
+            activityContainer.appendChild(newField);
 
-        // Erhöhe den Zähler
-        fieldCount++;
-
-        // Zeige den Minus-Button an, wenn mindestens zwei Felder vorhanden sind
-        if (fieldCount > 1) {
-            document.getElementById("removeActivity").style.display = "inline-block";
-        }
-    });
+            fieldCount++;  // Erhöhe den Zähler
+            document.getElementById("removeActivity").style.display = "inline-block"; // Zeige den Minus-Button an
+        });
 
         document.getElementById("removeActivity").addEventListener("click", function () {
-        var activityContainer = document.getElementById("additionalActivities");
-        var fields = activityContainer.getElementsByTagName("input"); // Alle Input-Felder im Container holen
+            let activityContainer = document.getElementById("activityFields");
+            let fields = activityContainer.getElementsByTagName("input");
 
-        if (fields.length > 0) { // Stelle sicher, dass mindestens ein Feld bleibt
-            activityContainer.removeChild(fields[fields.length - 1]); // Entferne das letzte hinzugefügte Feld
-            fieldCount--; // Zähler reduzieren
-        }
+            if (fields.length > 1) {
+                activityContainer.removeChild(fields[fields.length - 1]); // Letztes Eingabefeld entfernen
+                fieldCount--;
+            }
 
-        // Wenn nur noch ein Feld übrig ist, verstecke den Minus-Button
-        if (fields.length === 0) {
-            document.getElementById("removeActivity").style.display = "none";
-        }
+            if (fields.length === 1) {
+                document.getElementById("removeActivity").style.display = "none"; // Verstecke Minus-Button
+            }
+        });
     });
-    </script>
+</script>
 
     <!-- Fitnesslevel JS -->
     <script>

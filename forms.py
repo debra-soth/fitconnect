@@ -20,7 +20,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
 
-# Formular für das Personalisieren des Profil
+# Formular für das Personalisieren des Profils
 class PersonalizeProfileForm(FlaskForm):
     profile_photo = FileField('Profile Photo', validators=[Optional()]) # Profilbild (optional, mit FileField für das Hochladen von Bildern)
     favorite_activities = FieldList(StringField('Favorite Fitness Activity', validators=[InputRequired(), Length(min=3)]), min_entries=1)
@@ -45,3 +45,23 @@ class CreateEventForm(FlaskForm):
     event_endtime = StringField('Event End Time', validators=[InputRequired()])
     event_location = StringField('Event Location', validators=[InputRequired()])
     submit = SubmitField('Create Event')
+
+# Formular für das Bearbeiten des Profils
+class AccountSettingsForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired()])
+    first_name = StringField('First name', validators=[InputRequired()])
+    email = StringField('E-mail', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[Optional()])
+    profile_photo = FileField('Profile Photo', validators=[Optional()]) # Profilbild (optional, mit FileField für das Hochladen von Bildern)
+    favorite_activities = FieldList(StringField('Favorite Fitness Activity', validators=[InputRequired(), Length(min=3)]), min_entries=1)
+    gym_membership = StringField('Gym Membership', validators=[Optional(), Length(max=100)])
+    availability = SelectMultipleField('Availability on Weekdays',
+        choices=[('monday', 'Monday'), ('tuesday', 'Tuesday'), ('wednesday', 'Wednesday'),
+             ('thursday', 'Thursday'), ('friday', 'Friday'), ('saturday', 'Saturday'), 
+             ('sunday', 'Sunday')],
+        validators=[InputRequired(message="Please select at least one availability day.")])
+    fitness_level = IntegerField('Fitness Level (1-10)', validators=[InputRequired()])
+    age = IntegerField('Age', validators=[InputRequired()])
+    gender = gender = SelectField('Gender', choices=[('Female', 'Female'), ('Male', 'Male'), ('Diverse', 'Diverse')],validators=[Optional()])
+    motivation_text = TextAreaField('Motivation Text', validators=[Optional(), Length(max=500)])
+    submit = SubmitField('Save')
