@@ -35,6 +35,11 @@ nav_order: 1
 
 [Give a high-level overview of what your app does and how it achieves it: similar to the value proposition, but targeted at a fellow developer who wishes to contribute.]
 
+**What Our App Does:**
+
+FitConnect is a Flask-based web application designed to connect people with the same fitness goals and interests through event organization. Users can register and manage their fitness profiles. The app also allows users to create, view and participate in fitness events that are organized by other users.
+
+
 ## Codemap
 
 [Describe how your app is structured. Don't aim for completeness, rather describe *just* the most important parts.]
