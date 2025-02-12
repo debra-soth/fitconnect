@@ -183,17 +183,17 @@ def join_event(event_id):
     event = Event.query.get_or_404(event_id)
 
     # Check if the user has already joined
-    if current_user.id in [user.id for user in event.participants_list]:  
+    if current_user in event.participants_list:
         flash("You are already participating in this event!", "info")
         return redirect(url_for('event_details', event_id=event.id))
 
     # Check if the event is full
-    if event.max_participants and event.participants >= event.max_participants:
+    if event.max_participants and len(event.participants_list) >= event.max_participants:
         flash("This event is already full!", "danger")
         return redirect(url_for('event_details', event_id=event.id))
 
-    # Add the user to the event
-    event.participants += 1
+    # Add the user to the participants list
+    event.participants_list.append(current_user)
     db.session.commit()
     
     flash("You have successfully joined the event!", "success")
