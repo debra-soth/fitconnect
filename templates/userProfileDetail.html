@@ -86,42 +86,46 @@
 
 <div class="horizontal-container">
     <div class="single-container-left">
-        <div>
-            <p align="right">Bild</p>
+        <div style="width: 14rem; float: right;">
+            <img  src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.username }}">
+        </div>
+        <div style="clear: both;">
+            <h5 align="right" class="text-muted"><strong>About {{ user.username }}</strong></h5>
         </div>
         <div>
-            <p align="right">About Name</p>
-        </div>
-        <div>
-            <p align="right">Motivationstext</p>
+            <p align="right" class="text-muted">Motivationstext</p>
         </div>
     </div>
     <div class="single-container">
         <div class="inner-horizontal-container">
             <div class="single-container">
-                <p>Benutzername</p>
+                <h5 class="text-muted"><strong>{{ user.username }}</strong></h5>
             </div>
             <div class="single-container">
-                <p>Standort</p>
+                <h5 class="text-muted"><strong>Standort</strong></h5>
             </div>
         </div>
         <div>
-            <p>Once there's a match you will be able to see Benutzername's contact details</p>
+            <p class="text-muted">Once there's a match you will be able to see {{ user.username }}'s contact details</p>
         </div>
         <div class="inner-horizontal-container">
             <div class="single-container">
-                <p>FitnessLevel</p>
+                <h5 class="text-muted"><strong>Fitness Level</strong></h5>
+                <p class="text-muted">FitnessLevel</p>
             </div>
             <div class="single-container">
-                <p>GymMembership</p>
+                <h5 class="text-muted"><strong>Gym Membership</strong></h5>
+                <p class="text-muted">GymMembership</p>
             </div>
         </div>
         <div class="inner-horizontal-container">
             <div class="single-container">
-                <p>Availability</p>
+                <h5 class="text-muted"><strong>Availability</strong></h5>
+                <p class="text-muted">Availability</p>
             </div>
             <div class="single-container">
-                <p>FitnessActivities</p>
+                <h5 class="text-muted"><strong>Fitness Activities</strong></h5>
+                <p class="text-muted">{{ user.favorite_activities }}</p>
             </div>
         </div>
     </div>
