@@ -42,6 +42,12 @@ def event_details():
 def create_event():
     return render_template('createEvent.html') 
 
+# Route für userProfileDetail.html
+@app.route('/user/<int:user_id>')
+def user_profile_detail(user_id):
+    user = User.query.get(user_id)  # Holt den User mit der gegebenen ID aus der Datenbank
+    return render_template('userProfileDetail.html', user=user)  # Übergibt den User an das Template
+
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
     app.run(debug=True)
