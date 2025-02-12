@@ -17,11 +17,12 @@
 
 <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
-    <!-- Logo -->
-    <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" class="mb-4" width="200" height="200">
-    <!-- Überschrift -->
-    <h3 class="mb-3"><strong>FitConnect</strong></h3>
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" class="mb-4" width="200" height="200">
+        <!-- Überschrift -->
+        <h3 class="mb-3"><strong>FitConnect</strong></h3>
     <form method="POST" action="{{ url_for('auth.login') }}">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token hinzugefügen -->
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für den Benutzernamen -->
             <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>

@@ -1,27 +1,22 @@
-from flask import Flask, render_template
-from fitconnect.auth import auth 
-from .db import create_app  # Importiere create_app Funktion aus db.py
-
-app = Flask(__name__)
+from flask import render_template, redirect, url_for
+from .db import create_app, db  # Importiere create_app Funktion aus db.py
+from .auth import auth, PersonalizeProfileForm
+from .models import User  # Import the User model
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
+
+#Route für login.html
 @app.route('/')
 def index():
-#Route für login.html
-    return render_template('login.html')
-
-#Route für register.html
-@app.route('/register')
-def register():
-    return render_template('register.html')
+     return redirect(url_for('auth.login'))
 
 #Route für personalizeProfile.html
 @app.route('/personalize')
 def personalize_profile():
-    return render_template('personalizeProfile.html')
+    return render_template('personalizeProfile.html', form=PersonalizeProfileForm())  # Übergebe das Formular an das Template
 
-#Route für accountSettings.html
+#Route für accountSettings
 @app.route('/settings')
 def account_settings():
     return render_template('accountSettings.html')
@@ -29,7 +24,8 @@ def account_settings():
 #Route für userOverview.html
 @app.route('/user')
 def user_overview():
-    return render_template('userOverview.html') 
+    users = User.query.all()  # Fetch all users from the database
+    return render_template('userOverview.html', users=users)  # Pass the user data to the template
 
 #Route für eventOverview.html
 @app.route('/events') 
@@ -46,5 +42,6 @@ def event_details():
 def create_event():
     return render_template('createEvent.html') 
 
+# Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
     app.run(debug=True)

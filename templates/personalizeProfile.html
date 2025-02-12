@@ -11,76 +11,156 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background-color: #E3E4DF; /* Setzt die Hintergrundfarbe auf beige */
+            background-color: #E3E4DF;
+        }
+        
+        .navbar {
+            background-color: #E3E4DF !important;
+        }
+        .nav-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .nav-container a {
+            text-decoration: none;
+            color: black !important;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-container a:hover {
+            color: #0d6efd !important;
+        }
+        
+        .nav-container a.active {
+            color:#0d6efd !important;
+            font-weight: bold !important;
+        }
+
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+        .event-container {
+            max-width: 700px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .event-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            background-color: #6F6EF4;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #5a5ae0;
         }
     </style>
 </head>
 <body>
 
-<div class="d-flex align-items-center ms-3 mt-3 mb-4">
-    <button type="button" class="btn-close" aria-label="Close"></button>
-    <!-- Logo -->
-    <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-    <!-- Text -->
-    <h4 class="ms-3 mb-0">FitConnect</h4>
-</div>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-light shadow-sm px-4">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
+        <h4 class="ms-3 mb-0">FitConnect</h4>
+    </a>
+    <div class="nav-container">
+        <a href="{{ url_for('user_overview') }}" class="me-3">User Overview</a>
+        <a href="{{ url_for('event_overview') }}" class="me-3">Events</a>
+        <a href="#" class="me-3">Your Matches</a>
+        <a href="{{ url_for('personalize_profile') }}" class="me-3 active" style="color:#0d6efd; font-weight: bold:">Personalize Profile</a>
+        
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('account_settings') }}">Account Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
     <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Personalize Your Profile</strong></h1>
-    <form method="POST" action="/">
+   <!-- enctype="multipart/form-data" ist notwendig, um das Profilbild korrekt zu übermitteln -->
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('auth.personalize_profile') }}">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token hinzugefügen -->
      <!-- Möglichkeit das Profilbild hochzuladen -->
-        <div class="form-group mt-3 mb-5">
-            <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
+    <div class="form-group mt-3 mb-5">
+        <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
         <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*" onchange="previewImage(event)">
         <!-- Vorschau des Profilbilds -->
         <div class="mt-3">
             <img id="profilePhotoPreview" src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}" alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
         </div>
-        </div>
-        <div class="form-group mt-3 mb-5">
+    </div>
+
+    <div class="form-group mt-3 mb-5">
         <!-- Eingabefeld für die Lieblingssportart(en)-->
-            <label class="mb-2" for="favoriteActivity" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
-            <input type="text" class="form-control mb-2" id="favoriteActivity" name="favorite_activity[]" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;" required>
+        <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
+
+       <!-- Hier werden bestehende Werte von WTForms gerendert -->
+        <div id="activityFields">
+        <!-- Standardmäßig nur ein Feld -->
+        <input type="text" class="form-control mb-2" name="favorite_activities-0" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
+    
+         </div>
+       
         <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
-            <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
-            <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
-        </div>
+        <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
+        <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
+    </div>
          <!-- Container für die zusätzlichen Eingabefelder -->
-        <div id="additionalActivities"></div>
+    <div id="additionalActivities"></div>
         <!-- Eingabefeld für die Gym Membership-->
-        <div class="form-group mt-3 mb-5">
-            <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
-            <input type="text" class="form-control" id="gymMembership" name="gym_Membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;" required>
-        </div>
+    <div class="form-group mt-3 mb-5">
+        <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
+        <input type="text" class="form-control" id="gymMembership" name="gym_membership" placeholder="Add Gym Membership" style="width: 300px; background-color: #ffffff;">
+    </div>
         <!-- Checkboxen für die Verfügbarkeiten der Wochentage -->
         <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
             <ul class="list-group">
                 <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability">
                 <label class="form-check-label" for="mondayCheckbox">Monday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability">
                 <label class="form-check-label" for="tuesdayCheckbox">Tuesday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability">
                 <label class="form-check-label" for="wednesdayCheckbox">Wednesday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability">
                 <label class="form-check-label" for="thursdayCheckbox">Thursday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability">
                 <label class="form-check-label" for="fridayCheckbox">Friday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability">
                 <label class="form-check-label" for="saturdayCheckbox">Saturday</label>
             </li>
             <li class="list-group-item">
-                <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability[]">
+                <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability">
                 <label class="form-check-label" for="sundayCheckbox">Sunday</label>
             </li>
             </ul>
@@ -110,19 +190,20 @@
         </div>
             <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label> 
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Female</label>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio2">Male</label>
+            <input type="radio" class="btn-check" name="gender" value="Female" id="genderFemale" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="genderFemale">Female</label>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio3">Diverse</label>
+            <input type="radio" class="btn-check" name="gender" value="Male" id="genderMale" autocomplete="off">
+            <label class="btn btn-outline-primary" for="genderMale">Male</label>
+
+            <input type="radio" class="btn-check" name="gender" value="Diverse" id="genderDiverse" autocomplete="off">
+            <label class="btn btn-outline-primary" for="genderDiverse">Diverse</label>
         </div>
         <!-- Eingabefeld für den Motivationstext -->
          <div class="form-group mt-5 mb-5">
              <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation text</strong></label>
-            <textarea class="form-control" id="motivationText" name="motivation_text" placeholder="Add text" style="width: 300px; height: 100px; background-color: #ffffff;" required></textarea>
+            <textarea class="form-control" id="motivationText" name="motivation_text" placeholder="Add text" style="width: 300px; height: 100px; background-color: #ffffff;"></textarea>
         </div>
         </div>
         </div>
@@ -137,52 +218,59 @@
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <!-- Favorite Fitness Activity Plus-Button JS -->
- <script>
+<script>
   // Zähler für die Anzahl der Textfelder
-    let fieldCount = 1;
-    // Füge Event Listener für den Plus-Button hinzu
-    document.getElementById("addActivity").addEventListener("click", function() {
-        // Erstelle ein neues Eingabefeld
-        var newField = document.createElement("input");
-        newField.setAttribute("type", "text");
-        newField.setAttribute("class", "form-control mb-3");
-        newField.setAttribute("name", "favorite_activity[]");
-        newField.setAttribute("placeholder", "Add Fitness Activity");
-        newField.setAttribute("style", "width: 300px; background-color: #ffffff; position: relative; top: -40px;");
+  let fieldCount = 1;
 
-         // Erhöhe den Zähler
-        fieldCount++;
+  // Füge Event Listener für den Plus-Button hinzu
+  document.getElementById("addActivity").addEventListener("click", function () {
+    var activityContainer = document.getElementById("additionalActivities");
 
-        // Füge das neue Textfeld in den "additionalActivities"-Container ein
-        document.getElementById("additionalActivities").appendChild(newField);
+      // Erstelle ein neues Eingabefeld
+      var newField = document.createElement("input");
+      newField.setAttribute("type", "text");
+      newField.setAttribute("class", "form-control mb-3");
+      newField.setAttribute("name", `favorite_activities-${fieldCount}`);  // Indexierung für WTForms
+      newField.setAttribute("placeholder", "Add Fitness Activity");
+      newField.setAttribute("style", "width: 300px; background-color: #ffffff; position: relative; top: -40px;");
 
-        // Zeige den Minus-Button an, wenn mindestens ein zusätzliches Textfeld existiert
-        document.getElementById("removeActivity").style.display = "inline-block";
-    });
+       // Füge das neue Feld in den Container ein
+      activityContainer.appendChild(newField);
 
-    // Event Listener für den Minus-Button
-    document.getElementById("removeActivity").addEventListener("click", function() {
-        var fields = document.querySelectorAll("#additionalActivities input");
-        if (fields.length > 0) {
-            // Entferne das zuletzt hinzugefügte Textfeld
-            fields[fields.length - 1].remove();
-            
-            // Wenn keine weiteren Felder mehr vorhanden sind, verstecke den Minus-Button
-            if (fields.length - 1 === 0) {
-                document.getElementById("removeActivity").style.display = "none";
-            }
-        }
-    });
+      // Erhöhe den Zähler
+      fieldCount++;
+
+      // Zeige den Minus-Button an, wenn mindestens zwei Felder vorhanden sind
+      if (fieldCount > 1) {
+          document.getElementById("removeActivity").style.display = "inline-block";
+      }
+  });
+
+    document.getElementById("removeActivity").addEventListener("click", function () {
+      var activityContainer = document.getElementById("additionalActivities");
+      var fields = activityContainer.getElementsByTagName("input"); // Alle Input-Felder im Container holen
+
+      if (fields.length > 0) { // Stelle sicher, dass mindestens ein Feld bleibt
+          activityContainer.removeChild(fields[fields.length - 1]); // Entferne das letzte hinzugefügte Feld
+          fieldCount--; // Zähler reduzieren
+      }
+
+      // Wenn nur noch ein Feld übrig ist, verstecke den Minus-Button
+      if (fields.length === 0) {
+          document.getElementById("removeActivity").style.display = "none";
+      }
+  });
 </script>
+
  <!-- Fitnesslevel JS -->
  <script>
-    var slider = document.getElementById("fitnessLevel");
-    var output = document.getElementById("fitnessLevelValue");
-    output.innerHTML = slider.value; // Das aktuelle Fitnesslevel anzeigen
+    var fitnessSlider = document.getElementById("fitnessLevel");
+    var fitnessOutput = document.getElementById("fitnessLevelValue");
+    fitnessOutput.innerHTML = fitnessSlider.value; // Zeigt den initialen Wert des Fitnesslevels an
 
-    // Das angezeigt Fitneslevel updaten, sobald es geändert wird
-    slider.oninput = function() {
-        output.innerHTML = this.value;
+    // Aktualisiere das Fitnesslevel, wenn der Schieberegler verändert wird
+    fitnessSlider.oninput = function() {
+        fitnessOutput.innerHTML = this.value;
     }
 </script>
 <script>
@@ -192,17 +280,19 @@
       return new bootstrap.Popover(popoverTriggerEl)
     })
 </script>
+
  <!-- Age JS -->
 <script>
-    var slider = document.getElementById("age");
-    var output = document.getElementById("ageValue");
-    output.innerHTML = slider.value; // Zeigt den Standardwert an
+    var ageSlider = document.getElementById("age");
+    var ageOutput = document.getElementById("ageValue");
+    ageOutput.innerHTML = ageSlider.value; // Zeigt den initialen Wert des Alters an
 
-    // Aktualisiert das Alter, wenn der Schieberegler verschoben wird
-    slider.oninput = function() {
-        output.innerHTML = this.value;
+    // Aktualisiere das Alter, wenn der Schieberegler verändert wird
+    ageSlider.oninput = function() {
+        ageOutput.innerHTML = this.value;
     }
 </script>
+
  <!-- Profile Photo JS -->
 <script>
     function previewImage(event) {

@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-
+from flask_wtf.csrf import CSRFProtect
 
 # Eine Datenbankinstanz wird erstellt und der Name der Datenbankdatei wird definiert
 db = SQLAlchemy()
@@ -12,13 +12,13 @@ DB_NAME = 'database.db'
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'FitConnect'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_emF8Pudwct1E@ep-super-queen-a2fxr5l1-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['WTF_CSRF_ENABLED'] = True 
 
     # Hier wird die db-Instanz mit der App verbunden
     db.init_app(app)
-
+    csrf = CSRFProtect(app)  # CSRF Protection aktivieren
     # Blueprints werden importiert
     from .auth import auth
 
