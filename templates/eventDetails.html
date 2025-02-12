@@ -99,14 +99,27 @@
         <p><strong>Date:</strong> {{ event.date }}</p>
         <p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
         <p><strong>Location:</strong> {{ event.location }}</p>
-        <p><strong>Participants:</strong> {{ event.participants }} / {{ event.max_participants }}</p>
-        <p><strong>Description:</strong> {{ event.description }}</p>
         
-        {% if user_joined %}
-            <p class="text-success fw-bold">You are already participating!</p>
+        <p><strong>Participants:</strong> {{ event.participants_list|length }} / {{ event.max_participants }}</p>
+        
+        <!-- Show Participants List -->
+        {% if event.participants_list %}
+        <p><strong>Joined Participants:</strong></p>
+        <ul class="list-group">
+            {% for user in event.participants_list %}
+            <li class="list-group-item">{{ user.username }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-muted">No participants yet. Be the first to join!</p>
+        {% endif %}
+
+        <!-- Join Event Button -->
+        {% if current_user in event.participants_list %}
+            <p class="text-success fw-bold mt-3">You are already participating!</p>
         {% else %}
             <form action="{{ url_for('join_event', event_id=event.id) }}" method="POST">
-                <button type="submit" class="btn btn-primary w-100">Join Event</button>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Join Event</button>
             </form>
         {% endif %}
     </div>
