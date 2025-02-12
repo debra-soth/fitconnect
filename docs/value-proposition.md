@@ -4,11 +4,7 @@ nav_order: 1
 ---
 
 {: .label }
-Kira Beyrow
-{: .label }
-Lenja Krah 
-{: .label }
-Debra Soth
+Everyone
 
 {: .no_toc }
 # Value proposition
