@@ -145,9 +145,46 @@ The solution was to offer an Event option where users can join fitness events an
     |Ensures a steady flow of activities on the platform| Additional UI complexity|
 
 
-
 ### Decision
 
 We moved away from a pure user-matching approach and instead built an event-driven model that gives users more structured ways to connect. While one-on-one matching is still an option, users now have the ability to create and join events, making it much easier to find workout opportunities without relying solely on direct messaging.
 
 This change makes the platform more engaging by ensuring that even if users don’t feel comfortable reaching out individually, they can still participate in group activities. It also helps new users immediately find something to join, rather than waiting for a match.
+
+## 05: How Users Join Events
+
+### Meta
+
+Status: Work in progress - **Decided** - Obsolete
+
+Updated:
+10-02-2025
+
+### Problem statement
+
+Since users should now be able to create and join events the challenge here was too design an efficient way to manage this interaction.
+
+### Considered options
+
+1. **One-to-Many Structure**
+
+    Each event is owned by one user, and participants are stored as a list inside the event.
+
+    | **Pros** | **Cons** |
+    | --- | --- |
+    | Simple structure|Difficult to track many-to-many relationships efficiently|
+    | Easy to manage||
+
+2. **Many-to-Many Relationship**
+
+    A separate table (EventParticipants) stores who joins which event.
+
+    | **Pros** |**Cons**|
+    |---|---|
+    |More flexible| Requires an extra table|
+    |Allows multiple users to join mulitiple events||
+
+
+### Decision
+
+We implemented Option 2 (Many-to-Many Relationship) using an EventParticipants table. This approach allows multiple users to join multiple events without unnecessary data duplication, making it easier to expand the event system in the future
