@@ -91,24 +91,23 @@
     </div>
 </nav>
 
-<!-- Event Details Section -->
+<!-- Event Details -->
 <div class="container mt-5 d-flex justify-content-center">
     <div class="event-container">
-        <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" class="event-img">
-        <h2 class="fw-bold">{{ event.title }}</h2>
-        <p class="text-muted">Hosted by <strong>{{ event.host }}</strong></p>
+        <h2 class="fw-bold">{{ event.name }}</h2>
+        <p class="text-muted">Hosted by <strong>{{ event.host.username }}</strong></p>
         <p><strong>Date:</strong> {{ event.date }}</p>
         <p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
         <p><strong>Location:</strong> {{ event.location }}</p>
         <p><strong>Participants:</strong> {{ event.participants }} / {{ event.max_participants }}</p>
         <p><strong>Description:</strong> {{ event.description }}</p>
         
-        {% if not user_joined %}
-        <form action="/join-event/{{ event.id }}" method="POST">
-            <button type="submit" class="btn btn-primary w-100">Join Event</button>
-        </form>
+        {% if user_joined %}
+            <p class="text-success fw-bold">You are already participating!</p>
         {% else %}
-        <p class="text-success fw-bold text-center">You have already joined this event!</p>
+            <form action="{{ url_for('join_event', event_id=event.id) }}" method="POST">
+                <button type="submit" class="btn btn-primary w-100">Join Event</button>
+            </form>
         {% endif %}
     </div>
 </div>
