@@ -76,8 +76,6 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 >Event-User Relationship (Many-to-Many)
 ## Codemap
 
-[Describe how your app is structured. Don't aim for completeness, rather describe *just* the most important parts.]
-
 ```mermaid
 graph TD;
     A[FitConnect App] -->|Entry Point| B[app.py]
@@ -97,7 +95,3 @@ graph TD;
     G -->|HTML Pages| O[UI Screens]
     H -->|CSS & JS Files| P[Frontend Enhancements]
 ```
-
-## Cross-cutting concerns
-
-[Describe anything that is important for a solid understanding of your codebase. Most likely, you want to explain the behavior of (parts of) your application. In this section, you may also link to important [design decisions](../design-decisions.md).]
