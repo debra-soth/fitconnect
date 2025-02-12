@@ -89,17 +89,18 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         {% for event in events %}
         <div class="col-md-4 d-flex justify-content-center">
-            <a href="/event/{{ event.id }}" class="text-decoration-none">
+            <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
                 <div class="card event-card" style="width: 18rem;">
-                    <img src="{{ url_for('static', filename=event.image_url) }}" class="card-img-top" alt="{{ event.name }}">
                     <div class="card-body">
                         <h5 class="card-title"><strong>{{ event.name }}</strong></h5>
-                        <p class="card-text text-muted">{{ event.date }}, {{event.location}}</p>
-                        <a href="/event/{{ event.id }}" class="btn btn-primary w-100">View Details</a>
+                        <p class="card-text text-muted">{{ event.date }} - {{ event.location }}</p>
+                        <a href="{{ url_for('event_details', event_id=event.id) }}" class="btn btn-primary w-100">View Details</a>
                     </div>
                 </div>
             </a>
         </div>
+        {% else %}
+        <p class="text-muted text-center">No events available. Be the first to create one!</p>
         {% endfor %}
     </div>
 </div>
