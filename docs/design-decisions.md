@@ -53,7 +53,7 @@ Status
 : **Work in progress** - Decided - Obsolete
 
 Updated
-: 12-02-2025
+: 12-02-2025 
 
 ### Problem statement
 
@@ -65,15 +65,18 @@ Initially, the database model included a Match table to store confirmed matches.
 
     Each match is recorded when two users like each other
 
-- **Pros:** Matches are stored permanently, making retrieval easy
-- **Cons:** Requires updating the match table when users change likes, leading to unnecessary storage overhead
+    |**Pros:** |**Cons:** |
+    |---|---|
+    |Matches are stored permanently, making retrieval easy|Requires updating the match table when users change likes, leading to unnecessary storage overhead|
+
 
 2) **Query-Based Matches Using Likes Table**
 
     Instead of storing matches, the system dynamically queries mutual likes
 
-- **Pros:** No redundant data, matches update automatically, and it scales better.
-- **Cons:** Requires a query each time matches are retrieved.
+    |**Pros:** |**Cons:** |
+    |---|---|
+    |No redundant data, matches update automatically, and it scales better|Requires a query each time matches are retrieved|
 
 ### Decision
 
@@ -107,3 +110,33 @@ We initially used SQLite due to its simplicity and easy setup. However, as we pr
 
 We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
 
+## 04: Adding "Create Event" Option
+
+### Meta
+
+Status: Work in progress - **Decided** - Obsolete
+
+Updated:
+10-02-2025
+
+### Problem statement
+
+FitConnect was originally designed as a user-matching platform that helped people find workout partners based on shared fitness interests, schedules, and locations. However, after our project presentation, we realized that just matching users was not enough to satisfy the supply and demand requirement. 
+The solution was to offer an Event option where users can join fitness events and therefore meet new people (demand) and create events (supply) at the same time for other FitConnectors.
+
+### Considered options
+
+1. Keeping FitConnect as a User-Matching App
+
+    | Pros | Cons |
+    | --- | --- |
+    | Simpler to develop, more focused on individual connections|Users can become unsure how or when to meet, leading to low engagement|
+
+2. Allowing Users to Create and Join Events (Final Choice)
+
+- **Pros:** Provides structured opportunities for engagement, encourages organic connections, and ensures a steady flow of activities on the platform.
+Cons: Requires event moderation to prevent spam and low-quality events, and additional UI complexity.
+
+### Decision
+
+We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
