@@ -17,6 +17,58 @@ nav_order: 2
 {: toc }
 </details>
 
+## Version 2 (most recent version)
+
+```mermaid
+erDiagram
+    USER {
+        int id PK
+        string username "Unique, Not Null"
+        string email "Unique, Not Null"
+        string password "Hashed, Not Null"
+        string profile_photo "Optional"
+        string favorite_activities "Stored as JSON or PickleType"
+        int fitness_level "Optional"
+        int age "Optional"
+        string gender "Optional"
+        text motivation_text "Optional"
+    }
+
+    USERLIKES {
+        int id PK
+        int liker_id FK "References USER(id)"
+        int liked_id FK "References USER(id)"
+        datetime timestamp "Auto-generated"
+    }
+    
+    EVENT {
+        int id PK
+        string name "Not Null"
+        text description "Optional"
+        string date "Not Null"
+        string start_time "Not Null"
+        string end_time "Not Null"
+        string location "Not Null"
+        int max_participants "Optional"
+        int host_id FK "References USER(id)"
+    }
+    
+    EVENT_PARTICIPANTS {
+        int user_id FK "References USER(id)"
+        int event_id FK "References EVENT(id)"
+    }
+    
+    USER ||--o{ USERLIKES : "sends like"
+    USERLIKES }o--|| USER : "receives like"
+    USER ||--o{ EVENT : "creates"
+    USER ||--o{ EVENT_PARTICIPANTS : "joins"
+    EVENT ||--o{ EVENT_PARTICIPANTS : "has participants"
+
+    %% Derived Relationship for Matches
+    USERLIKES ||--o{ USERLIKES : "mutual like forms match"
+```
+
+
 ## Version 1
 ```mermaid
 erDiagram
