@@ -97,7 +97,8 @@
     <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
 <h1 class="mb-3"><strong>Edit Your Profile</strong></h1>
-    <form method="POST" action="/">
+    <form method="POST" action="{{ url_for('auth.account_settings') }}" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}  <!-- CSRF-Token für Sicherheit -->
     <div class="form-group mt-3 mb-5">
     <!-- Unterpunkt Account Information für Struktur-->
     <h4 class="mb-3 mt-3 text-muted"><strong>Account Information</strong></h4>
