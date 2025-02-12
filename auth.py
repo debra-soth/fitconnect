@@ -223,3 +223,4 @@ def create_event():
     else:
         print("Fehler im Formular:", form.errors)  # Debugging
     return render_template('createEvent.html', form=form)
+

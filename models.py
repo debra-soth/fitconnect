@@ -20,6 +20,7 @@ class User(db.Model,UserMixin):
     gender = db.Column(db.String(20), nullable=True)
     motivation_text = db.Column(db.Text, nullable=True)
 
+#Datenbankmodell Erstellen für Event 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(100), nullable=False)
@@ -29,3 +30,4 @@ class Event(db.Model):
     event_endtime = db.Column(db.String(5), nullable=False)
     event_location = db.Column(db.String(100), nullable=False)
     participants = db.Column(db.Integer, nullable=False) 
+    max_participants = db.Column(db.Integer, nullable=True, default=10)
