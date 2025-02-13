@@ -26,9 +26,7 @@ nav_order: 4
 **Purpose:** Redirects users to the login page  
 **Sample output:** 
 
-
 ![login-page](//fitconnect/docs/assets/images/login-screen.png)
-
 
 ---
 
@@ -41,7 +39,7 @@ nav_order: 4
 **Purpose:** Renders the profile personalization page with a form  
 **Sample output:** 
 
-![personalize profile page](assets/images/personalize-profile.png) 
+![personalize profile page](//fitconnect/docs/assets/images/personalize-profile.png) 
 
 ---
 
@@ -54,7 +52,7 @@ nav_order: 4
 **Purpose:** Handles user registration with form validation and database storage  
 **Sample output:** 
 
-![registration](assets/images/registration.png) 
+![registration](//fitconnect/docs/assets/images/registration.png) 
 
 ---
 
@@ -67,7 +65,7 @@ nav_order: 4
 **Purpose:** Authenticates users and starts a session  
 **Sample output:** 
 
-![homepage](assets/images/user-overview.png) 
+![homepage](//fitconnect/docs/assets/images/user-overview.png) 
 
 ---
 
@@ -91,7 +89,7 @@ nav_order: 4
 **Purpose:** Allows users to create an event  
 **Sample output:** 
 
-![create event](assets/images/create-event.png) 
+![create event](//fitconnect/docs/assets/images/create-event.png) 
 
 ---
 
@@ -104,7 +102,7 @@ nav_order: 4
 **Purpose:** Displays details of a specific event  
 **Sample output:** 
 
-![event_details](assets/images/event-details.png) 
+![event_details](//fitconnect/docs/assets/images/event-details.png) 
 
 ---
 
@@ -117,7 +115,7 @@ nav_order: 4
 **Purpose:** Shows a list of all available events  
 **Sample output:** 
 
-![event overview](assets/images/event-overview.png)
+![event overview](//fitconnect/docs/assets/images/event-overview.png)
 
 ---
 
@@ -151,7 +149,7 @@ nav_order: 4
 **Purpose:** Displays the profile of the logged-in user  
 **Sample output:** 
 
-![own profile](assets/images/own-profile.png) 
+![own profile](//fitconnect/docs/assets/images/own-profile.png) 
 
 ---
 
@@ -164,7 +162,7 @@ nav_order: 4
 **Purpose:** Allows users to update their account settings  
 **Sample output:** 
 
-![account settings](assets/images/account-settings.png) 
+![account settings](//fitconnect/docs/assets/images/account-settings.png) 
 
 ---
 
@@ -177,7 +175,7 @@ nav_order: 4
 **Purpose:** Displays a list of users (for social features)  
 **Sample output:** 
 
-![homepage](assets/images/user-overview.png) 
+![homepage](//fitconnect/docs/assets/images/user-overview.png) 
 
 ---
 
@@ -190,7 +188,7 @@ nav_order: 4
 **Purpose:** Displays the profile of a specific user 
 **Sample output:** 
 
-![user details](assets/images/user-details.png) 
+![user details](//fitconnect/docs/assets/images/user-details.png) 
 
 ---
 
