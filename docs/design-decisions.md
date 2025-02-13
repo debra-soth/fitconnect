@@ -108,7 +108,7 @@ The solution was to offer an Event option where users can join fitness events an
 
 2. **Allowing Users to Create and Join Events (Final Choice)**
 
-    | **Pros:** |**Cons:**|
+    | **Pros** |**Cons**|
     |---|---|
     |Provides structured opportunities for engagement and ensures a steady flow of activities on the platform| Requires event moderation to prevent low-quality events|
     |Ensures a steady flow of activities on the platform| Additional UI complexity|
@@ -142,8 +142,8 @@ Initially, the database model included a Match table to store confirmed matches.
 
     |**Pros:** |**Cons:**|
     |---|---|
-    |Matches are stored permanently | Requires updating the match table when users change likes, leading to unnecessary storage overhead|
-    | Easy retrieval |  |
+    |Matches are stored permanently | Requires updating the match table when users change likes |
+    |Easy retrieval ||
     
 
 2) **Query-Based Matches Using Likes Table**
@@ -152,10 +152,11 @@ Initially, the database model included a Match table to store confirmed matches.
 
     |**Pros:** |**Cons:** |
     |---|---|
-    |No redundant data |Requires a query each time matches are retrieved|
+    |No redundant data | Requires a query each time matches are retrieved|
     |Matches update automatically||
     |Can scale better||
 
+    
 ### Decision
 
 We decided to go with the second option of query-based matches to make the system more dynamic and scalable. Matches can be now detected in real-time by checking for mutual likes rather than being explicitly sstored.
