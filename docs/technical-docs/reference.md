@@ -188,8 +188,8 @@ nav_order: 4
 **Purpose:** Displays the profile of a specific user 
 **Sample output:** 
 
-![user details](//fitconnect/docs/assets/images/user-details.png) 
-
+![User Details](../assets/images/user-details.png)
+ 
 ---
 
 ## Your Matches
