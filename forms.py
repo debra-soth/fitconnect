@@ -66,3 +66,7 @@ class AccountSettingsForm(FlaskForm):
     gender = gender = SelectField('Gender', choices=[('Female', 'Female'), ('Male', 'Male'), ('Diverse', 'Diverse')],validators=[Optional()])
     motivation_text = TextAreaField('Motivation Text', validators=[Optional(), Length(max=500)])
     submit = SubmitField('Save')
+
+#Formular für Join Event 
+class JoinEventForm(FlaskForm):
+    submit = SubmitField('Join Event')   

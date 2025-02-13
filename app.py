@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash
 from .db import create_app, db  # Importiere create_app Funktion aus db.py
 from .auth import auth, PersonalizeProfileForm
 from .models import User, Event  # Import the User model
-from .forms import CreateEventForm
+from .forms import JoinEventForm
 
 # Flask App mit create_app Funktion erstellen
 app = create_app()
@@ -33,7 +33,8 @@ def event_overview():
 @app.route('/event-details/<int:event_id>')
 def event_details(event_id):
     event = Event.query.get_or_404(event_id)  # Holt das Event oder gibt 404 zurück
-    return render_template('eventDetails.html', event=event)
+    form = JoinEventForm()  # Initialisiere ein Formular für das Beitreten des Events
+    return render_template('eventDetails.html', event=event, form=form)
 
 # Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')

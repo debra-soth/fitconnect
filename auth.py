@@ -249,17 +249,17 @@ def join_event(event_id):
     already_joined = db.session.query(event_participants).filter_by(user_id=current_user.id, event_id=event.id).first()
     if already_joined:
         flash('You are already part of this event.', 'warning')
-        return redirect(url_for('auth.event_details', event_id=event.id))
+        return redirect(url_for('event_overview')) 
 
     # Überprüfen, ob die maximale Teilnehmerzahl erreicht wurde
     current_participants_count = db.session.query(event_participants).filter_by(event_id=event.id).count()
     if current_participants_count >= event.max_participants:
         flash('This event is already full.', 'danger')
-        return redirect(url_for('auth.event_details', event_id=event.id))
+        return redirect(url_for('event_overview')) 
 
     # User zum Event hinzufügen
     db.session.execute(event_participants.insert().values(user_id=current_user.id, event_id=event.id))
     db.session.commit()
 
     flash('Successfully joined the event!', 'success')
-    return redirect(url_for('auth.event_details', event_id=event.id))
+    return redirect(url_for('event_overview')) 
