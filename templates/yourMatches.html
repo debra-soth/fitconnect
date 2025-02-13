@@ -124,7 +124,7 @@
     </a>
     {% else %}
     <div class="text-center my-5">
-        <h4>No events joined yet.</h4>
+        <p class="fw-bold">No events joined yet.</p>
     {% endfor %}
 </div>
 
@@ -156,6 +156,9 @@
                     </div>
                 </div>
             </a>
+            {%else%}
+            <div class="text-center my-5">
+                <p class="fw-bold">No likes yet.</p>
             </div>
         {% endfor %}
     </div>
