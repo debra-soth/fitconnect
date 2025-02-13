@@ -37,13 +37,19 @@ def event_details(event_id):
     form = JoinEventForm()  # Initialisiere ein Formular für das Beitreten des Events
     return render_template('eventDetails.html', event=event, form=form)
 
-# Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):
-    user = User.query.get(user_id)  # Holt den User mit der gegebenen ID aus der Datenbank
-    form = LikeForm()  # Initialisiere ein leeres Formular für das Liken
-    #print("Profile Photo Path:", user.profile_photo)
-    return render_template('userProfileDetail.html', user=user, form=form)  # Übergibt den User an das Template
+    user = User.query.get_or_404(user_id)  # Holt den User oder gibt 404-Fehler zurück
+
+    # Alle Matches abrufen (gegenseitige Likes)
+    matched_users = [
+        like.liker for like in UserLikes.query.filter_by(liked_id=current_user.id).all()
+        if UserLikes.query.filter_by(liker_id=current_user.id, liked_id=like.liker.id).first()
+    ]
+
+    form = LikeForm()  # Initialisiere Like-Formular
+
+    return render_template('userProfileDetail.html', user=user, matched_users=matched_users, form=form)
 
 @app.route('/your-matches')
 def your_matches():

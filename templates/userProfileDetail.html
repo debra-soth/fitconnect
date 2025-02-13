@@ -89,7 +89,6 @@
     <div class="text-center">
     <img src="{{ url_for('static', filename=user.profile_photo.replace('static/', '')) }}" class="card-img-top" alt="{{ user.username }}">
         <h2 class="fw-bold mt-2">{{ user.username }}</h2>
-        <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> {{ user.location }}</p>
          {% if user in matched_users %}
             <p class="text-muted"><i class="bi bi-envelope-fill"></i> {{ user.email }}</p>
         {% else %}
