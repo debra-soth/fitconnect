@@ -92,8 +92,8 @@
             <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
                 <div class="card event-card" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>{{ event.name }}</strong></h5>
-                        <p class="card-text text-muted">{{ event.date }} - {{ event.location }}</p>
+                        <h5 class="card-title"><strong>{{ event.event_name }}</strong></h5>
+                        <p class="card-text text-muted">{{ event.event_date }} - {{ event.event_location }}</p>
                         <a href="{{ url_for('event_details', event_id=event.id) }}" class="btn btn-primary w-100">View Details</a>
                     </div>
                 </div>
