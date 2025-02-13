@@ -263,3 +263,24 @@ def join_event(event_id):
 
     flash('Successfully joined the event!', 'success')
     return redirect(url_for('event_overview')) 
+
+#Route fürs Liken eines Users
+@auth.route('/like/<int:user_id>', methods=['POST'])
+@login_required
+def like_user(user_id):
+    # Überprüfen, ob der gelikte User existiert
+    liked_user = User.query.get_or_404(user_id)
+
+    # Prüfen, ob das Like bereits existiert
+    existing_like = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user_id).first()
+    if existing_like:
+        flash("You have already liked this user!", "warning")
+        return redirect(url_for('user_overview'))
+
+    # Like in die Datenbank einfügen
+    new_like = UserLikes(liker_id=current_user.id, liked_id=user_id)
+    db.session.add(new_like)
+    db.session.commit()
+
+    flash("You liked this user!", "success")
+    return redirect(url_for('user_overview'))
