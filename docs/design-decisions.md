@@ -17,15 +17,13 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: functions: how to find a partner
+## 01: How To Find a Partner
 
 ### Meta
 
-Status
-: Work in progress - **Decided** - Obsolete
+Status: Work in progress - **Decided** - Obsolete
 
-Updated
-: 11-Dec-2024
+Updated: 11-Dec-2024
 
 ### Problem statement
 
@@ -33,7 +31,7 @@ The application FitConnect aims to connect people to do exercise together. The m
 We want to make the application user-friendly, but also strctured effieciently. 
 That is why we thought of two ways to organize the connection process:
 
-### Regarded options
+### Considered options
 
 1) People can be matched, as it is the case with dating platforms. This would require, that all data entered can be processed and compared. For example memberships should be comparable, if this is a requirement for  someone to be matched. To realise this, a data base with all possible memberships has to be made available. But there could be a risk of not covering all possibilities.
 
@@ -45,10 +43,9 @@ After discussion, we all decided to go with option two. The reason for this is t
 If other topics should require less time, we want to keep the option of filtering profiles based on personal interests or strict time slots in mind.
 As sort of a mix between the two alternative options, we want to add a "send like" button to every profile a user can view. After sending a like, this will pop up for the user of the liked profile. He/ she can like back or delete the like request. Only if both sides like each other, a user's contact info will be shown.
 
----
 
 
-## 02: [Title]
+## 02: Database Model – Likes vs. Matches
 
 ### Meta
 
@@ -56,69 +53,138 @@ Status
 : **Work in progress** - Decided - Obsolete
 
 Updated
-: DD-MMM-YYYY
+: 12-02-2025 
 
 ### Problem statement
 
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
+Initially, the database model included a Match table to store confirmed matches. However, this approach added complexity and required extra storage and updates whenever matches changed.
+
+### Considered options
+
+1) **Match Table**
+
+    Each match is recorded when two users like each other
+
+    |**Pros:** |**Cons:** |
+    |---|---|
+    |Matches are stored permanently|Requires updating the match table when users change likes, leading to unnecessary storage overhead|
+    | Easy retrieval ||
+    
+
+
+2) **Query-Based Matches Using Likes Table**
+
+    Instead of storing matches, the system dynamically queries mutual likes
+
+    |**Pros:** |**Cons:** |
+    |---|---|
+    |No redundant data |Requires a query each time matches are retrieved|
+    |Matches update automatically||
+    |Can scale better||
 
 ### Decision
 
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
+We decided to go with the second option of query-based matches to make the system more dynamic and scalable. Matches can be now detected in real-time by checking for mutual likes rather than being explicitly sstored.
 
-### Regarded options
 
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
-
----
-
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
+## 03: Database Choice – SQLite vs. PostgreSQL
 
 ### Meta
 
-Status
-: Work in progress - **Decided** - Obsolete
+Status: Work in progress - **Decided** - Obsolete
 
-Updated
-: 30-Jun-2024
+Updated:
+10-02-2025
 
 ### Problem statement
 
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
+We initially used SQLite due to its simplicity and easy setup. However, as we prepared for production deployment, we encountered limitations that made it unsuitable for a live, multi-user environment. The challenge was selecting a database that balances scalability, performance, and compatibility with our deployment needs.
 
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
+### Considered options
 
 
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+| Database | Pros | Cons |
+| --- | --- | --- |
+| **SQLite** | No configuration needed | No built-in user management |
+| | Suitable for local development | We were not able to access certain users made by other team members|
+| **PostgreSQL**| Supports multiple concurrent users| Requires more setup|
+| |Better performance| Requires more maintenance |
 
 ### Decision
 
-We stick with plain SQL.
+We switched from SQLite to PostgreSQL because SQLite was only effective for local development but did not work well in a production setting. Since FitConnect is a web application that supports multiple users accessing and modifying data simultaneously, we needed a database that could handle concurrent reads and writes efficiently. PostgreSQL provides a scalable, stable, and performant solution.
 
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
+## 04: Adding "Create Event" Option
 
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
+### Meta
 
-### Regarded options
+Status: Work in progress - **Decided** - Obsolete
 
-We regarded two alternative options:
+Updated:
+10-02-2025
 
-+ Plain SQL
-+ SQLAlchemy
+### Problem statement
 
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
+FitConnect was originally designed as a user-matching platform that helped people find workout partners based on shared fitness interests, schedules, and locations. However, after our project presentation, we realized that just matching users was not enough to satisfy the supply and demand requirement. 
+The solution was to offer an Event option where users can join fitness events and therefore meet new people (demand) and create events (supply) at the same time for other FitConnectors.
 
----
+### Considered options
+
+1. **Keeping FitConnect as a User-Matching App**
+
+    | **Pros** | **Cons** |
+    | --- | --- |
+    | Simpler to develop|Users can become unsure how or when to meet|
+    | More focused on individual connections|Low engagement|
+
+2. **Allowing Users to Create and Join Events (Final Choice)**
+
+    | **Pros:** |**Cons:**|
+    |---|---|
+    |Provides structured opportunities for engagement and ensures a steady flow of activities on the platform| Requires event moderation to prevent low-quality events|
+    |Ensures a steady flow of activities on the platform| Additional UI complexity|
+
+
+### Decision
+
+We moved away from a pure user-matching approach and instead built an event-driven model that gives users more structured ways to connect. While one-on-one matching is still an option, users now have the ability to create and join events, making it much easier to find workout opportunities without relying solely on direct messaging.
+
+This change makes the platform more engaging by ensuring that even if users don’t feel comfortable reaching out individually, they can still participate in group activities. It also helps new users immediately find something to join, rather than waiting for a match.
+
+## 05: How Users Join Events
+
+### Meta
+
+Status: Work in progress - **Decided** - Obsolete
+
+Updated:
+10-02-2025
+
+### Problem statement
+
+Since users should now be able to create and join events the challenge here was too design an efficient way to manage this interaction.
+
+### Considered options
+
+1. **One-to-Many Structure**
+
+    Each event is owned by one user, and participants are stored as a list inside the event.
+
+    | **Pros** | **Cons** |
+    | --- | --- |
+    | Simple structure|Difficult to track many-to-many relationships efficiently|
+    | Easy to manage||
+
+2. **Many-to-Many Relationship**
+
+    A separate table (EventParticipants) stores who joins which event.
+
+    | **Pros** |**Cons**|
+    |---|---|
+    |More flexible| Requires an extra table|
+    |Allows multiple users to join mulitiple events||
+
+
+### Decision
+
+We implemented Option 2 (Many-to-Many Relationship) using an EventParticipants table. This approach allows multiple users to join multiple events without unnecessary data duplication, making it easier to expand the event system in the future
