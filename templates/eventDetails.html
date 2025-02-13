@@ -122,7 +122,7 @@
         {% if current_user in event.participants_list %}
             <p class="text-success fw-bold mt-3">You are already participating!</p>
         {% else %}
-            <form action="{{ url_for('join_event', event_id=event.id) }}" method="POST">
+            <form action="{{ url_for('auth.join_event', event_id=event.id) }}" method="POST">
                 <button type="submit" class="btn btn-primary w-100 mt-3">Join Event</button>
             </form>
         {% endif %}

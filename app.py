@@ -30,9 +30,10 @@ def event_overview():
     return render_template('eventOverview.html', events=events)
 
 #Route für eventDetails.html
-@app.route('/event-details') 
-def event_details():
-    return render_template('eventDetails.html') 
+@app.route('/event-details/<int:event_id>')
+def event_details(event_id):
+    event = Event.query.get_or_404(event_id)  # Holt das Event oder gibt 404 zurück
+    return render_template('eventDetails.html', event=event)
 
 # Route für userProfileDetail.html
 @app.route('/user/<int:user_id>')
