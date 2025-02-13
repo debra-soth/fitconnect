@@ -38,6 +38,7 @@ def event_details():
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):
     user = User.query.get(user_id)  # Holt den User mit der gegebenen ID aus der Datenbank
+    #print("Profile Photo Path:", user.profile_photo)
     return render_template('userProfileDetail.html', user=user)  # Übergibt den User an das Template
 
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
