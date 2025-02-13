@@ -114,7 +114,7 @@
 <!-- User Profiles Grid -->
 <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-        {% for user in liked_users %}
+        {% for user in users_who_liked_you %}
         <div class="col-md-4 d-flex justify-content-center">
             <div class="card profile-card">
                 <img src="{{ user.profile_photo }}" alt="{{ user.username }}">

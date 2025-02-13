@@ -69,4 +69,8 @@ class AccountSettingsForm(FlaskForm):
 
 #Formular für Join Event 
 class JoinEventForm(FlaskForm):
-    submit = SubmitField('Join Event')   
+    submit = SubmitField('Join Event')  
+
+#Formular für Like User 
+class LikeForm(FlaskForm):
+    submit = SubmitField('Like')
