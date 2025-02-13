@@ -35,3 +35,27 @@ nav_order: 2
 
 - Users land on the User Overview page and browse other users
 - Clicking on a profile opens the User Details page, where they can send a like
+
+**Matches & Likes & Events**
+
+- "Your Matches" page displays:
+    - Users who liked them (their "Like List")
+    - Users they mutually liked (Match List).
+    - Users can like back to confirm a match or remove a user from likes
+    - Events the User has joined
+
+**Events Participation**
+
+- Users visit the Events Overview page to see fitness events
+- They can join an event or create their own
+- Joined events appear under "Your Matches"
+
+**Event Creation**
+
+- Users can create their own events and add Title, Location, Maximum Number of Participants and Time
+- Created events will appear under "Events"
+
+**Account Management**
+
+- Users can log out from the profile menu
+- They can edit account details such as passwords and personal information
