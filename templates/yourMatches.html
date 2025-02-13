@@ -122,6 +122,9 @@
             <span>{{ event.event_date.strftime('%B %d, %Y') }}</span>
         </div>
     </a>
+    {% else %}
+    <div class="text-center my-5">
+        <h4>No events joined yet.</h4>
     {% endfor %}
 </div>
 
@@ -153,8 +156,8 @@
                     </div>
                 </div>
             </a>
-        </div>
-    {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -171,8 +174,13 @@
             <span>{{ match.email }}</span>
         </div>
     </a>
+        {% else %}
+    <div class="text-center my-5">
+        <p class="fw-bold">No matches yet.</p>
+    </div>
     {% endfor %}
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
