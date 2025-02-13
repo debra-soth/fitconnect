@@ -199,13 +199,19 @@ def account_settings():
             print(form.errors)  # Debugging: Zeigt an, warum das Formular fehlschlägt
 
     return render_template('accountSettings.html', form=form)
+
 # Route zum Erstellen eines Events
 @auth.route('/create-event', methods=['GET', 'POST'])
 @login_required
 def create_event():
     form = CreateEventForm()
-    
+    if request.method == "POST":
+        print("POST-Request erhalten!")  # Debugging: Wird ein POST-Request empfangen?
+
     if form.validate_on_submit():
+        print("Formular wurde validiert!")  # Debugging: Wird das Formular korrekt validiert?
+        print(f"Eingegebene Daten: {form.data}")  # Debuggibng: Alle Formulardaten anzeigen
+
         new_event = Event(
             event_name=form.event_name.data,
             event_description=form.event_description.data,
@@ -217,10 +223,19 @@ def create_event():
             host_id=current_user.id  # Host wird automatisch gesetzt!
         )
         db.session.add(new_event)
-        db.session.commit()
-        flash("Event successfully created!", "success")
+        try:
+            db.session.commit()
+            print("Event wurde erfolgreich gespeichert!")  # DEBUG: Erfolgreiches Speichern
+            flash("Event successfully created!", "success")
+            return redirect(url_for('event_overview'))
+        except Exception as e:
+            db.session.rollback()
+            print("Fehler beim Speichern des Events:", str(e))  # DEBUG: Fehler anzeigen
+            flash("An error occurred while creating the event.", "danger")
 
-        return redirect(url_for('event_overview'))
+    else:
+        print("Formular ist ungültig!")  # Falls Validierung fehlschlägt
+        print(form.errors)  # Fehler ausgeben
 
     return render_template('createEvent.html', form=form)
 
