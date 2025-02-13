@@ -208,37 +208,51 @@ def account_settings():
 @login_required
 def create_event():
     form = CreateEventForm()
+
     if request.method == "POST":
         print("POST-Request erhalten!")  # Debugging: Wird ein POST-Request empfangen?
 
-    if form.validate_on_submit():
-        print("Formular wurde validiert!")  # Debugging: Wird das Formular korrekt validiert?
-        print(f"Eingegebene Daten: {form.data}")  # Debuggibng: Alle Formulardaten anzeigen
+        if form.validate_on_submit():
+            print("Formular wurde validiert!")  # Debugging: Wird das Formular korrekt validiert?
+            print(f"Eingegebene Daten: {form.data}")  # Debugging: Alle Formulardaten anzeigen
+            
+            # **Überprüfung der Länge der Beschreibung**
+            if form.event_description.data and len(form.event_description.data) > 250:
+                flash("The event description must be at most 250 characters long.", "error")
+                return render_template('createEvent.html', form=form)  # Zurück zur Event-Erstellung
 
-        new_event = Event(
-            event_name=form.event_name.data,
-            event_description=form.event_description.data,
-            event_date=form.event_date.data,
-            event_starttime=form.event_starttime.data,
-            event_endtime=form.event_endtime.data,
-            event_location=form.event_location.data,
-            max_participants=form.max_participants.data,
-            host_id=current_user.id  # Host wird automatisch gesetzt!
-        )
-        db.session.add(new_event)
-        try:
-            db.session.commit()
-            print("Event wurde erfolgreich gespeichert!")  # DEBUG: Erfolgreiches Speichern
-            flash("Event successfully created!", "success")
-            return redirect(url_for('event_overview'))
-        except Exception as e:
-            db.session.rollback()
-            print("Fehler beim Speichern des Events:", str(e))  # DEBUG: Fehler anzeigen
-            flash("An error occurred while creating the event.", "danger")
+            try:
+                # Neues Event erstellen
+                new_event = Event(
+                    event_name=form.event_name.data,
+                    event_description=form.event_description.data,
+                    event_date=form.event_date.data,
+                    event_starttime=form.event_starttime.data,
+                    event_endtime=form.event_endtime.data,
+                    event_location=form.event_location.data,
+                    max_participants=form.max_participants.data,
+                    host_id=current_user.id  # Der aktuelle Benutzer wird als Host gesetzt
+                )
 
-    else:
-        print("Formular ist ungültig!")  # Falls Validierung fehlschlägt
-        print(form.errors)  # Fehler ausgeben
+                db.session.add(new_event)
+                db.session.commit()
+                
+                flash("Event successfully created!", "success")
+                return redirect(url_for('event_overview'))
+
+            except Exception as e:
+                db.session.rollback()
+                print(f"Fehler beim Speichern des Events: {e}")  # Debugging
+                flash("An error occurred while creating the event. Please try again.", "error")
+
+        else:
+            print("Formularvalidierung fehlgeschlagen!")  # Debugging
+            print(form.errors)  # Fehler anzeigen
+            
+            # **Flash-Meldungen für Validierungsfehler ausgeben**
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"{field.replace('_', ' ').capitalize()}: {error}", "error")
 
     return render_template('createEvent.html', form=form)
 
@@ -278,7 +292,7 @@ def like_user(user_id):
     existing_like = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user_id).first()
     if existing_like:
         flash("You have already liked this user!", "warning")
-        return redirect(url_for('your_matches'))
+        return redirect(url_for('user_overview'))
 
     # Neues Like in die Datenbank einfügen
     new_like = UserLikes(liker_id=current_user.id, liked_id=user_id)
@@ -292,4 +306,4 @@ def like_user(user_id):
     else:
         flash("You liked this user! If they like you back, you'll be matched.", "info")
 
-    return redirect(url_for('your_matches'))
+    return redirect(url_for('user_overview'))
