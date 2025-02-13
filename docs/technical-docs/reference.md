@@ -24,7 +24,9 @@ nav_order: 4
 **Route:** `/`  
 **Methods:** `GET`  
 **Purpose:** Redirects users to the login page  
-**Sample output:** Redirects to `/auth/login`  
+**Sample output:** 
+
+![login page](assets/images/login-screen.png) 
 
 ---
 
@@ -35,16 +37,22 @@ nav_order: 4
 **Route:** `/personalize`  
 **Methods:** `GET`  
 **Purpose:** Renders the profile personalization page with a form  
-**Sample output:** HTML page with the profile form  
+**Sample output:** 
+
+![personalize profile page](assets/images/personalize-profile.png) 
 
 ---
 
 ## User Registration
+
 `@auth.route('/register')` 
+
 **Route:** `/register`  
 **Methods:** `GET`, `POST`  
 **Purpose:** Handles user registration with form validation and database storage  
-**Sample output:** Displays registration form or redirects upon success.  
+**Sample output:** 
+
+![registration](assets/images/registration.png) 
 
 ---
 
@@ -53,7 +61,9 @@ nav_order: 4
 **Route:** `/login`  
 **Methods:** `GET`, `POST`  
 **Purpose:** Authenticates users and starts a session  
-**Sample output:** Redirects to dashboard upon success  
+**Sample output:** 
+
+![homepage](assets/images/user-overview.png) 
 
 ---
 
