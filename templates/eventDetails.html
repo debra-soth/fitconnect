@@ -116,7 +116,7 @@
         <p><strong>Location:</strong> {{ event.event_location }}</p>
         <p><strong>Description:</strong> {{ event.event_description or "No description provided." }}</p>
       
-        <p><strong>Participants:</strong> {{ event.participants_list|length }} / {{ event.max_participants }}</p>
+        <p><strong>Participants:</strong> {{ participants|length }} / {{ event.max_participants }}</p>
         
         <!-- Show Participants List -->
         {% if participants %}
