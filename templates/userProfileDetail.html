@@ -87,7 +87,7 @@
 
 <div class="container profile-container">
     <div class="text-center">
-        <img src="{{ user.profile_photo if 'http' in user.profile_photo else url_for('static', filename='images/' + user.profile_photo) }}" class="profile-img" alt="{{ user.username }}">
+    <img src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.username }}">
         <h2 class="fw-bold mt-2">{{ user.username }}</h2>
         <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> {{ user.location }}</p>
         <p class="text-muted"><i class="bi bi-at"></i> <em>Once there's a match you will be able to see {{ user.username }}'s contact details</em></p>
