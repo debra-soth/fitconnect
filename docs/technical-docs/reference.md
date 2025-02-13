@@ -26,7 +26,9 @@ nav_order: 4
 **Purpose:** Redirects users to the login page  
 **Sample output:** 
 
-![login page](assets/images/login-screen.png) 
+
+![login-page](//fitconnect/docs/assets/images/login-screen.png)
+
 
 ---
 
@@ -102,7 +104,7 @@ nav_order: 4
 **Purpose:** Displays details of a specific event  
 **Sample output:** 
 
-![event details](assets/images/event-details.png) 
+![event_details](assets/images/event-details.png) 
 
 ---
 
@@ -115,7 +117,7 @@ nav_order: 4
 **Purpose:** Shows a list of all available events  
 **Sample output:** 
 
-![event overview](assets/images/event-overview.png) 
+![event overview](assets/images/event-overview.png)
 
 ---
 
@@ -183,9 +185,9 @@ nav_order: 4
 
 `@app.route('/user/<int:user_id>')`
 
-**Route:** `/user/<int:user_id>`  
-**Methods:** `GET`  
-**Purpose:** Displays the profile of a specific user  
+**Route:** `/user/<int:user_id>` 
+**Methods:** `GET` 
+**Purpose:** Displays the profile of a specific user 
 **Sample output:** 
 
 ![user details](assets/images/user-details.png) 
