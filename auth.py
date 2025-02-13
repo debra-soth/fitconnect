@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
-from .models import User, Event, event_participants
+from .models import User, Event, event_participants, UserLikes
 from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm, CreateEventForm
 
 
