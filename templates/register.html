@@ -14,6 +14,19 @@
   </style>
 </head>
 <body>
+<!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
         <div class="d-flex align-items-center ms-3 mt-3 mb-4">
             <!-- Logo -->
             <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">

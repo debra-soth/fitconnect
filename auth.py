@@ -1,5 +1,5 @@
 # Module und Klassen aus Flask werden importiert
-from flask import Blueprint, render_template, redirect, url_for, flash, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, flash, request, session
 import os
 
 # Funktionen und Klassen aus Flask-Login und Werkzeug werden importiert
@@ -49,6 +49,8 @@ def register():
 def login():
     # Login-Objekt wird erstellt
     form = LoginForm()
+      # Alle vorherigen Flash-Nachrichten löschen, damit sie sich nicht stapeln
+    session.pop('_flashes', None)
     #Wenn request empfangen wird und Formular gesendet wurde, nehme Benutzernamen und Passwort aus dem Formular
     if request.method == 'POST':
         username = request.form.get('username')

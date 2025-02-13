@@ -14,7 +14,19 @@
     </style>
 </head>
 <body>
-
+<!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 <!-- Container für Flexbox mit vollständiger Höhe -->
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
         <!-- Logo -->
