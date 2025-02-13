@@ -38,8 +38,15 @@ def event_details():
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):
     user = User.query.get(user_id)  # Holt den User mit der gegebenen ID aus der Datenbank
+    #print("Profile Photo Path:", user.profile_photo)
     return render_template('userProfileDetail.html', user=user)  # Übergibt den User an das Template
+
+# Route für yourMatches.html
+@app.route('/your-matches')
+def your_matches():
+    return render_template('yourMatches.html')
 
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
     app.run(debug=True)
+
