@@ -45,6 +45,10 @@ event_participants = db.Table(
     db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
 )
 
+joined_events = db.relationship(
+    'Event', secondary='event_participants', backref='participants', lazy='dynamic'
+)
+
 # Datenmodell für UserLikes (Matches)
 class UserLikes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
