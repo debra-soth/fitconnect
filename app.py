@@ -45,20 +45,22 @@ def user_profile_detail(user_id):
     #print("Profile Photo Path:", user.profile_photo)
     return render_template('userProfileDetail.html', user=user, form=form)  # Übergibt den User an das Template
 
-# Route für yourMatches.html
 @app.route('/your-matches')
 def your_matches():
-       # Alle User, die current_user geliked haben
+    # Alle User, die current_user geliked haben
     users_who_liked_you = [like.liker for like in UserLikes.query.filter_by(liked_id=current_user.id).all()]
-
-    # Alle Events, in denen current_user Teilnehmer ist
-    joined_events = current_user.joined_events
 
     # Alle Matches (gegenseitige Likes)
     matched_users = [
         like.liker for like in UserLikes.query.filter_by(liked_id=current_user.id).all()
         if UserLikes.query.filter_by(liker_id=current_user.id, liked_id=like.liker.id).first()
     ]
+
+    # Entferne gematchte User aus "Your Likes"
+    users_who_liked_you = [user for user in users_who_liked_you if user not in matched_users]
+
+    # Alle Events, in denen current_user Teilnehmer ist
+    joined_events = current_user.joined_events
 
     return render_template('yourMatches.html', 
                            users_who_liked_you=users_who_liked_you, 
