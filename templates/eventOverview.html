@@ -47,7 +47,7 @@
             left: auto;
         }
         .event-card img {
-            height: 250px;
+            height: 280px;
             object-fit: cover;
         }
     </style>
@@ -104,6 +104,7 @@
         <div class="col-md-4 d-flex justify-content-center">
             <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
                 <div class="card event-card" style="width: 18rem;">
+                <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" class="card-img-top" alt="FitConnect Logo">
                     <div class="card-body">
                         <h5 class="card-title"><strong>{{ event.event_name }}</strong></h5>
                         <p class="card-text text-muted">{{ event.event_date }} - {{ event.event_location }}</p>
