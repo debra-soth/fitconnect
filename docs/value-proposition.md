@@ -46,12 +46,44 @@ By focusing on this demographic, the app creates an inclusive space for people a
 
 ## Customer journey
 
-The customer journey begins when the user downloads the app and lands on the login screen. If they don't have an account, they select "Don't have an account? Create one!" to register by entering their username, name, email, and password. After registering, they log in and arrive at the User Overview, the main hub displaying all registered users.
+The customer journey starts the moment someone first hears about FitConnect—maybe through a social media post, a friend’s recommendation, or a Google search for fitness partners. They click a link, land on the FitConnect homepage, and start exploring.
 
-Before exploring others, the user can personalize their own profile by clicking "Personalize Profile" in the navigation bar. Here, they add details like fitness preferences, availability, fitness level, gym memberships, and a profile photo. This step ensures others can understand their goals and interests. 
+Once on the login page, they either enter their existing credentials or select “Don’t have an account? Create one!” to register. They fill in their username, name, email, and password, and just like that—they’re in! They land on the User Overview where all registered users are displayed.
 
-Back in the User Overview, the user browses profiles and can view detailed information on potential training partners. If they find someone suitable, they click "Send like" to express interest. A connection is made only if the other user also sends a like, creating a mutual match.
+Before checking out potential workout buddies, they customize their profile by clicking “Personalize Profile” in the navigation bar. They add details like fitness level, favorite activities, gym memberships, availability, and a profile photo.
 
-Matched users appear in the "Your Matches" screen, accessible from the navigation bar. Here, they can view their matches and find contact information (email addresses) to reach out and coordinate workouts.
+Now it’s time to explore! On the User Overview page, they scroll through profiles and click on someone interesting. This takes them to the User Details page, where they can see more about this person—what activities they enjoy, their fitness goals, and whether their schedules align. If they think this could be a good fit, they hit “Send Like” to express interest. But here’s the catch—a match only happens if the other person also sends a like. 
 
-This journey allows users to easily register, customize their profile, explore others, and form meaningful connections, making it simple to find training partners and combine fitness with social engagement.
+Once they get a mutual match, their new training partner appears in the “Your Matches” tab. From there, they can view their match’s contact information and start a conversation.
+
+There’s also a tab in the navigation bar called “Events”, where users can see fitness events created by others—or create their own. Maybe it’s a local running club, a weekend yoga session in the park, or a group weightlifting challenge at the gym. This feature helps people discover new activities, meet fitness-minded folks, and build a real-world community.
+
+### Future Monetization Idea
+In the future, sponsored events could help support the platform. FitConnect could partner with gyms, fitness brands, and health companies to feature their events, giving users access to exclusive group workouts, training sessions, and fitness challenges while providing brands with a way to connect with engaged fitness enthusiasts.
+
+### Chart
+```mermaid
+
+graph TD;
+    A[User discovers FitConnect] -->|Social media, search, referrals| B[Visits Website]
+    B -->|Explores features & benefits| C[Signs Up]
+    C --> D[Logs into User Overview]
+    
+    D -->|Personalizes profile| E[Adds fitness details, photo, preferences]
+    
+    D -->|Browses profiles| F[Views User Details]
+    F -->|Interested| G[Sends Like]
+    G -->|Mutual Like| H[Appears in Your Matches]
+    H --> I[Sees Contact Info & Connects]
+
+    D -->|Checks Events Tab| J[Views or Creates Events]
+    J -->|Joins Event| K[Attends Fitness Meetup]
+    J -->|Creates Event| L[Hosts Fitness Meetup]
+    
+    K & L --> M[Builds Fitness Community]
+    
+    M -->|Sponsored Events| N[Gyms & brands partner for promotions]
+    
+    M --> O[Stays Motivated & Engaged]
+
+```
