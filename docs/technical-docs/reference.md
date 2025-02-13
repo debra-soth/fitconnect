@@ -10,13 +10,6 @@ nav_order: 4
 {: .no_toc }
 # Reference documentation
 
-{: .attention }
-> This page collects internal functions, routes with their functions, and APIs (if any).
-> 
-> See [Uber](https://developer.uber.com/docs/drivers/references/api) or [PayPal](https://developer.paypal.com/api/rest/) for exemplary high-quality API reference documentation.
->
-> You may delete this `attention` box.
-
 <details open markdown="block">
 {: .text-delta }
 <summary>Table of contents</summary>
@@ -24,62 +17,137 @@ nav_order: 4
 {: toc }
 </details>
 
-## [Section / module]
 
-### `function_definition()`
+## Index Page Redirect
+`@app.route('/')`
 
-**Route:** `/route/`
-
-**Methods:** `POST` `GET` `PATCH` `PUT` `DELETE`
-
-**Purpose:** [Short explanation of what the function does and why]
-
-**Sample output:**
-
-[Show an image, string output, or similar illustration -- or write NONE if function generates no output]
+**Route:** `/`  
+**Methods:** `GET`  
+**Purpose:** Redirects users to the login page  
+**Sample output:** Redirects to `/auth/login`  
 
 ---
 
-## [Example, delete this section] Show to-do lists
-
-### `get_lists()`
-
-**Route:** `/lists/`
-
-**Methods:** `GET`
-
-**Purpose:** Show all to-do lists.
-
-**Sample output:**
-
-![get_lists() sample](../assets/images/fswd-intro_00.png)
+## Personalize Profile Page
+@app.route('/personalize')  
+**Route:** `/personalize`  
+**Methods:** `GET`  
+**Purpose:** Renders the profile personalization page with a form  
+**Sample output:** HTML page with the profile form  
 
 ---
 
-### `get_list_todos(list_id)`
-
-**Route:** `/lists/<int:list_id>`
-
-**Methods:** `GET`
-
-**Purpose:** Retrieve all to-do items of to-do list with ID `list_id` from database and present to user.
-
-**Sample output:**
-
-![get_list_todos() sample](../assets/images/fswd-intro_02.png)
+## User Registration
+@auth.route('/register')  
+**Route:** `/register`  
+**Methods:** `GET`, `POST`  
+**Purpose:** Handles user registration with form validation and database storage  
+**Sample output:** Displays registration form or redirects upon success.  
 
 ---
 
-## [Example, delete this section] Insert sample data
+## User Login  
+@auth.route('/login')  
+**Route:** `/login`  
+**Methods:** `GET`, `POST`  
+**Purpose:** Authenticates users and starts a session  
+**Sample output:** Redirects to dashboard upon success  
 
-### `run_insert_sample()`
+---
 
-**Route:** `/insert/sample`
+## User Logout  
+@auth.route('/logout')  
+**Route:** `/logout`  
+**Methods:** `GET`  
+**Purpose:** Logs out the current user and redirects to the login page  
+**Sample output:** Redirect to `/login`.  
 
-**Methods:** `GET`
+---
 
-**Purpose:** Flush the database and insert sample data set
+## Create Event  
+@auth.route('/create-event')  
+**Route:** `/create-event`  
+**Methods:** `GET`, `POST`  
+**Purpose:** Allows users to create an event  
+**Sample output:** Displays event creation form or confirms event creation  
 
-**Sample output:**
+---
 
-Browser shows: `Database flushed and populated with some sample data.`
+## Event Details  
+@auth.route('/event-details/<int:event_id>')  
+**Route:** `/event-details/<int:event_id>`  
+**Methods:** `GET`  
+**Purpose:** Displays details of a specific event  
+**Sample output:** Event information with participants and options to join.  
+
+---
+
+## Events List 
+@auth.route('/events')  
+**Route:** `/events`  
+**Methods:** `GET`  
+**Purpose:** Shows a list of all available events  
+**Sample output:** Event listing with options to join.  
+
+---
+
+## Join Event 
+@auth.route('/join-event/<int:event_id>')  
+**Route:** `/join-event/<int:event_id>`  
+**Methods:** `POST`  
+**Purpose:** Allows users to join a specific event  
+**Sample output:** Confirmation of event participation.  
+
+---
+
+## Like User 
+@auth.route('/like/<int:user_id>')  
+**Route:** `/like/<int:user_id>`  
+**Methods:** `POST`  
+**Purpose:** Allows users to like another user (for connections/matching)  
+**Sample output:** Confirmation of the like action.  
+
+---
+
+## User Profile 
+@auth.route('/profile')  
+**Route:** `/profile`  
+**Methods:** `GET`  
+**Purpose:** Displays the profile of the logged-in user  
+**Sample output:** User profile information and edit options.  
+
+---
+
+## User Settings 
+@auth.route('/settings')  
+**Route:** `/settings`  
+**Methods:** `GET`, `POST`  
+**Purpose:** Allows users to update their account settings  
+**Sample output:** Settings page with editable preferences.  
+
+---
+
+## User List
+@auth.route('/user')  
+**Route:** `/user`  
+**Methods:** `GET`  
+**Purpose:** Displays a list of users (for social features)  
+**Sample output:** List of users with interaction options.  
+
+---
+
+## Specific User Profile
+@auth.route('/user/<int:user_id>')  
+**Route:** `/user/<int:user_id>`  
+**Methods:** `GET`  
+**Purpose:** Displays the profile of a specific user  
+**Sample output:** Profile details of the selected user.  
+
+---
+
+## Your Matches 
+@auth.route('/your-matches')  
+**Route:** `/your-matches`  
+**Methods:** `GET`  
+**Purpose:** Displays potential matches based on preferences  
+**Sample output:** List of matched users.
