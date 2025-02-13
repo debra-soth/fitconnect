@@ -21,7 +21,7 @@ def personalize_profile():
 #Route für userOverview.html
 @app.route('/user')
 def user_overview():
-    users = User.query.all()  # Fetch all users from the database
+    users = User.query.filter(User.id != current_user.id).all()  # Fetch all users from the database
     return render_template('userOverview.html', users=users)  # Pass the user data to the template
 
 #Route für eventOverview.html
