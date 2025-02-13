@@ -87,7 +87,7 @@
 
 <div class="container profile-container">
     <div class="text-center">
-        <img src="{{ user.profile_photo }}" class="profile-img" alt="{{ user.username }}">
+        <img src="{{ user.profile_photo if 'http' in user.profile_photo else url_for('static', filename='images/' + user.profile_photo) }}" class="profile-img" alt="{{ user.username }}">
         <h2 class="fw-bold mt-2">{{ user.username }}</h2>
         <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> {{ user.location }}</p>
         <p class="text-muted"><i class="bi bi-at"></i> <em>Once there's a match you will be able to see {{ user.username }}'s contact details</em></p>
@@ -100,7 +100,11 @@
         </div>
         <div class="col-md-6">
             <h5 class="fw-bold">Gym Membership:</h5>
-            <p><i class="bi bi-building"></i> {{ user.gym_membership }}</p>
+            {% if user.gym_membership %}
+                <p><i class="bi bi-building"></i> {{ user.gym_membership }}</p>
+            {% else %}
+                <p class="text-muted">Not provided</p>
+            {% endif %}
         </div>
     </div>
     <div class="row mt-3">
