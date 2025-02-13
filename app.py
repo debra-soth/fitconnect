@@ -40,17 +40,35 @@ def event_details(event_id):
 
 @app.route('/user/<int:user_id>')
 def user_profile_detail(user_id):
-    user = User.query.get_or_404(user_id)  # Holt den User oder gibt 404-Fehler zurück
+    user = User.query.get_or_404(user_id)  # Get the profile user
+    form = LikeForm()
 
-    # Alle Matches abrufen (gegenseitige Likes)
+    # Check if both users have liked each other (Mutual Match)
+    matched = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user.id).first() is not None and \
+              UserLikes.query.filter_by(liker_id=user.id, liked_id=current_user.id).first() is not None
+    
+        # Alle Matches abrufen (gegenseitige Likes)
+
     matched_users = [
         like.liker for like in UserLikes.query.filter_by(liked_id=current_user.id).all()
         if UserLikes.query.filter_by(liker_id=current_user.id, liked_id=like.liker.id).first()
     ]
 
-    form = LikeForm()  # Initialisiere Like-Formular
+    # Check if the current user already liked this user
+    already_liked = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user.id).first() is not None
 
-    return render_template('userProfileDetail.html', user=user, matched_users=matched_users, form=form)
+    # Check if the profile user has liked the current user (Like Back option)
+    liked_back = UserLikes.query.filter_by(liker_id=user.id, liked_id=current_user.id).first() is not None
+
+    return render_template(
+        'userProfileDetail.html',
+        user=user,
+        form=form,
+        matched=matched,
+        matched_users=matched_users,
+        already_liked=already_liked,
+        liked_back=liked_back
+    )
 
 @app.route('/your-matches')
 def your_matches():
