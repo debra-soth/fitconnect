@@ -22,7 +22,9 @@ class User(db.Model,UserMixin):
 # Beziehungen
     hosted_events = db.relationship('Event', backref='host', lazy=True)  # Events, die dieser User hostet
     joined_events = db.relationship('Event', secondary='event_participants', backref='participants', lazy='dynamic')  # Events, an denen der User teilnimmt
-    
+    sent_likes = db.relationship('UserLikes', foreign_keys='UserLikes.liker_id', backref='liker', lazy=True)
+    received_likes = db.relationship('UserLikes', foreign_keys='UserLikes.liked_id', backref='liked', lazy=True)
+
 #Datenbankmodell erstellen für Event 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,3 +44,9 @@ event_participants = db.Table(
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
     db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
 )
+
+# Datenmodell für UserLikes (Matches)
+class UserLikes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    liker_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Nutzer, der das Like sendet
+    liked_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Nutzer, der das Like erhält
