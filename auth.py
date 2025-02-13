@@ -139,6 +139,7 @@ def personalize_profile():
     
     
     return render_template('personalizeProfile.html', form=form)
+
 # Route für Account Settings
 @auth.route('/settings', methods=['GET', 'POST'])
 @login_required
@@ -264,7 +265,7 @@ def join_event(event_id):
     flash('Successfully joined the event!', 'success')
     return redirect(url_for('event_overview')) 
 
-#Route fürs Liken eines Users
+# Route für das Liken eines Users
 @auth.route('/like/<int:user_id>', methods=['POST'])
 @login_required
 def like_user(user_id):
@@ -275,12 +276,18 @@ def like_user(user_id):
     existing_like = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user_id).first()
     if existing_like:
         flash("You have already liked this user!", "warning")
-        return redirect(url_for('user_overview'))
+        return redirect(url_for('your_matches'))
 
-    # Like in die Datenbank einfügen
+    # Neues Like in die Datenbank einfügen
     new_like = UserLikes(liker_id=current_user.id, liked_id=user_id)
     db.session.add(new_like)
     db.session.commit()
 
-    flash("You liked this user!", "success")
-    return redirect(url_for('user_overview'))
+    # Prüfen, ob ein gegenseitiges Like existiert → Falls ja, sind beide Matches!
+    mutual_like = UserLikes.query.filter_by(liker_id=user_id, liked_id=current_user.id).first()
+    if mutual_like:
+        flash("It's a Match! 🎉 You can now see their contact details.", "success")
+    else:
+        flash("You liked this user! If they like you back, you'll be matched.", "info")
+
+    return redirect(url_for('your_matches'))

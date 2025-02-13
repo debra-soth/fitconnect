@@ -116,15 +116,17 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         {% for user in users_who_liked_you %}
         <div class="col-md-4 d-flex justify-content-center">
-            <div class="card profile-card">
-                <img src="{{ user.profile_photo }}" alt="{{ user.username }}">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">{{ user.username }}, {{ user.age }}</h5>
-                    <p class="card-text text-muted">{{ user.favorite_activities }}</p>
+                <a href="{{ url_for('user_profile_detail', user_id=user.id) }}" class="text-decoration-none text-dark">
+                <div class="card profile-card">
+                    <img src="{{ user.profile_photo }}" alt="{{ user.username }}">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ user.username }}, {{ user.age }}</h5>
+                        <p class="card-text text-muted">{{ user.favorite_activities }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
-        {% endfor %}
+    {% endfor %}
     </div>
 </div>
 
