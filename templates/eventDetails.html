@@ -131,14 +131,17 @@
         {% endif %}
 
         <!-- Join Event Button -->
-        {% if current_user in event.participants_list %}
+        {% if current_user in participants %}
             <p class="text-success fw-bold mt-3">You are already participating!</p>
+        {% elif participants|length >= event.max_participants %}
+            <p class="text-danger fw-bold mt-3">This event is full. No more spots available.</p>
         {% else %}
             <form action="{{ url_for('auth.join_event', event_id=event.id) }}" method="POST">
-             {{ form.hidden_tag() }}  <!-- CSRF-Token hinzufügen -->
+                {{ form.hidden_tag() }}
                 <button type="submit" class="btn btn-primary w-100 mt-3">Join Event</button>
             </form>
         {% endif %}
+
     </div>
 </div>
 
