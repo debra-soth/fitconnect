@@ -137,10 +137,12 @@
 <!-- Matches Contact List -->
 <div class="container">
     {% for match in matched_users %}
-    <div class="contact-box my-2">
-        <span><strong>{{ match.username }}, {{ match.age }}</strong></span>
-        <span>{{ match.email }}</span>
-    </div>
+    <a href="{{ url_for('user_profile_detail', user_id=match.id) }}" class="text-decoration-none text-dark">
+        <div class="contact-box my-2">
+            <span><strong>{{ match.username }}, {{ match.age }}</strong></span>
+            <span>{{ match.email }}</span>
+        </div>
+    </a>
     {% endfor %}
 </div>
 
