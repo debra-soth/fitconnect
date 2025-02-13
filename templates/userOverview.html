@@ -107,7 +107,21 @@
                     <img src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.username }}">
                     <div class="card-body">
                         <h5 class="card-title text-dark"><strong>{{ user.username }}, {{ user.age }}</strong></h5>
-                        <p class="card-text text-muted">{{ user.favorite_activities }}</p>
+                        <!--<p class="card-text text-muted">{{ user.favorite_activities }}</p>-->
+                        <p class="card-text text-muted">
+                        <p class="card-text text-muted">
+                            {% if user.favorite_activities %}
+                                {% set displayed_activities = user.favorite_activities[:2] %}
+                                {{ ', '.join(displayed_activities) }}
+                                {% if user.favorite_activities|length > 2 %}
+                                    (+{{ user.favorite_activities|length - 2 }} more)
+                                {% endif %}
+                            {% else %}
+                                No activities listed.
+                            {% endif %}
+                        </p>
+
+                    </p>
                     </div>
                 </div>
             </a>
