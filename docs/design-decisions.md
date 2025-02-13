@@ -136,18 +136,17 @@ Initially, the database model included a Match table to store confirmed matches.
 
 ### Considered options
 
-1) **Match Table**
-
+1. **Match Table**
 
     Each match is recorded when two users like each other
 
-    | **Pros** | **Cons** |
-    | --- | --- |
-    | Matches are stored permanently|Requires updating the match table when users change likes|
-    | Easy retrieval||
+    |**Pros:** |**Cons:**|
+    |---|---|
+    |Matches are stored permanently | Requires updating the match table when users change likes |
+    |Easy retrieval ||
     
 
-2) **Query-Based Matches Using Likes Table**
+2. **Query-Based Matches Using Likes Table**
 
     Instead of storing matches, the system dynamically queries mutual likes
 
