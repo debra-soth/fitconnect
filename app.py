@@ -92,6 +92,12 @@ def your_matches():
                            joined_events=joined_events, 
                            matched_users=matched_users)
 
+#Route für userOwnProfile.html
+@app.route('/profile')
+def user_own_profile():
+    form = PersonalizeProfileForm()
+    return render_template('userOwnProfile.html', form=form)
+
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
     app.run(debug=True)
