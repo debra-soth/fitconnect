@@ -29,7 +29,9 @@ nav_order: 4
 ---
 
 ## Personalize Profile Page
-@app.route('/personalize')  
+
+`@app.route('/personalize')`  
+
 **Route:** `/personalize`  
 **Methods:** `GET`  
 **Purpose:** Renders the profile personalization page with a form  
@@ -38,7 +40,7 @@ nav_order: 4
 ---
 
 ## User Registration
-@auth.route('/register')  
+`@auth.route('/register')` 
 **Route:** `/register`  
 **Methods:** `GET`, `POST`  
 **Purpose:** Handles user registration with form validation and database storage  
@@ -47,7 +49,7 @@ nav_order: 4
 ---
 
 ## User Login  
-@auth.route('/login')  
+`@auth.route('/login')`  
 **Route:** `/login`  
 **Methods:** `GET`, `POST`  
 **Purpose:** Authenticates users and starts a session  
@@ -58,7 +60,7 @@ nav_order: 4
 ## User Logout  
 @auth.route('/logout')  
 **Route:** `/logout`  
-**Methods:** `GET`  
+**Methods:** `GET`, `POST`  
 **Purpose:** Logs out the current user and redirects to the login page  
 **Sample output:** Redirect to `/login`.  
 
@@ -74,7 +76,7 @@ nav_order: 4
 ---
 
 ## Event Details  
-@auth.route('/event-details/<int:event_id>')  
+@app.route('/event-details/<int:event_id>')  
 **Route:** `/event-details/<int:event_id>`  
 **Methods:** `GET`  
 **Purpose:** Displays details of a specific event  
@@ -82,8 +84,8 @@ nav_order: 4
 
 ---
 
-## Events List 
-@auth.route('/events')  
+## Event Overview 
+@app.route('/events')  
 **Route:** `/events`  
 **Methods:** `GET`  
 **Purpose:** Shows a list of all available events  
@@ -96,7 +98,7 @@ nav_order: 4
 **Route:** `/join-event/<int:event_id>`  
 **Methods:** `POST`  
 **Purpose:** Allows users to join a specific event  
-**Sample output:** Confirmation of event participation.  
+**Sample output:** Browser shows: `Successfully joined the event!`
 
 ---
 
@@ -105,12 +107,12 @@ nav_order: 4
 **Route:** `/like/<int:user_id>`  
 **Methods:** `POST`  
 **Purpose:** Allows users to like another user (for connections/matching)  
-**Sample output:** Confirmation of the like action.  
+**Sample output:** Browser shows: `You liked this user! If they like you back, you'll be matched.`
 
 ---
 
 ## User Profile 
-@auth.route('/profile')  
+@app.route('/profile')  
 **Route:** `/profile`  
 **Methods:** `GET`  
 **Purpose:** Displays the profile of the logged-in user  
@@ -128,7 +130,7 @@ nav_order: 4
 ---
 
 ## User List
-@auth.route('/user')  
+@app.route('/user')  
 **Route:** `/user`  
 **Methods:** `GET`  
 **Purpose:** Displays a list of users (for social features)  
@@ -137,7 +139,7 @@ nav_order: 4
 ---
 
 ## Specific User Profile
-@auth.route('/user/<int:user_id>')  
+@app.route('/user/<int:user_id>')  
 **Route:** `/user/<int:user_id>`  
 **Methods:** `GET`  
 **Purpose:** Displays the profile of a specific user  
@@ -146,8 +148,8 @@ nav_order: 4
 ---
 
 ## Your Matches 
-@auth.route('/your-matches')  
+@app.route('/your-matches')  
 **Route:** `/your-matches`  
 **Methods:** `GET`  
 **Purpose:** Displays potential matches based on preferences  
-**Sample output:** List of matched users.
+**Sample output:** Profile card displays: `You are already matched`
