@@ -41,6 +41,12 @@ def user_profile_detail(user_id):
     #print("Profile Photo Path:", user.profile_photo)
     return render_template('userProfileDetail.html', user=user)  # Übergibt den User an das Template
 
+# Route für yourMatches.html
+@app.route('/your-matches')
+def your_matches():
+    return render_template('yourMatches.html')
+
 # Es wird überprüft, ob das Skript direkt ausgeführt wird und die Flask-Anwendung wird im Debug-Modus gestartet
 if __name__ == '__main__':
     app.run(debug=True)
+
