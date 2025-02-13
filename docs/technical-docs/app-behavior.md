@@ -16,3 +16,22 @@ nav_order: 2
 + ToC
 {: toc }
 </details>
+
+![Usage Flow](assets/images/Usage-Flow.png)
+
+## User Functionalities
+
+**Sign-up & Login**
+
+- Users can sign up by entering a username, name, email, and password
+- If they already have an account, they enter login credentials (username & password)
+
+**Profile Customization**
+
+- Users can edit their profile to add fitness preferences, availability, and a profile picture
+- They can update their profile by saving changes
+
+**Viewing & Interacting with Users**
+
+- Users land on the User Overview page and browse other users
+- Clicking on a profile opens the User Details page, where they can send a like
