@@ -35,8 +35,7 @@ def event_overview():
 def event_details(event_id):
     event = Event.query.get_or_404(event_id)  # Holt das Event oder gibt 404 zurück
     form = JoinEventForm()  # Initialisiere ein Formular für das Beitreten des Events
-    # Get list of participants for this event
-    participants = event.participants
+    participants = event.participants # Holt Teilnehmerliste des Events
     return render_template('eventDetails.html', event=event, form=form, participants=participants)
 
 @app.route('/user/<int:user_id>')
