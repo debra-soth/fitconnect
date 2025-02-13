@@ -51,7 +51,7 @@ class CreateEventForm(FlaskForm):
 class AccountSettingsForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     first_name = StringField('First name', validators=[InputRequired()])
-    email = StringField('E-mail', validators=[InputRequired(), Email()])
+    email = StringField('E-mail', validators=[Optional(), Email()])
     password = PasswordField('Password', validators=[Optional()])
     profile_photo = FileField('Profile Photo', validators=[Optional()]) # Profilbild (optional, mit FileField für das Hochladen von Bildern)
     favorite_activities = FieldList(StringField('Favorite Fitness Activity', validators=[InputRequired(), Length(min=3)]), min_entries=1)

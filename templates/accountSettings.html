@@ -124,11 +124,11 @@
             <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
         </div>
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für die E-Mail-Adresse -->
-            <label for="email" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ form.email.data }}" style="width: 300px; background-color: #ffffff;" required>
-        </div>
+        <!-- Hier wird das Email-Feld über WTForms gerendert -->
+            <div class="form-group mt-3 mb-5">
+                {{ form.email.label(class="form-label", style="font-size: 1.1em;") }}
+                {{ form.email(class="form-control", id="email", style="width: 300px; background-color: #ffffff;") }}
+            </div>
         <div class="form-group mb-3 mt-5">
             <!-- Eingabefeld für das Passwort -->
             <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
@@ -138,9 +138,6 @@
         <!-- Unterpunkt Personal Information für Struktur-->
         <h4 class="mb-3 mt-5 text-muted"><strong>Personal Information</strong></h4>
 
-     <!-- enctype="multipart/form-data" ist notwendig, um das Profilbild korrekt zu übermitteln -->
-    <form method="POST" enctype="multipart/form-data" action="{{ url_for('auth.personalize_profile') }}">
-        {{ form.hidden_tag() }}  <!-- CSRF-Token hinzugefügen -->
         <!-- Möglichkeit das Profilbild hochzuladen -->
         <div class="form-group mt-3 mb-5">
             <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
@@ -160,7 +157,6 @@
         <div class="form-group mt-3 mb-5">
             <!-- Eingabefeld für die Lieblingssportart(en)-->
             <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
-
        
             <div id="activityFields">
         <!-- Hier werden alle vorhandenen Aktivitäten aus der Datenbank geladen und angezeigt -->
