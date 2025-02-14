@@ -1,5 +1,5 @@
 # Module und Klassen aus Flask werden importiert
-from flask import Blueprint, render_template, redirect, url_for, flash, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, flash, request, session
 import os
 
 # Funktionen und Klassen aus Flask-Login und Werkzeug werden importiert
@@ -9,8 +9,9 @@ from werkzeug.utils import secure_filename
 
 # User-Modell, Registrieruns-Forms, PersonalizeProfile-Forms, Login-Forms und DB-Verbindung werden importiert
 from .db import db
-from .models import User
-from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm
+from .models import User, Event, event_participants, UserLikes
+from .forms import RegistrationForm, PersonalizeProfileForm, LoginForm, AccountSettingsForm, CreateEventForm
+
 
 # Blueprint für Authentifizierurng wird definiert
 auth = Blueprint('auth', __name__)
@@ -48,6 +49,8 @@ def register():
 def login():
     # Login-Objekt wird erstellt
     form = LoginForm()
+      # Alle vorherigen Flash-Nachrichten löschen, damit sie sich nicht stapeln
+    session.pop('_flashes', None)
     #Wenn request empfangen wird und Formular gesendet wurde, nehme Benutzernamen und Passwort aus dem Formular
     if request.method == 'POST':
         username = request.form.get('username')
@@ -138,3 +141,169 @@ def personalize_profile():
     
     
     return render_template('personalizeProfile.html', form=form)
+
+# Route für Account Settings
+@auth.route('/settings', methods=['GET', 'POST'])
+@login_required
+def account_settings():
+    form = AccountSettingsForm(obj=current_user)  # Füllt das Formular mit aktuellen User-Daten
+
+    print("Formular wurde geladen")  # Debugging: Wird die Route aufgerufen?
+
+    if request.method == 'POST':
+        print("POST-Request wurde empfangen")  # Debugging: Prüfen, ob das Formular abgeschickt wurde
+        print("Formulardaten:", request.form)  # Debugging: Alle empfangenen Formulardaten anzeigen
+
+        if form.validate_on_submit():
+            print("Formular wurde validiert")  # Debugging: Ist die Validierung erfolgreich?
+
+            # Aktualisiere die User-Daten mit den neuen Formulardaten
+            current_user.username = form.username.data
+            current_user.first_name = form.first_name.data
+            current_user.email = form.email.data
+
+            # Falls ein neues Passwort eingegeben wird, speichere es gehasht
+            if form.password.data:
+                print("Neues Passwort erkannt")  # Debugging
+                current_user.password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+
+            # Profilbild hochladen und speichern
+            if form.profile_photo.data:
+                print("Profilbild wird verarbeitet")  # Debugging
+                profile_photo = form.profile_photo.data
+                photo_filename = secure_filename(profile_photo.filename)
+                photo_path = os.path.join('static/images', photo_filename)
+                profile_photo.save(photo_path)
+                current_user.profile_photo = photo_path  # Speichere den Bildpfad
+
+            # Speichern der restlichen Formulardaten
+            current_user.favorite_activities = form.favorite_activities.data
+            current_user.gym_membership = form.gym_membership.data
+            current_user.availability = form.availability.data
+            current_user.fitness_level = form.fitness_level.data
+            current_user.age = form.age.data
+            current_user.gender = form.gender.data
+            current_user.motivation_text = form.motivation_text.data
+
+            # Speichern der Änderungen in der Datenbank
+            try:
+                db.session.commit()
+                print("Änderungen erfolgreich gespeichert")  # Debugging
+                flash("Profile successfully updated!", "success")
+
+                # Weiterleitung zur User-Übersicht
+                return redirect(url_for('user_overview'))
+            except Exception as e:
+                print("Fehler beim Speichern in der Datenbank:", str(e))  # Debugging
+                db.session.rollback()  # Falls etwas schiefgeht, rollback machen
+
+        else:
+            print("Formularvalidierung fehlgeschlagen")  # Debugging
+            print(form.errors)  # Debugging: Zeigt an, warum das Formular fehlschlägt
+
+    return render_template('accountSettings.html', form=form)
+
+# Route zum Erstellen eines Events
+@auth.route('/create-event', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form = CreateEventForm()
+
+    if request.method == "POST":
+        print("POST-Request erhalten!")  # Debugging: Wird ein POST-Request empfangen?
+
+        if form.validate_on_submit():
+            print("Formular wurde validiert!")  # Debugging: Wird das Formular korrekt validiert?
+            print(f"Eingegebene Daten: {form.data}")  # Debugging: Alle Formulardaten anzeigen
+            
+            # **Überprüfung der Länge der Beschreibung**
+            if form.event_description.data and len(form.event_description.data) > 250:
+                flash("The event description must be at most 250 characters long.", "error")
+                return render_template('createEvent.html', form=form)  # Zurück zur Event-Erstellung
+
+            try:
+                # Neues Event erstellen
+                new_event = Event(
+                    event_name=form.event_name.data,
+                    event_description=form.event_description.data,
+                    event_date=form.event_date.data,
+                    event_starttime=form.event_starttime.data,
+                    event_endtime=form.event_endtime.data,
+                    event_location=form.event_location.data,
+                    max_participants=form.max_participants.data,
+                    host_id=current_user.id  # Der aktuelle Benutzer wird als Host gesetzt
+                )
+
+                db.session.add(new_event)
+                db.session.commit()
+                
+                flash("Event successfully created!", "success")
+                return redirect(url_for('event_overview'))
+
+            except Exception as e:
+                db.session.rollback()
+                print(f"Fehler beim Speichern des Events: {e}")  # Debugging
+                flash("An error occurred while creating the event. Please try again.", "error")
+
+        else:
+            print("Formularvalidierung fehlgeschlagen!")  # Debugging
+            print(form.errors)  # Fehler anzeigen
+            
+            # **Flash-Meldungen für Validierungsfehler ausgeben**
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"{field.replace('_', ' ').capitalize()}: {error}", "error")
+
+    return render_template('createEvent.html', form=form)
+
+#Route fürs Joinen eines Events
+@auth.route('/join-event/<int:event_id>', methods=['POST'])
+@login_required
+def join_event(event_id):
+    event = Event.query.get_or_404(event_id)
+
+    # Überprüfen, ob der Benutzer bereits Teilnehmer ist
+    already_joined = db.session.query(event_participants).filter_by(user_id=current_user.id, event_id=event.id).first()
+    if already_joined:
+        flash('You are already part of this event.', 'warning')
+        return redirect(url_for('event_overview')) 
+
+    # Überprüfen, ob die maximale Teilnehmerzahl erreicht wurde
+    current_participants_count = db.session.query(event_participants).filter_by(event_id=event.id).count()
+    if current_participants_count >= event.max_participants:
+        flash('This event is already full.', 'danger')
+        return redirect(url_for('event_overview')) 
+
+    # User zum Event hinzufügen
+    db.session.execute(event_participants.insert().values(user_id=current_user.id, event_id=event.id))
+    db.session.commit()
+
+    flash('Successfully joined the event!', 'success')
+    return redirect(url_for('event_overview')) 
+
+# Route für das Liken eines Users
+@auth.route('/like/<int:user_id>', methods=['POST'])
+@login_required
+def like_user(user_id):
+    # Überprüfen, ob der gelikte User existiert
+    liked_user = User.query.get_or_404(user_id)
+
+    # Prüfen, ob das Like bereits existiert
+    existing_like = UserLikes.query.filter_by(liker_id=current_user.id, liked_id=user_id).first()
+    if existing_like:
+        flash("You have already liked this user!", "warning")
+        return redirect(url_for('user_overview'))
+
+    # Neues Like in die Datenbank einfügen
+    new_like = UserLikes(liker_id=current_user.id, liked_id=user_id)
+    db.session.add(new_like)
+    db.session.commit()
+
+    # Prüfen, ob ein gegenseitiges Like existiert → Falls ja, sind beide Matches!
+    mutual_like = UserLikes.query.filter_by(liker_id=user_id, liked_id=current_user.id).first()
+    if mutual_like:
+        flash("It's a Match! 🎉 You can now see their contact details.", "success")
+    else:
+        flash("You liked this user! If they like you back, you'll be matched.", "info")
+
+    return redirect(url_for('user_overview'))

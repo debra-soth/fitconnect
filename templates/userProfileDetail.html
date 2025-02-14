@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UserProfileDetail</title>
+    <title>User Profile Detail</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -11,15 +12,18 @@
         body {
             background-color: #E3E4DF;
         }
+
         .navbar {
             background-color: #E3E4DF !important;
         }
+
         .nav-container {
             flex-grow: 1;
             display: flex;
             justify-content: flex-end;
             align-items: center;
         }
+
         .nav-container a {
             text-decoration: none;
             color: black !important;
@@ -27,129 +31,167 @@
             padding: 0.5rem;
             transition: color 0.3s ease-in-out;
         }
+
         .nav-container a:hover {
             color: #0d6efd !important;
         }
+
         .dropdown-menu {
             right: 0;
             left: auto;
         }
-        .horizontal-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0 50px;
-            max-width: 1500px; /* Maximale Breite für den Inhalt */
-            margin: 100px auto; /* Zentrierung */
-            padding: 0 20px;
+
+        .profile-container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            margin-top: 50px;
         }
-        .inner-horizontal-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0 50px;
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
         }
-        .single-container-left {
-            flex: 1 1 100px;
-            min-width: 100px;
-            /*margin-right: auto;*/
+
+        .send-like-btn {
+            background-color: #6F6EF4;
+            border: none;
+            width: 100%;
         }
-        .single-container {
-            flex: 1 1 100px;
-            min-width: 320px;
+
+        .send-like-btn:hover {
+            background-color: #5a5ae0;
         }
     </style>
 </head>
 
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-light shadow-sm px-4">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-        <h4 class="ms-3 mb-0">FitConnect</h4>
-    </a>
-    <div class="nav-container">
-        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
-        <a href="{{ url_for('event_overview') }}" class="me-3 active" style="color:#0d6efd; font-weight: bold;">Events</a>
-        <a href="#" class="me-3">Your Matches</a>
-        <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
-        
-        <!-- Profile Dropdown -->
-        <div class="dropdown">
-            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="/create-event">Create Event</a></li>
-                <li><a class="dropdown-item" href="/settings">Account Settings</a></li>
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            </ul>
+    <!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endfor %}
     </div>
-</nav>
+    {% endif %}
+    {% endwith %}
 
-<div class="horizontal-container">
-    <div class="single-container-left">
-        <div style="width: 14rem; float: right;">
-            <img  src="{{ user.profile_photo }}" class="card-img-top" alt="{{ user.username }}">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light shadow-sm px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50"
+                height="50">
+            <h4 class="ms-3 mb-0">FitConnect</h4>
+        </a>
+        <div class="nav-container">
+            <a href="{{ url_for('user_overview') }}" class="me-3">User Overview</a>
+            <a href="{{ url_for('event_overview') }}" class="me-3 active">Events</a>
+            <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
+            <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
+
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false"></i>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
         </div>
-        <div style="clear: both;">
-            <h5 align="right" class="text-muted"><strong>About {{ user.username }}</strong></h5>
+    </nav>
+
+    <div class="container profile-container">
+        <div class="text-center">
+            <img src="{{ url_for('static', filename=user.profile_photo.replace('static/', '')) }}" class="card-img-top"
+                alt="{{ user.username }}">
+            <h2 class="fw-bold mt-2">{{ user.username }}</h2>
+            {% if user in matched_users %}
+            <p class="text-muted"><i class="bi bi-envelope-fill"></i> {{ user.email }}</p>
+            {% else %}
+            <p class="text-muted"><i class="bi bi-at"></i> <em>Once there's a match, you will be able to see {{
+                    user.username }}'s contact details</em></p>
+            {% endif %}
         </div>
-        <div>
-            <p align="right" class="text-muted">{{motivation_text}}</p>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="fw-bold">Fitness Level:</h5>
+                <p>{{ user.fitness_level }}</p>
+            </div>
+            <div class="col-md-6">
+                <h5 class="fw-bold">Gym Membership:</h5>
+                {% if user.gym_membership %}
+                <p><i class="bi bi-building"></i> {{ user.gym_membership }}</p>
+                {% else %}
+                <p class="text-muted">Not provided</p>
+                {% endif %}
+            </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <h5 class="fw-bold">Availability:</h5>
+                {% if user.availability %}
+                <p>{% for day in user.availability %}✅ {{ day.capitalize() }}<br>{% endfor %}</p>
+                {% else %}
+                <p class="text-muted">Not provided</p>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h5 class="fw-bold">Fitness Activities:</h5>
+                {% if user.favorite_activities %}
+                <p>{% for activity in user.favorite_activities %}• {{ activity }}<br>{% endfor %}</p>
+                {% else %}
+                <p class="text-muted">No activities listed</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h5 class="fw-bold">Motivation:</h5>
+                {% if user.motivation_text %}
+                <p>{{ user.motivation_text }}</p>
+                {% else %}
+                <p class="text-muted">No motivation text provided</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+        <div class="mt-3 text-center">
+            {% if matched %}
+            <p class="text-success fw-bold mt-3">You are already matched!</p>
+            {% elif already_liked %}
+            <p class="text-warning fw-bold mt-3">You have already liked this person.</p>
+            {% elif liked_back %}
+            <form action="{{ url_for('auth.like_user', user_id=user.id) }}" method="POST">
+                {{ form.hidden_tag() }} <!-- CSRF Token -->
+                <button type="submit" class="btn btn-success w-100 mt-3">Like Back</button>
+            </form>
+            {% else %}
+            <form action="{{ url_for('auth.like_user', user_id=user.id) }}" method="POST">
+                {{ form.hidden_tag() }} <!-- CSRF Token -->
+                <button type="submit" class="btn btn-primary w-100 mt-3">Send Like</button>
+            </form>
+            {% endif %}
+        </div>
+
+
     </div>
-    <div class="single-container">
-        <div class="inner-horizontal-container">
-            <div class="single-container">
-                <h5 class="text-muted"><strong>{{ user.username }}</strong></h5>
-            </div>
-            <div class="single-container">
-                <h5 class="text-muted"><strong>Standort</strong></h5>
-            </div>
-        </div>
-        <div>
-            <p class="text-muted">Once there's a match you will be able to see {{ user.username }}'s contact details</p>
-        </div>
-        <div class="inner-horizontal-container">
-            <div class="single-container">
-                <h5 class="text-muted"><strong>Fitness Level</strong></h5>
-                <p class="text-muted">{{fitness_level}}</p>
-            </div>
-            <div class="single-container">
-                <h5 class="text-muted"><strong>Gym Membership</strong></h5>
-                <p class="text-muted">{{gym_membership}}</p>
-            </div>
-        </div>
-        <div class="inner-horizontal-container">
-            <div class="single-container">
-                <h5 class="text-muted"><strong>Availability</strong></h5>
-                <p class="text-muted">{{ availability }}</p>
-            </div>
-            <div class="single-container">
-                <h5 class="text-muted"><strong>Fitness Activities</strong></h5>
-                <p class="text-muted">{{ user.favorite_activities }}</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-
-<!--div class="container text-center my-5">
-    <div class="horizontal-container">
-        <div class="single-container">
-            <h2><strong>About Laura</strong></h2>
-        </div>
-        <div class="single-container">
-            <p class="text-muted">Berlin</p>
-        </div>
-
-<div class="horizontal-container">
-    <div class="single-container">
-        <h4>About Laura</h4>
-    </div>
-    <div class="single-container">
-        <h2>Laura 21</h2>
-    </div>
-</div-->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

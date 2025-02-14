@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +12,18 @@
         body {
             background-color: #E3E4DF;
         }
-        
+
         .navbar {
             background-color: #E3E4DF !important;
         }
+
         .nav-container {
             flex-grow: 1;
             display: flex;
             justify-content: flex-end;
             align-items: center;
         }
+
         .nav-container a {
             text-decoration: none;
             color: black !important;
@@ -28,12 +31,13 @@
             padding: 0.5rem;
             transition: color 0.3s ease-in-out;
         }
+
         .nav-container a:hover {
             color: #0d6efd !important;
         }
-        
+
         .nav-container a.active {
-            color:#0d6efd !important;
+            color: #0d6efd !important;
             font-weight: bold !important;
         }
 
@@ -41,6 +45,7 @@
             right: 0;
             left: auto;
         }
+
         .event-container {
             max-width: 700px;
             background: white;
@@ -49,6 +54,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+
         .event-img {
             width: 100%;
             max-height: 300px;
@@ -56,64 +62,105 @@
             border-radius: 10px;
             margin-bottom: 15px;
         }
+
         .btn-primary {
             background-color: #6F6EF4;
             border: none;
         }
+
         .btn-primary:hover {
             background-color: #5a5ae0;
         }
     </style>
 </head>
-<body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-light shadow-sm px-4">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-        <h4 class="ms-3 mb-0">FitConnect</h4>
-    </a>
-    <div class="nav-container">
-        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
-        <a href="{{ url_for('event_overview') }}" class="me-3 active" style="color:#0d6efd; font-weight: bold:">Events</a>
-        <a href="#" class="me-3">Your Matches</a>
-        <a href="{{ url_for('personalize_profile') }}"class="me-3">Personalize Profile</a>
-        
-        <!-- Profile Dropdown -->
-        <div class="dropdown">
-            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('account_settings') }}">Account Settings</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+<body>
+    <!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light shadow-sm px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50"
+                height="50">
+            <h4 class="ms-3 mb-0">FitConnect</h4>
+        </a>
+        <div class="nav-container">
+            <a href="{{ url_for('user_overview') }}" class="me-3">User Overview</a>
+            <a href="{{ url_for('event_overview') }}" class="me-3 active"
+                style="color:#0d6efd; font-weight: bold:">Events</a>
+            <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
+            <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
+
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false"></i>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Event Details -->
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="event-container">
+
+            <!--<img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" class="event-img">-->
+            <h2 class="fw-bold">{{ event.event_name }}</h2>
+            <p class="text-muted">Hosted by <strong>{{ event.host.username }}</strong></p>
+            <p><strong>Date:</strong> {{ event.event_date }}</p>
+            <p><strong>Time:</strong> {{ event.event_starttime }} - {{ event.event_endtime }}</p>
+            <p><strong>Location:</strong> {{ event.event_location }}</p>
+            <p><strong>Description:</strong> {{ event.event_description or "No description provided." }}</p>
+
+            <p><strong>Participants:</strong> {{ participants|length }} / {{ event.max_participants }}</p>
+
+            <!-- Show Participants List -->
+            {% if participants %}
+            <p><strong>Joined Participants:</strong></p>
+            <ul class="list-group">
+                {% for user in participants %}
+                <li class="list-group-item">{{ user.first_name }}</li>
+                {% endfor %}
             </ul>
+            {% else %}
+            <p class="text-muted">No participants yet. Be the first to join!</p>
+            {% endif %}
+
+            <!-- Join Event Button -->
+            {% if current_user in participants %}
+            <p class="text-success fw-bold mt-3">You are already participating!</p>
+            {% elif participants|length >= event.max_participants %}
+            <p class="text-danger fw-bold mt-3">This event is full. No more spots available.</p>
+            {% else %}
+            <form action="{{ url_for('auth.join_event', event_id=event.id) }}" method="POST">
+                {{ form.hidden_tag() }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Join Event</button>
+            </form>
+            {% endif %}
+
         </div>
     </div>
-</nav>
 
-<!-- Event Details Section -->
-<div class="container mt-5 d-flex justify-content-center">
-    <div class="event-container">
-        <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" class="event-img">
-        <h2 class="fw-bold">{{ event.title }}</h2>
-        <p class="text-muted">Hosted by <strong>{{ event.host }}</strong></p>
-        <p><strong>Date:</strong> {{ event.date }}</p>
-        <p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
-        <p><strong>Location:</strong> {{ event.location }}</p>
-        <p><strong>Participants:</strong> {{ event.participants }} / {{ event.max_participants }}</p>
-        <p><strong>Description:</strong> {{ event.description }}</p>
-        
-        {% if not user_joined %}
-        <form action="/join-event/{{ event.id }}" method="POST">
-            <button type="submit" class="btn btn-primary w-100">Join Event</button>
-        </form>
-        {% else %}
-        <p class="text-success fw-bold text-center">You have already joined this event!</p>
-        {% endif %}
-    </div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

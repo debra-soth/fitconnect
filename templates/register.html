@@ -1,67 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <!-- Bootstrap CSS einbinden -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons (für das Info-Symbol) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background-color: #E3E4DF; /* Setzt die Hintergrundfarbe auf beige */
+            background-color: #E3E4DF;
+            /* Setzt die Hintergrundfarbe auf beige */
         }
-  </style>
+    </style>
 </head>
+
 <body>
-        <div class="d-flex align-items-center ms-3 mt-3 mb-4">
-            <!-- Logo -->
-            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-            <!-- Text -->
-            <h4 class="ms-3 mb-0">FitConnect</h4>
+    <!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <!-- Container für Flexbox mit vollständiger Höhe -->
-        <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
-            <h1 class="mb-3"><strong>Create Your Account</strong></h1>
-            <h6 class="mb-1">Join a community of hundreds of passionate fitness enthusiasts and connect over</h6>
-            <h6 class="mb-3">your favorite fitness activities</h6>
-    <form method="POST" action="{{ url_for('auth.register') }}">
-    {{ form.hidden_tag() }} <!-- CSRF-Token hinzufügen -->
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für den Benutzernamen -->
-            <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für den Vornamen -->
-            <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für die E-Mail-Adresse -->
-            <label for="email" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <div class="form-group mb-3 mt-5">
-            <!-- Eingabefeld für das Passwort -->
-            <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <div class="form-group mb-3 mt-5">
-            <!-- Eingabefeld für das wiederholte Passwort -->
-            <label for="confirm_password" style="font-size: 1.1em;"><strong>Confirm Password:</strong></label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <!-- Button zum Registrieren-->
-        <div class="form-group d-flex justify-content-center mt-5">
-            <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Register</button>
-        </div>
-    </form>
-        <!-- Link zur login.html = Loginseite -->
-        <p class="mt-3 smaller-text" style="font-style: italic; margin-bottom: 1cm;">Already have an account? <a href="{{ url_for('auth.login') }}"><u>Login in!</u></a></p>
+        {% endfor %}
     </div>
-<!-- Bootstrap JS -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
- integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% endif %}
+    {% endwith %}
+    <div class="d-flex align-items-center ms-3 mt-3 mb-4">
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50"
+            height="50">
+        <!-- Text -->
+        <h4 class="ms-3 mb-0">FitConnect</h4>
+    </div>
+    <!-- Container für Flexbox mit vollständiger Höhe -->
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 80vh;">
+        <h1 class="mb-3"><strong>Create Your Account</strong></h1>
+        <h6 class="mb-1">Join a community of hundreds of passionate fitness enthusiasts and connect over</h6>
+        <h6 class="mb-3">your favorite fitness activities</h6>
+        <form method="POST" action="{{ url_for('auth.register') }}">
+            {{ form.hidden_tag() }} <!-- CSRF-Token hinzufügen -->
+            <div class="form-group mt-3 mb-5">
+                <!-- Eingabefeld für den Benutzernamen -->
+                <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                    style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <div class="form-group mt-3 mb-5">
+                <!-- Eingabefeld für den Vornamen -->
+                <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name"
+                    style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <div class="form-group mt-3 mb-5">
+                <!-- Eingabefeld für die E-Mail-Adresse -->
+                <label for="email" style="font-size: 1.1em;"><strong>E-mail:</strong></label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="E-mail"
+                    style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <div class="form-group mb-3 mt-5">
+                <!-- Passwort Label mit Tooltip -->
+                <label for="password" style="font-size: 1.1em;">
+                    <strong>Password:</strong>
+                    <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Password must be at least 7 characters long"></i>
+                </label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                    style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <div class="form-group mb-3 mt-5">
+                <!-- Eingabefeld für das wiederholte Passwort -->
+                <label for="confirm_password" style="font-size: 1.1em;"><strong>Confirm Password:</strong></label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                    placeholder="Confirm Password" style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <!-- Button zum Registrieren-->
+            <div class="form-group d-flex justify-content-center mt-5">
+                <button type="submit" class="btn btn-primary rounded-pill px-5"
+                    style="font-size: 1.1em;">Register</button>
+            </div>
+        </form>
+        <!-- Link zur login.html = Loginseite -->
+        <p class="mt-3 smaller-text" style="font-style: italic; margin-bottom: 1cm;">Already have an account? <a
+                href="{{ url_for('auth.login') }}"><u>Login in!</u></a></p>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
 </body>
+
 </html>
