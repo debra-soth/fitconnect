@@ -52,11 +52,11 @@ Once on the login page, they either enter their existing credentials or select �
 
 Before checking out potential workout buddies, they customize their profile by clicking “Personalize Profile” in the navigation bar. They add details like fitness level, favorite activities, gym memberships, availability, and a profile photo.
 
-Now it’s time to explore! On the User Overview page, they scroll through profiles and click on someone interesting. This takes them to the User Details page, where they can see more about this person—what activities they enjoy, their fitness goals, and whether their schedules align. If they think this could be a good fit, they hit “Send Like” to express interest. But here’s the catch—a match only happens if the other person also sends a like. 
+Now it’s time to explore! On the User Overview page, they scroll through profiles and click on someone interesting. This takes them to the User Details page, where they can see more about this person — what activities they enjoy, their fitness goals, and whether their schedules align. If they think this could be a good fit, they hit “Send Like” to express interest. But here’s the catch — a match only happens if the other person also sends a like. 
 
-Once they get a mutual match, their new training partner appears in the “Your Matches” tab. From there, they can view their match’s contact information and start a conversation.
+Once they get a mutual match, their new training partner appears in the “Your Matches” tab. From there, they can view their match’s contact information and start a conversation outside of the FitConnect homepage.
 
-There’s also a tab in the navigation bar called “Events”, where users can see fitness events created by others—or create their own. Maybe it’s a local running club, a weekend yoga session in the park, or a group weightlifting challenge at the gym. This feature helps people discover new activities, meet fitness-minded folks, and build a real-world community.
+There’s also a tab in the navigation bar called “Events”, where users can see fitness events created by others — or create their own. Maybe it’s a local running club, a weekend yoga session in the park, or a group weightlifting challenge at the gym. This feature helps people discover new activities, meet fitness-minded folks, and build a real-world community.
 
 ### Future Monetization Idea
 In the future, sponsored events could help support the platform. FitConnect could partner with gyms, fitness brands, and health companies to feature their events, giving users access to exclusive group workouts, training sessions, and fitness challenges while providing brands with a way to connect with engaged fitness enthusiasts.
