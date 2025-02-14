@@ -18,9 +18,24 @@ Kira Beyrow
 
 <details open markdown="block">
 {: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<summary>Table of Contents</summary>
+
+- [Index Page Redirect](#index-page-redirect)  
+- [Personalize Profile Page](#personalize-profile-page)  
+- [User Registration](#user-registration)  
+- [User Login](#user-login)  
+- [User Logout](#user-logout)  
+- [Create Event](#create-event)  
+- [Event Details](#event-details)  
+- [Event Overview](#event-overview)  
+- [Join Event](#join-event)  
+- [Like User](#like-user)  
+- [User Profile](#user-profile)  
+- [User Settings](#user-settings)  
+- [User List](#user-list)  
+- [Specific User Profile](#specific-user-profile)  
+- [Your Matches](#your-matches)  
+
 </details>
 
 

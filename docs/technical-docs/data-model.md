@@ -18,9 +18,11 @@ Kira Beyrow
 
 <details open markdown="block">
 {: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<summary>Table of Contents</summary>
+
+- [Version 2 (most recent version)](#version-2-most-recent-version)  
+- [Version 1](#version-1)  
+
 </details>
 
 ## Version 2 (most recent version)

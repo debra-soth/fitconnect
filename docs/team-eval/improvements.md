@@ -3,9 +3,16 @@ title: Improvements
 parent: Team Evaluation
 nav_order: 2
 ---
+{: .label }
+Debra Soth
 
 {: .label }
-[Jane Dane]
+Lenja Krah
+
+{: .label }
+Kira Beyrow
+
+{: .no_toc }
 
 {: .no_toc }
 # How we would improve next time

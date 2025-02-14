@@ -18,9 +18,17 @@ Kira Beyrow
 
 <details open markdown="block">
 {: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<summary>Table of Contents</summary>
+
+- [Overview](#overview)  
+- [Application Structure](#application-structure)  
+- [Core Components](#core-components)  
+  - [Backend](#backend)  
+  - [Frontend](#frontend)  
+  - [Libraries & Dependencies](#libraries--dependencies)  
+- [Database](#database)  
+- [Codemap](#codemap)  
+
 </details>
 
 ## Overview

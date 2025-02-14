@@ -17,9 +17,15 @@ Kira Beyrow
 
 <details open markdown="block">
 {: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<summary>Table of Contents</summary>
+
+- [The Problem](#the-problem)  
+- [Our Solution](#our-solution)  
+- [Target User](#target-user)  
+- [Customer Journey](#customer-journey)  
+- [Future Monetization Idea](#future-monetization-idea)  
+- [Chart](#chart)  
+
 </details>
 
 ## The problem

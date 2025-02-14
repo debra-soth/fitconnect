@@ -3,9 +3,16 @@ title: Peer Review
 parent: Team Evaluation
 nav_order: 3
 ---
+{: .label }
+Debra Soth
 
 {: .label }
-[Jane Dane]
+Lenja Krah
+
+{: .label }
+Kira Beyrow
+
+{: .no_toc }
 
 {: .no_toc }
 # Peer review

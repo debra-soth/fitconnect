@@ -18,9 +18,19 @@ Kira Beyrow
 
 <details open markdown="block">
 {: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<summary>Table of Contents</summary>
+
+- [User Authentication System](#1-user-authentication-system)  
+  - [Login & Sign-Up Flow](#login--sign-up-flow)  
+  - [Logout Flow](#logout-flow)  
+- [Profile Management](#2-profile-management)  
+- [Matchmaking Logic](#3-matchmaking-logic)  
+  - [Viewing Matches](#viewing-matches)  
+- [Events System](#4-events-system)  
+- [System Actions & Logic Handling](#5-system-actions--logic-handling)  
+  - [Frontend Interaction](#frontend-interaction)  
+  - [Backend Processing](#backend-processing)  
+
 </details>
 
 ![Usage Flow](../assets/images/Usage-Flow.png)

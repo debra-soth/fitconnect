@@ -14,8 +14,6 @@ Lenja Krah
 Kira Beyrow
 
 {: .no_toc }
-
-{: .no_toc }
 # Summary of individual contributions
 
 <details open markdown="block">
