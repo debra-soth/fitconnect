@@ -10,6 +10,7 @@ FitConnect is a web platform that connects people in the same city to find suita
 ## Team members
 
 ### Kira Beyrow
+
 I am a world traveler and keen to see new places and to learn new things about people and cultures. This project helped me to learn more about programming, especially how to use GitHub. I am glad to see this progress, as I feel better prepared to apply my already learned knowledge in a job now.
 
 Matr.-Nr.
