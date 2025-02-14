@@ -203,7 +203,7 @@ As sort of a mix between the two alternative options, we want to add a "send lik
 
 **Status:** ✅ Decided
 
-**Updated:** 13-Feb-2025
+**Updated:** 01-Feb-2025
 
 ### Problem statement
 
