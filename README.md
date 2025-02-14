@@ -78,7 +78,6 @@ To successfully run FitConnect, ensure you have the following installed:
 
 - **Python** (Version 3.13.3 or higher)
 - **A Code Editor** (e.g., Visual Studio Code)
-- **Google API Key** 
 - **A Web Browser** (e.g., Chrome, Firefox, Safari)
 
 ## Contributors
