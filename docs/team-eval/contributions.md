@@ -18,7 +18,7 @@ Kira Beyrow
 {: .no_toc }
 # Summary of individual contributions
 
-<details open markdown="block"> {: .text-delta } <summary>Table of Contents</summary> 
+<details open markdown="block"> <summary>Table of Contents</summary> 
 + [Request for Individual Evaluation](#request-for-individual-evaluation) 
 + [Individual Contributions](#individual-contributions) 
 + [Lenja Krah](#lenja-krah) + [Kira Beyrow](#kira-beyrow) 
