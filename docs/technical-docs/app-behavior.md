@@ -18,6 +18,7 @@ nav_order: 2
 </details>
 
 ![Usage Flow](../assets/images/Usage-Flow.png)
+*Figure 3: Our Usage Flow Chart*
 
 ## 1. User Authentication System
 

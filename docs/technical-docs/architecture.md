@@ -93,3 +93,4 @@ graph TD;
     G -->|HTML Pages| O[UI Screens]
     H -->|CSS & JS Files| P[Frontend Enhancements]
 ```
+*Figure 2: Our Codemap*

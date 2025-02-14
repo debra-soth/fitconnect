@@ -67,6 +67,8 @@ erDiagram
     %% Derived Relationship for Matches
     USERLIKES ||--o{ USERLIKES : "mutual like forms match"
 ```
+*Figure 4: Updated Datamodel*
+
 In Version 2 of the our data model, we made some key changes to improve how users interact and how events are managed. One of the biggest changes was removing the **Match** table, which previously stored confirmed matches between users. Instead, we introduced the **UserLikes** table, which keeps track of all likes. A match is now simply detected when two users like each other back, rather than being stored separately. This makes the system more flexible and eliminates unnecessary data storage while still allowing users to see their pending likes and confirmed matches.
 
 Another major update is the introduction of the **Event** system. Unlike Version 1, which was focused only on user matching, Version 2 expands FitConnect’s functionality by letting users create, join, and manage fitness events. The new **Event** table stores event details like the name, description, date, time, and location, while the **EventParticipants** table allows multiple users to join the same event. This addition makes FitConnect more social, encouraging group activities and giving users another way to connect beyond just one-on-one matching.
@@ -99,6 +101,8 @@ erDiagram
         boolean confirmed
     }
 ```
+*Figure 5: Datamodel version 1*
+
 FitConnect is designed to connect users based on specific criteria such as fitness level, sports, availability and other parameters. 
 The data model above consists of two primary entities: **User** and **Match**. 
 

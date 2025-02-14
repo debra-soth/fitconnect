@@ -27,6 +27,7 @@ nav_order: 4
 **Sample output:** 
 
 ![login-page](../assets/images/login-screen.png)
+*Image 3: Login Page*
 
 ---
 
@@ -40,6 +41,7 @@ nav_order: 4
 **Sample output:** 
 
 ![personalize profile page](../assets/images/personalize-profile.png) 
+*Image 4: Personalize Profile Page*
 
 ---
 
@@ -53,6 +55,7 @@ nav_order: 4
 **Sample output:** 
 
 ![registration](../assets/images/registration-screen.png) 
+*Image 5: User Registration Page*
 
 ---
 
@@ -66,6 +69,7 @@ nav_order: 4
 **Sample output:** 
 
 ![homepage](../assets/images/user-overview.png) 
+*Image 6: Homepage/User Overview Page*
 
 ---
 
@@ -90,6 +94,7 @@ nav_order: 4
 **Sample output:** 
 
 ![create event](../assets/images/create-event.png) 
+*Image 7: Create Event Page*
 
 ---
 
@@ -103,6 +108,7 @@ nav_order: 4
 **Sample output:** 
 
 ![event_details](../assets/images/event-details.png) 
+*Image 8: Event Details Page*
 
 ---
 
@@ -116,6 +122,7 @@ nav_order: 4
 **Sample output:** 
 
 ![event overview](../assets/images/event-overview.png)
+*Image 9: Event Overview Page*
 
 ---
 
@@ -150,6 +157,7 @@ nav_order: 4
 **Sample output:** 
 
 ![own profile](../assets/images/own-profile.png) 
+*Image 10: User Profile Page*
 
 ---
 
@@ -163,6 +171,7 @@ nav_order: 4
 **Sample output:** 
 
 ![account settings](../assets/images/account-settings.png) 
+*Image 11: Account Settings Page*
 
 ---
 
@@ -176,6 +185,7 @@ nav_order: 4
 **Sample output:** 
 
 ![homepage](../assets/images/user-overview.png) 
+*Image 12: User Overview Page*
 
 ---
 
@@ -189,7 +199,8 @@ nav_order: 4
 **Sample output:** 
 
 ![User Details](../assets/images/user-details.png)
- 
+ *Image 13: User Details Page*
+
 ---
 
 ## Your Matches
