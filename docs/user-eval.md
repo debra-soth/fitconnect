@@ -28,8 +28,7 @@ The insights gathered during this evaluation helped identify areas for improveme
 
 ## Table of Contents
 
-<details open markdown="block">  
-{: .text-delta }  
+<details open markdown="block">    
 <summary>Table of Contents</summary>
 
 - [User Evaluation for FitConnect](#01-user-evaluation-for-fitconnect)  
