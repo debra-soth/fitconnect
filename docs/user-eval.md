@@ -18,8 +18,7 @@ Kira Beyrow
 
 ## Summary
 
-<details open markdown="block">  
-{: .text-delta }  
+<details open markdown="block">   
 <summary>Summary</summary>  
 This user evaluation aims to assess the usability and effectiveness of FitConnect, a platform designed to connect fitness enthusiasts with like-minded training partners. The evaluation was conducted to analyze how intuitively users can navigate the app, interact with key features, and successfully complete core tasks such as registering, customizing their profile, browsing users and events, sending likes, and joining fitness activities.  
 
