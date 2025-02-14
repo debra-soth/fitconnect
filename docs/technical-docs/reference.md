@@ -234,4 +234,4 @@ Kira Beyrow
 **Sample output:** Profile card displays: `You are already matched`
 
 ![Your Matches](../assets/images/YourMatches-Screen.png)
- *Image 13: User Details Page*
+ *Image 14: Your Matches Page*
