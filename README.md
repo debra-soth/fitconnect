@@ -21,8 +21,8 @@ FitConnect is a web application designed to help users find workout partners, jo
 ## Tech Stack
 
 - **Frontend**: HTML, CSS (Bootstrap), JavaScript
-- **Backend**: Python, Flask
-- **Database**: PostgreSQL
+- **Backend**: Python, Flask, Flask-WTF, Flask-Login
+- **Database**: PostgreSQL, SQLAlchemy
 
 ## Installation
 
@@ -77,7 +77,7 @@ Navigate to: [http://localhost:5000](http://localhost:5000)
 To successfully run FitConnect, ensure you have the following installed:
 
 - **Python** (Version 3.13.3 or higher)
-- **A Code Editor** (e.g., Visual Studio Code, PyCharm)
+- **A Code Editor** (e.g., Visual Studio Code)
 - **Google API Key** 
 - **A Web Browser** (e.g., Chrome, Firefox, Safari)
 
