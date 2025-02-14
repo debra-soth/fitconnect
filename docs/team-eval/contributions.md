@@ -56,6 +56,10 @@ Contributions
 ## Debra Soth
 
 Contributions
-: Diam nonumy eirmod
-: Tempor invidunt ut labore
-: ...
+- Developed UI Screens for createEvent.html, eventDetails.html, eventOverview.html, userOverview.html, yourMatches.html, userOwnProfile.html
+- Assisted in development of userProfileDetail.html
+- Minor Contributions to app.py, forms.py, models.py
+- Worked on document creation including content in App Behaviour, Architecture, Data Model, Reference
+- Creation of Mermaid figures for the documentation
+- Assisted in shaping Design Decisions for project
+- Contribution to project presentation
