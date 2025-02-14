@@ -30,13 +30,16 @@ The insights gathered during this evaluation helped identify areas for improveme
 
 <details open markdown="block">  
 {: .text-delta }  
-<summary>Table of Contents</summary>  
+<summary>Table of Contents</summary>
+
+- [User Evaluation for FitConnect](#01-user-evaluation-for-fitconnect)  
   - [Meta](#meta)  
   - [Goal](#goal)  
   - [Method](#method)  
   - [Results](#results)  
   - [Implications](#implications)  
-</details>  
+
+</details>
 
 ---
 
