@@ -13,10 +13,29 @@
         }
         .event-card {
             transition: transform 0.3s ease-in-out;
+            width: 18rem;
+            display: flex;
+            flex-direction: column;
         }
         .event-card:hover {
             transform: scale(1.05);
         }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title, .card-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+
         .navbar {
             background-color: #E3E4DF !important;
         }
@@ -104,12 +123,12 @@
         {% for event in events %}
         <div class="col-md-4 d-flex justify-content-center">
             <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
-                <div class="card event-card" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='images/Event Logo.jpeg') }}" class="card-img-top" alt="FitConnect Logo">
+                <div class="card event-card">
+                    <img src="{{ url_for('static', filename='images/Event Logo.jpeg') }}" class="card-img-top" alt="FitConnect Logo">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>{{ event.event_name }}</strong></h5>
-                        <p class="card-text text-muted">{{ event.event_date }} - {{ event.event_location }}</p>
-                        <button class="btn btn-primary w-100">View Details</button>
+                        <h5 class="card-title" title="{{ event.event_name }}">{{ event.event_name }}</h5>
+                        <p class="card-text text-muted" title="{{ event.event_date }} - {{ event.event_location }}">{{ event.event_date }} - {{ event.event_location }}</p>
+                        <button class="btn btn-primary">View Details</button>
                     </div>
                 </div>
             </a>
