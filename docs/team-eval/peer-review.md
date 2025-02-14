@@ -17,16 +17,13 @@ nav_order: 3
 {: toc }
 </details>
 
-## [team member] - review 1
+## Debra Soth - Review 
 
-### My observation (Wahrnehmung)
+### My observation  
+At the beginning, the group project worked well, with everyone contributing effectively. However, as time went on, different priorities emerged, making it harder to navigate the project, align tasks, and maintain momentum. Communication and task distribution became more challenging.  
 
-[A specific observation, regarding know-how, effectiveness, team work or from another relevant area]
+# Effect on me 
+This shift made the project feel less structured and more stressful, as deadlines became harder to meet and responsibilities were sometimes unclear. It also highlighted the importance of proactive communication and adaptability in teamwork.  
 
-### Effect on me (Wirkung)
-
-[What positive or negative effect did this observation have on the reviewer?]
-
-### Tip for the future (Wunsch)
-
-[What should be changed or strengthened for the point of view of the reviewer?]
+## Tip for the future  
+For future projects, it would help to establish clearer long-term planning, regular check-ins, and defined roles to keep everyone aligned. More structured communication and accountability could prevent misunderstandings and ensure steady progress throughout the project.

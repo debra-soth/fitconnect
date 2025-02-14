@@ -27,7 +27,7 @@ Matr.-Nr.
 
 ### Debra Soth
 
-[comment]: <> (Add about section)
+I’m passionate about tech, health, and data, and I learned a lot from my first web development project. It not only improved my coding skills but also showed me how exciting it is to create real-life solutions with technology.
 
 Matr.-Nr.
 : 77211988011 

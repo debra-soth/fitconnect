@@ -60,3 +60,4 @@ One of my goals for this project is to further develop my programming skills. So
 
 ### Debbie
 For this project, I want to familiarize myself with Python as a new programming language. I also want to build on my existing programming skills and use them to become more familiar with Python. Another important goal for me is to learn how to work with APIs and integrate them into applications. Furthermore, I'm excited to learn how to build a complete web app from scratch and what steps are necessary to do so, so that I can build my own web application in the future.
+
