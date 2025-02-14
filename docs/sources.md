@@ -61,5 +61,5 @@ Here is a list of all the sources utilized in our project.
 - Laura_Kohl.jpeg: ChatGPT image generator 
 - Martin_Groe.jpeg: https://www.pexels.com/de-de/foto/licht-natur-fashion-mode-18968266/
 - Melanie_S.jpg: https://www.pexels.com/de-de/foto/frau-die-ein-selfie-nimmt-2978825/
-- ProfilePhotoPlaceholder.jpeg: 
+- ProfilePhotoPlaceholder.jpeg: https://miro.com/app/board/uXjVLUclF0o=/?share_link_id=49105548415
 - Tim_Jonas.jpg: https://www.pexels.com/photo/man-on-gray-shirt-portrait-91227/
