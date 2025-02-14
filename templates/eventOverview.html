@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,14 @@
         body {
             background-color: #E3E4DF;
         }
+
         .event-card {
             transition: transform 0.3s ease-in-out;
             width: 18rem;
             display: flex;
             flex-direction: column;
         }
+
         .event-card:hover {
             transform: scale(1.05);
         }
@@ -27,11 +30,14 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .card-title, .card-text {
+
+        .card-title,
+        .card-text {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .btn-primary {
             width: 100%;
         }
@@ -39,12 +45,14 @@
         .navbar {
             background-color: #E3E4DF !important;
         }
+
         .nav-container {
             flex-grow: 1;
             display: flex;
             justify-content: flex-end;
             align-items: center;
         }
+
         .nav-container a {
             text-decoration: none;
             color: black !important;
@@ -52,12 +60,13 @@
             padding: 0.5rem;
             transition: color 0.3s ease-in-out;
         }
+
         .nav-container a:hover {
             color: #0d6efd !important;
         }
-        
+
         .nav-container a.active {
-            color:#0d6efd !important;
+            color: #0d6efd !important;
             font-weight: bold !important;
         }
 
@@ -65,81 +74,90 @@
             right: 0;
             left: auto;
         }
+
         .event-card img {
             height: 280px;
             object-fit: cover;
         }
     </style>
 </head>
+
 <body>
-<!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
-{% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        <div class="container mt-3">
-            {% for category, message in messages %}
-                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    {% endif %}
-{% endwith %}
-
-<!-- Navigation Bar -->
-<nav class="navbar navbar-light shadow-sm px-4">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-        <h4 class="ms-3 mb-0">FitConnect</h4>
-    </a>
-    <div class="nav-container">
-        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
-        <a href="{{ url_for('event_overview') }}" class="me-3 active" style="color:#0d6efd; font-weight: bold;">Events</a>
-        <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
-        <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
-        
-        <!-- Profile Dropdown -->
-        <div class="dropdown">
-            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Main Content -->
-<div class="container text-center my-5">
-    <h1><strong>Join a FitConnect Event</strong></h1>
-    <p class="text-muted">Find events to join hosted by other FitConnectors</p>
-</div>
-
-<!-- Events Grid -->
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-        {% for event in events %}
-        <div class="col-md-4 d-flex justify-content-center">
-            <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
-                <div class="card event-card">
-                    <img src="{{ url_for('static', filename='images/Event Logo.jpeg') }}" class="card-img-top" alt="FitConnect Logo">
-                    <div class="card-body">
-                        <h5 class="card-title" title="{{ event.event_name }}">{{ event.event_name }}</h5>
-                        <p class="card-text text-muted" title="{{ event.event_date }} - {{ event.event_location }}">{{ event.event_date }} - {{ event.event_location }}</p>
-                        <button class="btn btn-primary">View Details</button>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% else %}
-        <p class="text-muted text-center">No events available. Be the first to create one!</p>
         {% endfor %}
     </div>
-</div>
+    {% endif %}
+    {% endwith %}
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light shadow-sm px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50"
+                height="50">
+            <h4 class="ms-3 mb-0">FitConnect</h4>
+        </a>
+        <div class="nav-container">
+            <a href="{{ url_for('user_overview') }}" class="me-3">User Overview</a>
+            <a href="{{ url_for('event_overview') }}" class="me-3 active"
+                style="color:#0d6efd; font-weight: bold;">Events</a>
+            <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
+            <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
+
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false"></i>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container text-center my-5">
+        <h1><strong>Join a FitConnect Event</strong></h1>
+        <p class="text-muted">Find events to join hosted by other FitConnectors</p>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+            {% for event in events %}
+            <div class="col-md-4 d-flex justify-content-center">
+                <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none">
+                    <div class="card event-card">
+                        <img src="{{ url_for('static', filename='images/Event Logo.jpeg') }}" class="card-img-top"
+                            alt="FitConnect Logo">
+                        <div class="card-body">
+                            <h5 class="card-title" title="{{ event.event_name }}">{{ event.event_name }}</h5>
+                            <p class="card-text text-muted" title="{{ event.event_date }} - {{ event.event_location }}">
+                                {{ event.event_date }} - {{ event.event_location }}</p>
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% else %}
+            <p class="text-muted text-center">No events available. Be the first to create one!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

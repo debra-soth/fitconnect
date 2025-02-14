@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Settings</title>
     <!-- Bootstrap CSS einbinden -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap Icons (für das Info-Symbol) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             background-color: #E3E4DF;
         }
-        
+
         .navbar {
             background-color: #E3E4DF !important;
         }
+
         .nav-container {
             flex-grow: 1;
             display: flex;
             justify-content: flex-end;
             align-items: center;
         }
+
         .nav-container a {
             text-decoration: none;
             color: black !important;
@@ -30,12 +33,13 @@
             padding: 0.5rem;
             transition: color 0.3s ease-in-out;
         }
+
         .nav-container a:hover {
             color: #0d6efd !important;
         }
-        
+
         .nav-container a.active {
-            color:#0d6efd !important;
+            color: #0d6efd !important;
             font-weight: bold !important;
         }
 
@@ -43,6 +47,7 @@
             right: 0;
             left: auto;
         }
+
         .event-container {
             max-width: 700px;
             background: white;
@@ -51,6 +56,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+
         .event-img {
             width: 100%;
             max-height: 300px;
@@ -58,259 +64,285 @@
             border-radius: 10px;
             margin-bottom: 15px;
         }
+
         .btn-primary {
             background-color: #6F6EF4;
             border: none;
         }
+
         .btn-primary:hover {
             background-color: #5a5ae0;
         }
     </style>
 </head>
-<body>
-<!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <div class="container mt-3">
-            {% for category, message in messages %}
-                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-{% endwith %}
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-light shadow-sm px-4">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50" height="50">
-        <h4 class="ms-3 mb-0">FitConnect</h4>
-    </a>
-    <div class="nav-container">
-        <a href="{{ url_for('user_overview') }}"  class="me-3">User Overview</a>
-        <a href="{{ url_for('event_overview') }}" class="me-3">Events</a>
-        <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
-        <a href="{{ url_for('personalize_profile') }}"class="me-3">Personalize Profile</a>
-        
-        <!-- Profile Dropdown -->
-        <div class="dropdown">
-            <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
-            </ul>
+<body>
+    <!-- Flash Nachrichten ermöglichen (nur wenn vorhanden) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endfor %}
     </div>
-</nav>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-light shadow-sm px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ url_for('static', filename='images/FitConnect_logo.png') }}" alt="FitConnect Logo" width="50"
+                height="50">
+            <h4 class="ms-3 mb-0">FitConnect</h4>
+        </a>
+        <div class="nav-container">
+            <a href="{{ url_for('user_overview') }}" class="me-3">User Overview</a>
+            <a href="{{ url_for('event_overview') }}" class="me-3">Events</a>
+            <a href="{{ url_for('your_matches') }}" class="me-3">Your Matches</a>
+            <a href="{{ url_for('personalize_profile') }}" class="me-3">Personalize Profile</a>
+
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <i class="bi bi-person-circle fs-4" id="profileDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false"></i>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('user_own_profile') }}">Your Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.create_event') }}">Create Event</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.account_settings') }}">Account Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 
     <!-- Container für Flexbox mit vollständiger Höhe -->
-<div class="container-fluid d-flex flex-column align-items-center justify-content-start" style="height: 80vh; overflow-y: auto;">
-<h1 class="mb-3"><strong>Edit Your Profile</strong></h1>
-    <form method="POST" action="{{ url_for('auth.account_settings') }}" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}  <!-- CSRF-Token für Sicherheit -->
-    <div class="form-group mt-3 mb-5">
-    <!-- Unterpunkt Account Information für Struktur-->
-    <h4 class="mb-3 mt-3 text-muted"><strong>Account Information</strong></h4>
-            <!-- Eingabefeld für den Benutzernamen -->
-            <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ form.username.data }}" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für den Vornamen -->
-            <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
-            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
-        </div>
-        <!-- Hier wird das Email-Feld über WTForms gerendert -->
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-start"
+        style="height: 80vh; overflow-y: auto;">
+        <h1 class="mb-3"><strong>Edit Your Profile</strong></h1>
+        <form method="POST" action="{{ url_for('auth.account_settings') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }} <!-- CSRF-Token für Sicherheit -->
+            <div class="form-group mt-3 mb-5">
+                <!-- Unterpunkt Account Information für Struktur-->
+                <h4 class="mb-3 mt-3 text-muted"><strong>Account Information</strong></h4>
+                <!-- Eingabefeld für den Benutzernamen -->
+                <label for="username" style="font-size: 1.1em;"><strong>Username:</strong></label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ form.username.data }}"
+                    style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <div class="form-group mt-3 mb-5">
+                <!-- Eingabefeld für den Vornamen -->
+                <label for="first_name" style="font-size: 1.1em;"><strong>First name:</strong></label>
+                <input type="text" class="form-control" id="first_name" name="first_name"
+                    value="{{ form.first_name.data }}" style="width: 300px; background-color: #ffffff;" required>
+            </div>
+            <!-- Hier wird das Email-Feld über WTForms gerendert -->
             <div class="form-group mt-3 mb-5">
                 {{ form.email.label(class="form-label", style="font-size: 1.1em;") }}
                 {{ form.email(class="form-control", id="email", style="width: 300px; background-color: #ffffff;") }}
             </div>
-        <div class="form-group mb-3 mt-5">
-            <!-- Eingabefeld für das Passwort -->
-            <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" style="width: 300px; background-color: #ffffff;">
-        </div>
-
-        <!-- Unterpunkt Personal Information für Struktur-->
-        <h4 class="mb-3 mt-5 text-muted"><strong>Personal Information</strong></h4>
-
-        <!-- Möglichkeit das Profilbild hochzuladen -->
-        <div class="form-group mt-3 mb-5">
-            <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
-            <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*" onchange="previewImage(event)">
-            <!-- Vorschau des Profilbilds -->
-            <div class="mt-3 text-center d-flex justify-content-center">
-               {% if form.profile_photo.data %}
-                    <img id="profilePhotoPreview" src="{{ url_for('static', filename=form.profile_photo.data.replace('static/', '', 1)) }}" 
-                        alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
-                {% else %}
-                    <img id="profilePhotoPreview" src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}" 
-                        alt="Profile Photo Preview" class="img-fluid rounded-circle" style="width: 200px; height: 200px;">
-                {% endif %}
+            <div class="form-group mb-3 mt-5">
+                <!-- Eingabefeld für das Passwort -->
+                <label for="password" style="font-size: 1.1em;"><strong>Password:</strong></label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Enter new password" style="width: 300px; background-color: #ffffff;">
             </div>
-        </div>
 
-        <div class="form-group mt-3 mb-5">
-            <!-- Eingabefeld für die Lieblingssportart(en)-->
-            <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness Activity</strong></label>
-       
-            <div id="activityFields">
-        <!-- Hier werden alle vorhandenen Aktivitäten aus der Datenbank geladen und angezeigt -->
-            {% for field in form.favorite_activities %}
-                <input type="text" class="form-control mb-2" name="{{ field.name }}" value="{{ field.data }}" placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
-            {% endfor %}
+            <!-- Unterpunkt Personal Information für Struktur-->
+            <h4 class="mb-3 mt-5 text-muted"><strong>Personal Information</strong></h4>
+
+            <!-- Möglichkeit das Profilbild hochzuladen -->
+            <div class="form-group mt-3 mb-5">
+                <label for="profilePhoto" style="font-size: 1.1em;"><strong>Profile Photo</strong></label>
+                <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*"
+                    onchange="previewImage(event)">
+                <!-- Vorschau des Profilbilds -->
+                <div class="mt-3 text-center d-flex justify-content-center">
+                    {% if form.profile_photo.data %}
+                    <img id="profilePhotoPreview"
+                        src="{{ url_for('static', filename=form.profile_photo.data.replace('static/', '', 1)) }}"
+                        alt="Profile Photo Preview" class="img-fluid rounded-circle"
+                        style="width: 200px; height: 200px;">
+                    {% else %}
+                    <img id="profilePhotoPreview"
+                        src="{{ url_for('static', filename='images/ProfilePhotoPlaceholder.jpeg') }}"
+                        alt="Profile Photo Preview" class="img-fluid rounded-circle"
+                        style="width: 200px; height: 200px;">
+                    {% endif %}
+                </div>
             </div>
-            <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
-            <button type="button" id="addActivity" class="btn btn-outline-primary" style="font-size: 0.9em;">+</button>
-            <button type="button" id="removeActivity" class="btn btn-outline-danger" style="font-size: 0.9em; display: none;">-</button>
-        </div>
+
+            <div class="form-group mt-3 mb-5">
+                <!-- Eingabefeld für die Lieblingssportart(en)-->
+                <label class="mb-2" for="favoriteActivities" style="font-size: 1.1em;"><strong>Favorite Fitness
+                        Activity</strong></label>
+
+                <div id="activityFields">
+                    <!-- Hier werden alle vorhandenen Aktivitäten aus der Datenbank geladen und angezeigt -->
+                    {% for field in form.favorite_activities %}
+                    <input type="text" class="form-control mb-2" name="{{ field.name }}" value="{{ field.data }}"
+                        placeholder="Add Fitness Activity" style="width: 300px; background-color: #ffffff;">
+                    {% endfor %}
+                </div>
+                <!-- Plus- und Minus-Button für das Hinzufügen und Entfernen von Textfeldern -->
+                <button type="button" id="addActivity" class="btn btn-outline-primary"
+                    style="font-size: 0.9em;">+</button>
+                <button type="button" id="removeActivity" class="btn btn-outline-danger"
+                    style="font-size: 0.9em; display: none;">-</button>
+            </div>
             <!-- Container für die zusätzlichen Eingabefelder -->
-        <div id="additionalActivities"></div>
+            <div id="additionalActivities"></div>
             <!-- Gespeicherte Gym Membership des Users wird angezeigt, wenn eine angegeben wurde-->
-        <div class="form-group mt-3 mb-5">
-            <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym Membership</strong></label>
-            <input type="text" class="form-control" id="gymMembership" name="gym_membership" value="{{ form.gym_membership.data or '' }}" style="width: 300px; background-color: #ffffff;">
-        </div>
+            <div class="form-group mt-3 mb-5">
+                <label class="mb-2" for="gymMembership" style="font-size: 1.1em;"><strong>Gym
+                        Membership</strong></label>
+                <input type="text" class="form-control" id="gymMembership" name="gym_membership"
+                    value="{{ form.gym_membership.data or '' }}" style="width: 300px; background-color: #ffffff;">
+            </div>
             <!-- Verfügbarkeiten der Wochentage werden als checked markiert, wenn User den entsprechenden Tag als Verfügbarkeit gespeichert hatte-->
-           <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on Weekdays</strong></label>
+            <label class="mb-3" for="Availability" style="font-size: 1.1em;"><strong>Availability on
+                    Weekdays</strong></label>
             <ul class="list-group">
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox" name="availability" 
-                    {% if 'monday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="monday" id="mondayCheckbox"
+                        name="availability" {% if 'monday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="mondayCheckbox">Monday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox" name="availability" 
-                    {% if 'tuesday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="tuesday" id="tuesdayCheckbox"
+                        name="availability" {% if 'tuesday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="tuesdayCheckbox">Tuesday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox" name="availability" 
-                    {% if 'wednesday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="wednesday" id="wednesdayCheckbox"
+                        name="availability" {% if 'wednesday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="wednesdayCheckbox">Wednesday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox" name="availability" 
-                    {% if 'thursday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="thursday" id="thursdayCheckbox"
+                        name="availability" {% if 'thursday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="thursdayCheckbox">Thursday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox" name="availability" 
-                    {% if 'friday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="friday" id="fridayCheckbox"
+                        name="availability" {% if 'friday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="fridayCheckbox">Friday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox" name="availability" 
-                    {% if 'saturday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="saturday" id="saturdayCheckbox"
+                        name="availability" {% if 'saturday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="saturdayCheckbox">Saturday</label>
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox" name="availability" 
-                    {% if 'sunday' in form.availability.data %} checked {% endif %}>
+                    <input class="form-check-input me-1" type="checkbox" value="sunday" id="sundayCheckbox"
+                        name="availability" {% if 'sunday' in form.availability.data %} checked {% endif %}>
                     <label class="form-check-label" for="sundayCheckbox">Sunday</label>
                 </li>
             </ul>
-                <!-- Das gespeicherte Fitnesslevel des Users wird angezeigt -->
+            <!-- Das gespeicherte Fitnesslevel des Users wird angezeigt -->
             <div class="mb-4 mt-5 form-group">
-                <label for="fitnessLevel" style="font-size: 1.1em;"><strong>Fitness Level (1-10)</strong></label> 
+                <label for="fitnessLevel" style="font-size: 1.1em;"><strong>Fitness Level (1-10)</strong></label>
                 <!-- Popover-Icon für zusätzliche Informationen zum Fitness-level -->
-                <i class="bi bi-info-circle" data-bs-toggle="popover" data-bs-placement="top" title="Fitness Level Description" 
-                    data-bs-html="true" 
+                <i class="bi bi-info-circle" data-bs-toggle="popover" data-bs-placement="top"
+                    title="Fitness Level Description" data-bs-html="true"
                     data-bs-content="
                                 <p><strong>1 = Beginner:</strong> Struggling with basic activities, such as jogging for 5 minutes or doing 5 bodyweight squats.</p>
                                 <p><strong>5 = Average:</strong> Can comfortably jog 1-2 km without stopping or perform 15-20 bodyweight squats.</p>
                                 <p><strong>10 = Expert:</strong> Can run 5 km without stopping, perform 30+ bodyweight squats, and handle intense workouts like HIIT or cycling for an hour.</p>">
                 </i>
-                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1" value="{{ form.fitness_level.data}}">
-            <div class="text-center">
+                <input type="range" class="form-range" id="fitnessLevel" name="fitness_level" min="1" max="10" step="1"
+                    value="{{ form.fitness_level.data}}">
+                <div class="text-center">
                     <span id="fitnessLevelValue">5</span>
-            </div>
+                </div>
                 <!-- Das gespeicherte Alter des Users wird angezeigt -->
-            <div class="mb-3 mt-5 form-group">
+                <div class="mb-3 mt-5 form-group">
                     <label for="age" style="font-size: 1.1em;"><strong>Age</strong></label>
-                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1" value="{{ form.age.data}}">
-            <div class="text-center">
-                    <span id="ageValue">18</span>
-            </div>
-            <!-- Das gespeicherte Geschlecht des Users wird angezeigt -->
-            </div>
-            <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label> 
+                    <input type="range" class="form-range" id="age" name="age" min="16" max="100" step="1"
+                        value="{{ form.age.data}}">
+                    <div class="text-center">
+                        <span id="ageValue">18</span>
+                    </div>
+                    <!-- Das gespeicherte Geschlecht des Users wird angezeigt -->
+                </div>
+                <label class="mb-3 mt-5 d-block" for="gender" style="font-size: 1.1em;"><strong>Gender:</strong></label>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 
-                    <input type="radio" class="btn-check" name="gender" value="Female" id="genderFemale" autocomplete="off" 
-                        {% if form.gender.data == "Female" %}checked{% endif %}>
+                    <input type="radio" class="btn-check" name="gender" value="Female" id="genderFemale"
+                        autocomplete="off" {% if form.gender.data=="Female" %}checked{% endif %}>
                     <label class="btn btn-outline-primary" for="genderFemale">Female</label>
 
-                    <input type="radio" class="btn-check" name="gender" value="Male" id="genderMale" autocomplete="off" 
-                        {% if form.gender.data == "Male" %}checked{% endif %}>
+                    <input type="radio" class="btn-check" name="gender" value="Male" id="genderMale" autocomplete="off"
+                        {% if form.gender.data=="Male" %}checked{% endif %}>
                     <label class="btn btn-outline-primary" for="genderMale">Male</label>
 
-                    <input type="radio" class="btn-check" name="gender" value="Diverse" id="genderDiverse" autocomplete="off" 
-                        {% if form.gender.data == "Diverse" %}checked{% endif %}>
+                    <input type="radio" class="btn-check" name="gender" value="Diverse" id="genderDiverse"
+                        autocomplete="off" {% if form.gender.data=="Diverse" %}checked{% endif %}>
                     <label class="btn btn-outline-primary" for="genderDiverse">Diverse</label>
 
                 </div>
-            <!-- Motivationstext wird angezeigt, wenn der User einen gespeichert hat -->
+                <!-- Motivationstext wird angezeigt, wenn der User einen gespeichert hat -->
                 <div class="form-group mt-5 mb-5">
-                    <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation text</strong></label>
-                    <textarea class="form-control" id="motivationText" name="motivation_text" style="width: 300px; height: 100px; background-color: #ffffff;">{{ form.motivation_text.data or '' }}</textarea>
+                    <label class="mb-2" for="motivationText" style="font-size: 1.1em;"><strong>Motivation
+                            text</strong></label>
+                    <textarea class="form-control" id="motivationText" name="motivation_text"
+                        style="width: 300px; height: 100px; background-color: #ffffff;">{{ form.motivation_text.data or '' }}</textarea>
                 </div>
             </div>
-            </div>
-            <!-- Button zum Speichern der Bearbeitung-->
-            <div class="form-group d-flex justify-content-center mt-5">
-                <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Edit </button>
-            </div>
-        </form>
+    </div>
+    <!-- Button zum Speichern der Bearbeitung-->
+    <div class="form-group d-flex justify-content-center mt-5">
+        <button type="submit" class="btn btn-primary rounded-pill px-5" style="font-size: 1.1em;">Edit </button>
+    </div>
+    </form>
     </div>
     <!-- Bootstrap JS -->
-    <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <!-- Favorite Fitness Activity Plus-Button JS -->
     <script>
-    // Funktion zur Initialisierung
-    document.addEventListener("DOMContentLoaded", function () {
-        let fieldCount = document.querySelectorAll("#activityFields input").length;
+        // Funktion zur Initialisierung
+        document.addEventListener("DOMContentLoaded", function () {
+            let fieldCount = document.querySelectorAll("#activityFields input").length;
 
-        document.getElementById("addActivity").addEventListener("click", function () {
-            let activityContainer = document.getElementById("activityFields");
+            document.getElementById("addActivity").addEventListener("click", function () {
+                let activityContainer = document.getElementById("activityFields");
 
-            // Erstelle ein neues Eingabefeld mit dynamischer Namensgebung
-            let newField = document.createElement("input");
-            newField.setAttribute("type", "text");
-            newField.setAttribute("class", "form-control mb-2");
-            newField.setAttribute("name", `favorite_activities-${fieldCount}`);
-            newField.setAttribute("placeholder", "Add Fitness Activity");
-            newField.setAttribute("style", "width: 300px; background-color: #ffffff;");
+                // Erstelle ein neues Eingabefeld mit dynamischer Namensgebung
+                let newField = document.createElement("input");
+                newField.setAttribute("type", "text");
+                newField.setAttribute("class", "form-control mb-2");
+                newField.setAttribute("name", `favorite_activities-${fieldCount}`);
+                newField.setAttribute("placeholder", "Add Fitness Activity");
+                newField.setAttribute("style", "width: 300px; background-color: #ffffff;");
 
-            // Füge das neue Feld in den Container ein
-            activityContainer.appendChild(newField);
+                // Füge das neue Feld in den Container ein
+                activityContainer.appendChild(newField);
 
-            fieldCount++;  // Erhöhe den Zähler
-            document.getElementById("removeActivity").style.display = "inline-block"; // Zeige den Minus-Button an
+                fieldCount++;  // Erhöhe den Zähler
+                document.getElementById("removeActivity").style.display = "inline-block"; // Zeige den Minus-Button an
+            });
+
+            document.getElementById("removeActivity").addEventListener("click", function () {
+                let activityContainer = document.getElementById("activityFields");
+                let fields = activityContainer.getElementsByTagName("input");
+
+                if (fields.length > 1) {
+                    activityContainer.removeChild(fields[fields.length - 1]); // Letztes Eingabefeld entfernen
+                    fieldCount--;
+                }
+
+                if (fields.length === 1) {
+                    document.getElementById("removeActivity").style.display = "none"; // Verstecke Minus-Button
+                }
+            });
         });
-
-        document.getElementById("removeActivity").addEventListener("click", function () {
-            let activityContainer = document.getElementById("activityFields");
-            let fields = activityContainer.getElementsByTagName("input");
-
-            if (fields.length > 1) {
-                activityContainer.removeChild(fields[fields.length - 1]); // Letztes Eingabefeld entfernen
-                fieldCount--;
-            }
-
-            if (fields.length === 1) {
-                document.getElementById("removeActivity").style.display = "none"; // Verstecke Minus-Button
-            }
-        });
-    });
-</script>
+    </script>
 
     <!-- Fitnesslevel JS -->
     <script>
@@ -319,7 +351,7 @@
         fitnessOutput.innerHTML = fitnessSlider.value; // Zeigt den initialen Wert des Fitnesslevels an
 
         // Aktualisiere das Fitnesslevel, wenn der Schieberegler verändert wird
-        fitnessSlider.oninput = function() {
+        fitnessSlider.oninput = function () {
             fitnessOutput.innerHTML = this.value;
         }
     </script>
@@ -327,7 +359,7 @@
         // Initialisieren des Popovers, falls es nicht automatisch funktioniert
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl)
+            return new bootstrap.Popover(popoverTriggerEl)
         })
     </script>
 
@@ -338,7 +370,7 @@
         ageOutput.innerHTML = ageSlider.value; // Zeigt den initialen Wert des Alters an
 
         // Aktualisiere das Alter, wenn der Schieberegler verändert wird
-        ageSlider.oninput = function() {
+        ageSlider.oninput = function () {
             ageOutput.innerHTML = this.value;
         }
     </script>
@@ -348,12 +380,13 @@
         function previewImage(event) {
             // Die Vorschau des Bildes aktualisieren, wenn eine Datei ausgewählt wird
             const reader = new FileReader();
-            reader.onload = function() {
+            reader.onload = function () {
                 const preview = document.getElementById('profilePhotoPreview');
                 preview.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
-    </body>
-    </html>
+</body>
+
+</html>
