@@ -49,10 +49,9 @@ Contributions
 ## Kira Beyrow
 
 Contributions
-: designing the UI-Screens
-: building the UserProfileDetail-Page
-: creating the structure and using the data base
-: formulating parts of the documentation
+- designing and building the UI-Screens UserProfileDetail and YourMatches
+- creating the structure and using the data base
+- formulating parts of the documentation
 
 ## Debra Soth
 
