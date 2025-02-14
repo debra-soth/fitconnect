@@ -2,9 +2,16 @@
 title: Sources
 nav_order: 7
 ---
+{: .label }
+Debra Soth
 
 {: .label }
-Everyone
+Lenja Krah
+
+{: .label }
+Kira Beyrow
+
+{: .no_toc }
 
 # Sources 
 {: .no_toc }

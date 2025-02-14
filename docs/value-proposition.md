@@ -2,11 +2,17 @@
 title: Value Proposition
 nav_order: 1
 ---
+{: .label }
+Debra Soth
 
 {: .label }
-Everyone
+Lenja Krah
+
+{: .label }
+Kira Beyrow
 
 {: .no_toc }
+
 # Value proposition
 
 <details open markdown="block">

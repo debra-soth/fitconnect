@@ -2,9 +2,16 @@
 title: Design Decisions
 nav_order: 3
 ---
+{: .label }
+Debra Soth
 
-{: .label}
-[Jane Dane]
+{: .label }
+Lenja Krah
+
+{: .label }
+Kira Beyrow
+
+{: .no_toc }
 
 {: .attention}
 
