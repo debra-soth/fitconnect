@@ -66,11 +66,13 @@ For the front-end we used HTML, Bootstrap and Jinja2. These are our templates fo
 - Flask-WTF for Form validation
 - SQLAlchemy as Database ORM
 
->EDIT #### Database:
->
->User Model
->Event Model
->Event-User Relationship (Many-to-Many)
+### Database:
+
+- `User` Table
+- `Event` Table
+- Event Participants `event_participants`
+    - Join table linking `User` and `Event`
+- `UserLikes` Table
 
 ## Codemap
 
