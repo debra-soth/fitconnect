@@ -19,43 +19,71 @@ nav_order: 2
 
 ![Usage Flow](../assets/images/Usage-Flow.png)
 
-## User Functionalities
+## 1. User Authentication System
 
-**Sign-up & Login**
+### Login & Sign-Up Flow
 
-- Users can sign up by entering a username, name, email, and password
-- If they already have an account, they enter login credentials (username & password)
+- User opens the website and system checks if the user is logged in (`Flask-Login` manages session state)
 
-**Profile Customization**
+**If the user has an account:**
 
-- Users can edit their profile to add fitness preferences, availability, and a profile picture
-- They can update their profile by saving changes
+- The frontend provides a login form (`Flask-WTF` for form handling)
+- User enters `username` and `password`
+- The form submits a request to Flask, which validates login credentials
+- Flask checks the credentials against PostgreSQL via SQLAlchemy
+- If correct, the session is created, and the user is redirected to the homepage
+- If incorrect, an error message is displayed, and the retry process is initiated
 
-**Viewing & Interacting with Users**
+**If the user does not have an account:**
 
-- Users land on the User Overview page and browse other users
-- Clicking on a profile opens the User Details page, where they can send a like
+- They fill out the sign-up form (Username, Name, Email, Password)
+- Flask validates the input (email format, password strength, uniqueness)
+- If validation passes, the user is stored in PostgreSQL
+- If validation fails, an error message appears
 
-**Matches & Likes & Events**
+### Logout Flow
 
-- "Your Matches" page displays:
-    - Users who liked them (their "Like List")
-    - Users they mutually liked (Match List).
-    - Users can like back to confirm a match or remove a user from likes
-    - Events the User has joined
+**When a user logs out:**
 
-**Events Participation**
+- `Flask-Login` clears the session
+- The user is redirected to the login page
 
-- Users visit the Events Overview page to see fitness events
-- They can join an event or create their own
-- Joined events appear under "Your Matches"
+## 2. Profile Management
 
-**Event Creation**
+**Personalization Options:**
 
-- Users can create their own events and add Title, Location, Maximum Number of Participants and Time
-- Created events will appear under "Events"
+- Users can navigate to their profile
+- They can update their name, email, profile picture, and preferences
+- Changes are submitted via a form (`Flask-WTF`)
+- Flask processes the form data, updates the PostgreSQL database using `SQLAlchemy`, and confirms the update
 
-**Account Management**
+## 3. Matchmaking Logic
 
-- Users can log out from the profile menu
-- They can edit account details such as passwords and personal information
+**Viewing Matches:**
+
+- The backend fetches "people who liked you" from the `PostgreSQL` database
+- Users can view profiles and either:
+    - Like them back → Creates a match entry in the database
+    - Remove them from likes → Deletes the entry
+- `SQLAlchemy` handles these database operations
+- Matched users’ contact details become visible when both parties like each other
+
+## 4. Events System
+
+- Users can join events
+- Event details are stored in the `PostgreSQL` database
+- Users click on an event → Flask updates the database with the user’s participation
+- The event appears in their list of "Events" under the subpage "Your Matches"
+
+## 5. System Actions & Logic Handling
+
+### Frontend Interaction:
+
+- Buttons (`Bootstrap`, `JavaScript`) trigger requests to Flask routes
+- User actions (clicking, entering data) initiate form submissions
+
+### Backend Processing:
+
+- Flask routes process user requests
+- `SQLAlchemy` queries update PostgreSQL
+- `Flask-WTF` ensures form validation and CSRF protection
