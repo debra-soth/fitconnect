@@ -17,7 +17,7 @@ nav_order: 2
 {: toc }
 </details>
 
-![Usage Flow](//fitconnect/docs/assets/images/Usage-Flow.png)
+![Usage Flow](../assets/images/Usage-Flow.png)
 
 ## User Functionalities
 
