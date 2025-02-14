@@ -52,7 +52,7 @@ nav_order: 4
 **Purpose:** Handles user registration with form validation and database storage  
 **Sample output:** 
 
-![registration](../assets/images/registration.png) 
+![registration](../assets/images/registration-screen.png) 
 
 ---
 
