@@ -230,8 +230,8 @@ Kira Beyrow
 
 **Route:** `/your-matches`  
 **Methods:** `GET`  
-**Purpose:** Displays potential matches based on preferences  
-**Sample output:** Profile card displays: `You are already matched`
+**Purpose:** Displays joined events, likes from other users and contact details from matches 
+**Sample output:** 
 
 ![Your Matches](../assets/images/YourMatches-Screen.png)
  *Image 14: Your Matches Page*

@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash
-from .db import create_app, db  # Importiere create_app Funktion aus db.py
-from .auth import auth, PersonalizeProfileForm
+from .db import create_app  # Importiere create_app Funktion aus db.py
+from .auth import PersonalizeProfileForm
 from .models import User, Event, UserLikes # Importiere Datenmodelle
 from .forms import JoinEventForm, LikeForm
 from flask_login import current_user
