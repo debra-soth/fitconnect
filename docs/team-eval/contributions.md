@@ -18,11 +18,15 @@ Kira Beyrow
 {: .no_toc }
 # Summary of individual contributions
 
-<details open markdown="block"> <summary>Table of Contents</summary> 
-+ [Request for Individual Evaluation](#request-for-individual-evaluation) 
-+ [Individual Contributions](#individual-contributions) 
-+ [Lenja Krah](#lenja-krah) + [Kira Beyrow](#kira-beyrow) 
-+ [Debra Soth](#debra-soth) 
+<details open markdown="block">
+<summary>Table of Contents</summary>
+
+- [Request for Individual Evaluation](#request-for-individual-evaluation)  
+- [Individual Contributions](#individual-contributions)  
+  - [Lenja Krah](#lenja-krah)  
+  - [Kira Beyrow](#kira-beyrow)  
+  - [Debra Soth](#debra-soth)  
+
 </details>
 
 # Request for Individual Evaluation
