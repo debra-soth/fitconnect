@@ -13,8 +13,14 @@ nav_order: 3
 <details open markdown="block">
 {: .text-delta }
 <summary>Table of contents</summary>
-+ ToC
-{: toc }
+
+- [01: Database Choice – SQLite vs. PostgreSQL](#01-database-choice--sqlite-vs-postgresql)
+- [02: How Users Join Events](#02-how-users-join-events)
+- [03: Adding "Create Event" Option](#03-adding-create-event-option)
+- [04: Database Model – Likes vs. Matches](#04-database-model--likes-vs-matches)
+- [05: How To Find a Partner](#05-how-to-find-a-partner)
+- [06: Decision – Using Bootstrap for UI Design](#06-decision--using-bootstrap-for-ui-design)
+
 </details>
 
 ## 01: Database Choice – SQLite vs. PostgreSQL
@@ -188,3 +194,40 @@ That is why we thought of two ways to organize the connection process:
 After discussion, we all decided to go with option two. The reason for this is that it seems to be more user-friendly at the beginning of the implementation. Also, it will require less resources than option one, but will still add value to the application and will serve the purpose of connecting people.
 If other topics should require less time, we want to keep the option of filtering profiles based on personal interests or strict time slots in mind.
 As sort of a mix between the two alternative options, we want to add a "send like" button to every profile a user can view. After sending a like, this will pop up for the user of the liked profile. He/ she can like back or delete the like request. Only if both sides like each other, a user's contact info will be shown.
+
+---
+
+## 06: Decision – Using Bootstrap for UI Design
+
+### Meta
+
+**Status:** ✅ Decided
+
+**Updated:** 13-Feb-2025
+
+### Problem statement
+
+When designing FitConnect’s user interface, we aimed to create a **visually appealing, user-friendly, and responsive design**. Given that the platform involves profile customization, browsing events, and engaging with other users, we needed a framework that could provide a **structured and intuitive UI without extensive custom CSS development**.
+
+One challenge was ensuring the interface remained clean and functional across different devices while reducing development time.
+
+### Considered options
+
+| **UI Framework** | **Pros** | **Cons** |
+| --- | --- | --- |
+| **Bootstrap** | Pre-built components, mobile responsiveness, and a structured grid system | Less flexibility in some aspects compared to custom CSS |
+| | Faster development time | Can look generic if not customized |
+| **Custom CSS** | Fully tailored design | Requires significantly more development effort |
+| | Unique and highly flexible UI | Harder to maintain and scale |
+| **Tailwind CSS** | Utility-first approach, minimal styles by default | Steeper learning curve |
+| | Lightweight and flexible | Requires deeper configuration |
+
+### Decision
+
+We chose **Bootstrap** as the primary UI framework for FitConnect because it allowed us to **quickly build a responsive, structured, and visually consistent UI**. Bootstrap’s pre-designed components (buttons, modals, navigation bars) reduced development time while ensuring an intuitive user experience.
+
+Additionally, using Bootstrap enabled **seamless responsiveness** across mobile and desktop devices, ensuring accessibility for all users. The framework’s built-in grid system also made it easier to align and structure elements efficiently.
+
+Another major reason for selecting Bootstrap was the ability to integrate its UI components with **Flask templates**. This helped in maintaining a clean separation between frontend and backend logic, making the application more maintainable.
+
+While Bootstrap can sometimes lead to a **generic look**, we customized key UI elements (colors, buttons, and spacing) to ensure FitConnect has a distinct identity. The decision ultimately balanced efficiency, usability, and aesthetics, making it the best fit for our project.
