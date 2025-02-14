@@ -17,7 +17,9 @@ Matr.-Nr.
 
 ### Lenja Krah
 
-[comment]: <> (Add about section)
+I am an open-minded and positive person who loves trying new things and continuously learning. In my free time, I enjoy staying active, cooking, and taking care of my chili plants.
+
+Since I aspire to incorporate programming into my future career, I was especially excited about this project and dedicated a lot of time and effort to it.
 
 Matr.-Nr.
 : 77211985108

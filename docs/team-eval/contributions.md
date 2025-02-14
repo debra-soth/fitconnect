@@ -5,7 +5,15 @@ nav_order: 4
 ---
 
 {: .label }
-[Jane Dane]
+Debra Soth
+
+{: .label }
+Lenja Krah
+
+{: .label }
+Kira Beyrow
+
+{: .no_toc }
 
 {: .no_toc }
 # Summary of individual contributions
@@ -17,14 +25,17 @@ nav_order: 4
 {: toc }
 </details>
 
-## Lenja
+## Lenja Krah
 
 Contributions
-: Lorem ipsum dolor
-: Consetetur sadipscing elitr
-: ...
+: Developed the UI screens for Account Settings, Personalize Profile, Login, and Register
+: Implemented the PostgreSQL database integration
+: Worked on core backend files including app.py, auth.py, forms.py, db.py, and models.py
+: Ensured the functionality of key features such as the Like and Join functions
+: Contributed to the documentation, including User Evaluation, Value Proposition, and Team Evaluation
+: Assisted in shaping the Design Decisions for the project
 
-## Kira
+## Kira Beyrow
 
 Contributions
 : designing the UI-Screens
@@ -32,7 +43,7 @@ Contributions
 : creating the structure and using the data base
 : formulating parts of the documentation
 
-## Debbie
+## Debra Soth
 
 Contributions
 : Diam nonumy eirmod
