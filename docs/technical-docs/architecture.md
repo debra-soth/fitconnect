@@ -5,7 +5,13 @@ nav_order: 1
 ---
 
 {: .label }
-[Jane Dane]
+Debra Soth
+
+{: .label }
+Lenja Krah
+
+{: .label }
+Kira Beyrow
 
 {: .no_toc }
 # Architecture

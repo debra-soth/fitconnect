@@ -5,7 +5,13 @@ nav_order: 3
 ---
 
 {: .label }
-[Debra Soth]
+Debra Soth
+
+{: .label }
+Lenja Krah
+
+{: .label }
+Kira Beyrow
 
 {: .no_toc }
 # Data model
