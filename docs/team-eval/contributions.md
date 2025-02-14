@@ -17,14 +17,22 @@ nav_order: 4
 {: toc }
 </details>
 
-## [Jane Dane]
+## Lenja
 
 Contributions
 : Lorem ipsum dolor
 : Consetetur sadipscing elitr
 : ...
 
-## [Joe Doe]
+## Kira
+
+Contributions
+: designing the UI-Screens
+: building the UserProfileDetail-Page
+: creating the structure and using the data base
+: formulating parts of the documentation
+
+## Debbie
 
 Contributions
 : Diam nonumy eirmod
