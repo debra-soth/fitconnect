@@ -232,3 +232,6 @@ Kira Beyrow
 **Methods:** `GET`  
 **Purpose:** Displays potential matches based on preferences  
 **Sample output:** Profile card displays: `You are already matched`
+
+![Your Matches](../assets/images/YourMatches-Screen.png)
+ *Image 13: User Details Page*
