@@ -65,10 +65,35 @@
             align-items: center;
             cursor: pointer;
         }
-        .event-box:hover {
-            background-color: #f8f9fa;
-        }
-                .contact-box:hover {
+.event-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.event-box span {
+    flex: 1;
+    text-align: center;
+}
+
+.event-box span:first-child {
+    text-align: left;
+}
+
+.event-box span:last-child {
+    text-align: right;
+}
+
+.event-box:hover {
+    background-color: #f8f9fa;
+}
+
+        .contact-box:hover {
             background-color: #f8f9fa;
         }
 
@@ -124,7 +149,7 @@
     {% for event in joined_events %}
     <a href="{{ url_for('event_details', event_id=event.id) }}" class="text-decoration-none text-dark">
         <div class="event-box my-2">
-            <span><strong>{{ event.event_name }}</strong></span>
+            <span class="fw-bold">{{ event.event_name }}</span>
             <span>{{ event.event_location }}</span>
             <span>{{ event.event_date.strftime('%B %d, %Y') }}</span>
         </div>
@@ -132,6 +157,7 @@
     {% else %}
     <div class="text-center my-5">
         <p class="fw-bold">No events joined yet.</p>
+    </div>
     {% endfor %}
 </div>
 
