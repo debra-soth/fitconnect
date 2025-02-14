@@ -18,12 +18,19 @@ Kira Beyrow
 {: .no_toc }
 # Summary of individual contributions
 
-<details open markdown="block">
-{: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
+<details open markdown="block"> {: .text-delta } <summary>Table of Contents</summary> 
++ [Request for Individual Evaluation](#request-for-individual-evaluation) 
++ [Individual Contributions](#individual-contributions) 
++ [Lenja Krah](#lenja-krah) + [Kira Beyrow](#kira-beyrow) 
++ [Debra Soth](#debra-soth) 
 </details>
+
+# Request for Individual Evaluation
+Throughout this project, each team member contributed to different aspects based on their strengths and expertise. While we collaborated effectively as a group and maintained open communication, the actual workload was not evenly distributed among all members.
+
+To ensure a fair assessment, we kindly request an **individual evaluation of contributions** rather than a collective grade. Some tasks, particularly in backend development, database integration, and core functionality implementation, required significantly more time and effort compared to other areas. While we fully support a team-oriented approach, we believe that acknowledging individual contributions would better reflect the actual work invested by each member.
+
+That being said, we want to emphasize that we worked together productively and professionally, helping each other whenever possible. Our goal was to create a functional and user-friendly application, and despite the differences in workload, we are proud of what we have achieved as a team.
 
 ## Lenja Krah
 
